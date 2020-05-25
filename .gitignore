@@ -1,3 +1,4 @@
 drp-env
 .idea
 *.pyc
+db.sqlite3

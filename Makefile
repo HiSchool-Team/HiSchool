@@ -10,3 +10,12 @@ run-dev:
 
 drp-env:
 	run $(PYTHON) -m venv drp-env
+
+test:
+	python manage.py makemigrations
+	python manage.py migrate
+	python manage.py migrate --database=testdb
+	python manage.py test
+
+clean:
+	rm db.sqlite3
