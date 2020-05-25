@@ -12,7 +12,7 @@ run-dev: drp-env
 drp-env:
 	run $(PYTHON) -m venv drp-env && \
 	source drp-env/bin/activate && \
-	python -m pip install -U pip
+	python -m pip install -U pip && \
 	python -m pip install -r requirements.txt
 
 
