@@ -1,15 +1,20 @@
 PYTHON = python3.8
 
-run-production:
+run-production: drp-env
 	source drp-env/bin/activate && \
- 	echo "TODO"
+	daphne drp.asgi:application --port ${PORT} --bind 0.0.0.0
 
-run-dev:
+
+run-dev: drp-env
 	source drp-env/bin/activate && \
  	python manage.py runserver
 
 drp-env:
-	run $(PYTHON) -m venv drp-env
+	run $(PYTHON) -m venv drp-env && \
+	source drp-env/bin/activate && \
+	python -m pip install -U pip
+	python -m pip install -r requirements.txt
+
 
 test:
 	python manage.py makemigrations
