@@ -1,5 +1,5 @@
 default:
-  image: python:3.8-slim-buster
+  image: python:3.8-buster
 
 stages:
   - test
