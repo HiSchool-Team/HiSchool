@@ -1,5 +1,8 @@
 PYTHON = python3.8
 
+run-heroku:
+	daphne drp.asgi:application --port ${PORT} --bind 0.0.0.0
+
 run-production: drp-env
 	source drp-env/bin/activate && \
 	daphne drp.asgi:application --port ${PORT} --bind 0.0.0.0
