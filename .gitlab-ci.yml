@@ -8,7 +8,7 @@ stages:
 test:
   stage: test
   script:
-    - apt-get install -y python-dev
+    - apt-get install -y libpq-dev
     - pip install -r requirements.txt
     - make test
 
