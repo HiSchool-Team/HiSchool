@@ -10,7 +10,7 @@ run-dev: drp-env
  	python manage.py runserver
 
 drp-env:
-	run $(PYTHON) -m venv drp-env && \
+	$(PYTHON) -m venv drp-env && \
 	source drp-env/bin/activate && \
 	python -m pip install -U pip && \
 	python -m pip install -r requirements.txt
