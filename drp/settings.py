@@ -22,9 +22,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = ')0+$fi5gzktob#$p^ztu40if3sw8^etrof^=0x&x(qh%0v+l9^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.herokuapp.com']
 
 # Application definition
 
@@ -118,7 +118,7 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_L10N = True
-
+You may need to add 'drp25.herokuapp.com' to ALLOWED_HOSTS.
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
