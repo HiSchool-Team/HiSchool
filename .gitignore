@@ -1,8 +1,8 @@
-drp-env
+backend/drp-env
 .idea
 *.pyc
-db.sqlite3
-static
+backend/db.sqlite3
+backend/static
 
 
 
