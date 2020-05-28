@@ -1,0 +1,19 @@
+.school-description {
+    display: table-cell;
+    padding-left: 20px;
+    width: 650px;
+}
+
+.school-picture {
+    display: table-cell;
+    width: 350px;
+}
+
+.school-picture > img {
+    max-width: 100%;
+    height: auto;
+}
+
+.satisfaction-levels {
+    display: table-cell;
+}

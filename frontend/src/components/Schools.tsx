@@ -1,6 +1,7 @@
 import React from "react";
 import {List, Space} from 'antd';
 import {StarOutlined} from '@ant-design/icons';
+import './Schools.css';
 
 
 // @ts-ignore
@@ -12,8 +13,8 @@ const RepeatIcon = ({label, icon, times}) => {
     }
 
     return (
-        <div style={{display: 'block', textAlign: 'right', transform: 'scale(1.3)'}}>
-            <Space><b>{label}</b> {icons}</Space>
+        <div style={{display: 'block', textAlign: 'right', transform: 'scale(1)'}}>
+            <Space><b>{label}</b>{icons}</Space>
         </div>
     );
 }
@@ -25,34 +26,28 @@ export type School = {
     img_src: string
 }
 
-const Schools = (props: { data: School[]} ) => {
-        return (
-            <List
-                itemLayout="vertical"
-                size="large"
-                dataSource={props.data}
+const Schools = (props: { data: School[] }) => {
+    return (
+        <List
+            itemLayout="vertical"
+            size="large"
+            dataSource={props.data}
             renderItem={(item: School) => (
-                    <List.Item
-                        key={item.name}
-                        extra={
-                        <div>
-                            <RepeatIcon label={"Student satisfaction"} icon={StarOutlined} times={5} key="list-vertical-star-o"/>
-                            <RepeatIcon label={"Parent satisfaction"} icon={StarOutlined} times={5} key="list-vertical-star-o"/>
-                        </div>
-                        }
-                    >
-                        <List.Item.Meta
-                            title={<a href={`/${item.id}`}>{item.name}</a>}
-                        />
-                        <img
-                            width={272}
-                            alt="logo"
-                            src={item.img_src}
-                        />
-                    </List.Item>
-                )}
-            />
-        )
-    }
+                <List.Item key={item.name}>
+                    <List.Item.Meta title={<a href={`/${item.id}`}><b>{item.name}</b></a>}/>
 
-    export default Schools;
+                    <div>
+                        <div className={"school-picture"}><img alt="logo" src={item.img_src}/></div>
+                        <div className={"school-description"}><p>{item.description}</p></div>
+                        <div className={"satisfaction-levels"}>
+                            <RepeatIcon label={"Student satisfaction"} icon={StarOutlined} times={5}/>
+                            <RepeatIcon label={"Parent satisfaction"} icon={StarOutlined} times={5}/>
+                        </div>
+                    </div>
+                </List.Item>
+            )}
+        />
+    )
+}
+
+export default Schools;
