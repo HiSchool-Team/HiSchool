@@ -4,15 +4,18 @@ import {StarOutlined} from '@ant-design/icons';
 
 
 // @ts-ignore
-const RepeatIcon = ({icon, times}) => {
+const RepeatIcon = ({label, icon, times}) => {
     let icons = [];
     for (let i = 0; i < times; i++) {
         // @ts-ignore
-        icons.push(React.createElement(icon));
+        icons.push(<div>{React.createElement(icon)}</div>);
     }
 
-    return <Space>icons</Space>
-
+    return (
+        <div style={{display: 'block', textAlign: 'right', transform: 'scale(1.3)'}}>
+            <Space><b>{label}</b> {icons}</Space>
+        </div>
+    );
 }
 
 export type School = {
@@ -23,36 +26,33 @@ export type School = {
 }
 
 const Schools = (props: { data: School[]} ) => {
-    return (
-        <List
-            itemLayout="vertical"
-            size="large"
-            dataSource={props.data}
-            footer={
-                <div>
-                    This is the footer. We might want to use it.
-                </div>
-            }
-            //FIXME Might wanna abstract in a different type the type of item
+        return (
+            <List
+                itemLayout="vertical"
+                size="large"
+                dataSource={props.data}
             renderItem={(item: School) => (
-                <List.Item
-                    key={item.name}
-                    extra={
-                        <RepeatIcon icon={StarOutlined} times={5} key="list-vertical-star-o"/>
-                    }
-                >
-                    <List.Item.Meta
-                        title={<a href={`/${item.id}`}>{item.name}</a>}
-                    />
-                    <img
-                        width={272}
-                        alt="logo"
-                        src={item.img_src}
-                    />
-                </List.Item>
-            )}
-        />
-    )
-}
+                    <List.Item
+                        key={item.name}
+                        extra={
+                        <div>
+                            <RepeatIcon label={"Student satisfaction"} icon={StarOutlined} times={5} key="list-vertical-star-o"/>
+                            <RepeatIcon label={"Parent satisfaction"} icon={StarOutlined} times={5} key="list-vertical-star-o"/>
+                        </div>
+                        }
+                    >
+                        <List.Item.Meta
+                            title={<a href={`/${item.id}`}>{item.name}</a>}
+                        />
+                        <img
+                            width={272}
+                            alt="logo"
+                            src={item.img_src}
+                        />
+                    </List.Item>
+                )}
+            />
+        )
+    }
 
-export default Schools;
+    export default Schools;
