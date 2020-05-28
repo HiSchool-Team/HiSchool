@@ -3,14 +3,28 @@ import React from "react";
 import {List, Avatar, Space} from 'antd';
 import {MessageOutlined, LikeOutlined, StarOutlined} from '@ant-design/icons';
 
-const IconText = ({icon, text}) => (
-    <Space>
-        {React.createElement(icon)}
-        {text}
-    </Space>
-);
 
-const Schools = (props) => {
+
+//FIXME find out the type of icon
+// @ts-ignore
+const IconText = ({icon, text}) => {
+    return (
+        <Space>
+            {React.createElement(icon)}
+            {text}
+        </Space>
+    )
+};
+
+
+export type School = {
+    id: number;
+    avatar: string;
+    name: string,
+    description: string
+}
+
+const Schools = (props: { data: School[]} ) => {
     return (
         <List
             itemLayout="vertical"
@@ -27,7 +41,8 @@ const Schools = (props) => {
                     <b>ant design</b> footer part
                 </div>
             }
-            renderItem={item => (
+            //FIXME Might wanna abstract in a different type the type of item
+            renderItem={(item: School) => (
                 <List.Item
                     key={item.name}
                     actions={[

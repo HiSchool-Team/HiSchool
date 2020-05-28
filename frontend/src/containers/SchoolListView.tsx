@@ -9,6 +9,8 @@ class SchoolList extends React.Component {
     }
 
     componentDidMount() {
+        // Get required data from server
+        /*
         axios.get('http://127.0.0.1:8000/api/')
             .then(res => {
                 this.setState({
@@ -16,6 +18,7 @@ class SchoolList extends React.Component {
                 })
                 console.log(res.data);
             })
+         */
     }
 
     render() {

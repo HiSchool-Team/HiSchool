@@ -1,12 +1,12 @@
 import React from "react";
 import {Layout, Menu, Breadcrumb} from 'antd';
-import {Link} from "react-router-dom";
+import {Link} from 'react-router-dom';
 import {UserOutlined, LaptopOutlined, NotificationOutlined} from '@ant-design/icons';
 
 const {SubMenu} = Menu;
 const {Header, Content, Sider} = Layout;
 
-const CustomLayout = (props) => {
+const CustomLayout = (props: { children: React.ReactNode; }) => {
     return (
         <Layout>
             <Header className="header">

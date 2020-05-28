@@ -3,12 +3,18 @@ import axios from "axios";
 
 import { Card } from "antd"
 
+
 class SchoolDetail extends React.Component {
+    //FIXME this doesn't seem like a valid/sensible pattern
     state = {
-        school: {}
+        school: {
+            name: "unset_name"
+        }
     }
 
     componentDidMount() {
+        /* Populate state with data from db*/
+        /*
         const schoolID = this.props.match.params.schoolID;
         axios.get(`http://127.0.0.1:8000/api/${schoolID}`)
             .then(res => {
@@ -16,7 +22,7 @@ class SchoolDetail extends React.Component {
                     school: res.data
                 })
                 console.log(res.data);
-            })
+            })*/
     }
 
     render() {

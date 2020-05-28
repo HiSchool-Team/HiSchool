@@ -5,6 +5,6 @@
   "dependencies": {},
   "devDependencies": {},
   "scripts": {
-    "postinstall": "cd frontend/gui && npm install && npm run build"
+    "postinstall": "cd frontend && npm install && npm run build"
   }
 }
