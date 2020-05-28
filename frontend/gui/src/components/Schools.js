@@ -24,7 +24,7 @@ const Schools = (props) => {
             dataSource={props.data}
             footer={
                 <div>
-                    <b>ant design</b> footer part
+                    This is the footer. We might want to use it.
                 </div>
             }
             renderItem={item => (
@@ -39,7 +39,7 @@ const Schools = (props) => {
                         <img
                             width={272}
                             alt="logo"
-                            src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                            src={item.img_src}
                         />
                     }
                 >
@@ -48,7 +48,6 @@ const Schools = (props) => {
                         title={<a href={`/${item.id}`}>{item.name}</a>}
                         description={item.description}
                     />
-                    {item.name}
                 </List.Item>
             )}
         />
