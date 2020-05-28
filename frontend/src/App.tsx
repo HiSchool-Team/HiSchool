@@ -5,14 +5,15 @@ import BaseRouter from "./routes";
 import 'antd/dist/antd.css';
 
 import CustomLayout from "./containers/Layout";
+import NewLayout from "./containers/NewLayout";
 
 function App() {
     return (
         <div className="App">
             <Router>
-                <CustomLayout>
+                <NewLayout>
                     <BaseRouter/>
-                </CustomLayout>
+                </NewLayout>
             </Router>
         </div>
     );

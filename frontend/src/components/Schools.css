@@ -1,7 +1,8 @@
 .school-description {
     display: table-cell;
     padding-left: 20px;
-    width: 650px;
+    width: 600px;
+    vertical-align: middle;
 }
 
 .school-picture {
