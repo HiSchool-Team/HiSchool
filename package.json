@@ -3,5 +3,8 @@
   "description": "",
   "version": "0.1.0",
   "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {},
+  "scripts": {
+    "postinstall": "cd frontend/gui && npm install && npm run build"
+  }
 }
