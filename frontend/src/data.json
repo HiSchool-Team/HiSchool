@@ -2,7 +2,7 @@
     {
         "id": 0,
         "name": "XV. Gimnazija",
-        "description": "XV. Gimnazija is the branded as the best school in Croatia",
+        "description": "XV. Gimnazija is the best school in Croatia",
         "img_src": "https://www.srednja.hr/app/uploads/2016/02/MIOC-1.jpg"
     },
     {
@@ -20,7 +20,31 @@
     {
         "id": 3,
         "name": "VIII. Gimnazija",
-        "description": "Branded as the best non-maths school in Croatia. Heavily damaged in the recent earthquak.",
-        "img_src": "https://lh3.googleusercontent.com/proxy/ZOeCVHQsYdiFE_EaqrLEm-PwrSmHGPLyQAgSDMmHq0Zfp05Ax9bMWu2fi0oLgH3i4FsLZQfvk4prCFUrYTEPVKbf8W1NM86y9EuDTN8LzlpgU6q3E2OTgWYjg6vrpzIbzULnxHw76fxRpPGhpcQ9pNd7d-QMwgPo89DvWYACRH0xHlvn6Gl5JlJQM69aB8R5FG0"
+        "description": "The most competitive non-maths school in Croatia. Heavily damaged in the recent earthquak.",
+        "img_src": "https://www.skolskiportal.hr/media/Gimnazija%20Titu%C5%A1a%20Brezova%C4%8Dkog%20Zagreb.jpg"
+    },
+    {
+        "id": 0,
+        "name": "XV. Gimnazija",
+        "description": "XV. Gimnazija is the best school in Croatia",
+        "img_src": "https://www.srednja.hr/app/uploads/2016/02/MIOC-1.jpg"
+    },
+    {
+        "id": 1,
+        "name": "V. Gimnazija",
+        "description": "Former competitor with XV. Gimnazija for the title of the best school in Zagreb. Recently, it's reputation tumbled but is still a respectable school",
+        "img_src": "https://radio.hrt.hr/data/article/188409_afb32584e4e79020976f.jpg"
+    },
+    {
+        "id": 2,
+        "name": "X. Gimnazija",
+        "description": "The largest school in Croatia branded as the school with prettiest girls in Croatia.",
+        "img_src": "https://www.goethe.de/resources/files/jpg875/x-gimnazija-ivan-supek-zagreb_gebaeude1-formatkey-jpg-w320r.jpg"
+    },
+    {
+        "id": 3,
+        "name": "VIII. Gimnazija",
+        "description": "The most competitive non-maths school in Croatia. Heavily damaged in the recent earthquak.",
+        "img_src": "https://www.skolskiportal.hr/media/Gimnazija%20Titu%C5%A1a%20Brezova%C4%8Dkog%20Zagreb.jpg"
     }
 ]
