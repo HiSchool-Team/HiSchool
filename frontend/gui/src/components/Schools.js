@@ -3,13 +3,18 @@ import React from "react";
 import {List, Space} from 'antd';
 import {StarOutlined} from "@ant-design/icons";
 
-const FiveIcons = ({icon}) => (
-    <Space>
-        {[...Array(5)].map(() => (
-            React.createElement(icon)
-        ))}
-    </Space>
-);
+const FiveIcons = ({label, icon}) => {
+    return (
+        <div style={{display: 'block', textAlign: 'right', transform: 'scale(1.3)'}}>
+            <Space>
+                <b>{ label }</b>
+                {[...Array(5)].map(() => (
+                    <div> {React.createElement(icon)}</div>
+                ))}
+            </Space>
+        </div>
+    );
+};
 
 const Schools = (props) => {
     return (
@@ -17,16 +22,14 @@ const Schools = (props) => {
             itemLayout="vertical"
             size="large"
             dataSource={props.data}
-            footer={
-                <div>
-                    This is the footer. We might want to use it.
-                </div>
-            }
             renderItem={item => (
                 <List.Item
                     key={item.name}
                     extra={
-                        <FiveIcons icon={StarOutlined} key="list-vertical-star-o"/>
+                        <div>
+                            <FiveIcons label={"Student satisfaction"} icon={StarOutlined} key="list-vertical-star-o"/>
+                            <FiveIcons label={"Parent satisfaction"} icon={StarOutlined} key="list-vertical-star-o"/>
+                        </div>
                     }
                 >
                     <List.Item.Meta
