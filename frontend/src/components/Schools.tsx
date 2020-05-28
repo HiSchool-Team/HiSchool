@@ -31,7 +31,7 @@ const Schools = (props: { data: School[]} ) => {
                 itemLayout="vertical"
                 size="large"
                 dataSource={props.data}
-            renderItem={(item: School) => (
+                renderItem={(item: School) => (
                     <List.Item
                         key={item.name}
                         extra={
