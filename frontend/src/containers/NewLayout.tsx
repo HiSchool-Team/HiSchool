@@ -31,7 +31,7 @@ const NewLayout = (props: { children: React.ReactNode; }) => {
                 </Sider>
                 <Header style={{position: 'fixed', width: '100%', zIndex: 4}} >
                     <div style={{textAlign: 'right'}}>
-                        <a style={{margin: '8px'}} href={"#home"}>Home</a>
+                        <a style={{margin: '8px'}} href={"/"}>Home</a>
                         <a style={{margin: '8px'}} href={"#MySchools"}>MySchools</a>
                         <a style={{margin: '8px'}} href={"#MyProfile"}>MyProfile</a>
                     </div>

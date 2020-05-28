@@ -35,7 +35,7 @@ const Schools = (props: { data: School[] }) => {
             size="large"
             dataSource={props.data}
             renderItem={(item: School) => (
-                <List.Item key={item.name}>
+                <List.Item>
                     <List.Item.Meta title={<a href={`/${item.id}`}><b>{item.name}</b></a>}/>
 
                     <div>
