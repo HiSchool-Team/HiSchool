@@ -19,9 +19,9 @@ const IconText = ({icon, text}) => {
 
 export type School = {
     id: number;
-    avatar: string;
     name: string,
     description: string
+    img_src: string
 }
 
 const Schools = (props: { data: School[]} ) => {
@@ -38,7 +38,7 @@ const Schools = (props: { data: School[]} ) => {
             dataSource={props.data}
             footer={
                 <div>
-                    <b>ant design</b> footer part
+                    This is the footer. We might want to use it.
                 </div>
             }
             //FIXME Might wanna abstract in a different type the type of item
@@ -54,16 +54,14 @@ const Schools = (props: { data: School[]} ) => {
                         <img
                             width={272}
                             alt="logo"
-                            src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                            src={item.img_src}
                         />
                     }
                 >
                     <List.Item.Meta
-                        avatar={<Avatar src={item.avatar}/>}
                         title={<a href={`/${item.id}`}>{item.name}</a>}
                         description={item.description}
                     />
-                    {item.name}
                 </List.Item>
             )}
         />
