@@ -1,6 +1,7 @@
 PYTHON = python3.8
 
 run-heroku:
+	cd frontend/gui && npm install && npm run build
 	cd backend && \
 	daphne drp.asgi:application --port ${PORT} --bind 0.0.0.0
 
