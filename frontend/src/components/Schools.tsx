@@ -1,5 +1,5 @@
 import React from "react";
-import {List, Space} from 'antd';
+import {List, Space, Card} from 'antd';
 import {StarOutlined} from '@ant-design/icons';
 import './Schools.css';
 
@@ -35,18 +35,20 @@ const Schools = (props: { data: School[] }) => {
             size="large"
             dataSource={props.data}
             renderItem={(item: School) => (
-                <List.Item>
-                    <List.Item.Meta title={<a href={`/${item.id}`}><b>{item.name}</b></a>}/>
+                <Card>
+                    <List.Item>
+                        <List.Item.Meta title={<a href={`/${item.id}`}><b>{item.name}</b></a>}/>
 
-                    <div>
-                        <div className={"school-picture"}><img alt="logo" src={item.img_src}/></div>
-                        <div className={"school-description"}><p>{loremIpsum}</p></div>
-                        <div className={"satisfaction-levels"}>
-                            <RepeatIcon label={"Student satisfaction"} icon={StarOutlined} times={5}/>
-                            <RepeatIcon label={"Parent satisfaction"} icon={StarOutlined} times={5}/>
+                        <div>
+                            <div className={"school-picture"}><img alt="logo" src={item.img_src}/></div>
+                            <div className={"school-description"}><p>{loremIpsum}</p></div>
+                            <div className={"satisfaction-levels"}>
+                                <RepeatIcon label={"Student satisfaction"} icon={StarOutlined} times={5}/>
+                                <RepeatIcon label={"Parent satisfaction"} icon={StarOutlined} times={5}/>
+                            </div>
                         </div>
-                    </div>
-                </List.Item>
+                    </List.Item>
+                </Card>
             )}
         />
     )

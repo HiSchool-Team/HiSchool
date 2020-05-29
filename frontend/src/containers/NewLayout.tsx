@@ -1,5 +1,5 @@
 import React from "react";
-import {Layout, Menu} from 'antd';
+import {Layout, Menu, Typography} from 'antd';
 import Search from "antd/lib/input/Search";
 import  './NewLayout.css';
 
@@ -17,10 +17,12 @@ const NewLayout = (props: { children: React.ReactNode; }) => {
                         position: 'fixed',
                         left: 0,
                     }}
+
+                    width={"220px"}
                 >
 
                     <div className="logo"/>
-                    <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
+                    <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} className="menu">
                         <Menu.Item key="1" >
                             tags
                         </Menu.Item>
@@ -33,6 +35,7 @@ const NewLayout = (props: { children: React.ReactNode; }) => {
                     </Menu>
                 </Sider>
                 <Header style={{position: 'fixed', width: '100%', zIndex: 4}} >
+                    <div className={"logo-title"}>WhichSchool?</div>
                     <div className={"search-bar"}>
                         <Search placeholder="search by school name" onSearch={(value: string) => console.log(value)} enterButton />
                     </div>
