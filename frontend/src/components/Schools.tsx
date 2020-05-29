@@ -45,6 +45,7 @@ const Schools = (props: { data: School[] }) => {
                             <div className={"satisfaction-levels"}>
                                 <RepeatIcon label={"Student satisfaction"} icon={StarOutlined} times={5}/>
                                 <RepeatIcon label={"Parent satisfaction"} icon={StarOutlined} times={5}/>
+                                <RepeatIcon label={"Extracurriculars"} icon={StarOutlined} times={5}/>
                             </div>
                         </div>
                     </List.Item>
