@@ -26,7 +26,7 @@ export type School = {
     name: string,
     description: string
     img_src: string
-}
+};
 
 const Schools = (props: { data: School[] }) => {
     return (
