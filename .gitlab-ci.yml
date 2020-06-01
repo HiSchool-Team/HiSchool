@@ -13,6 +13,8 @@ test:
 
 deploy_heroku:
   stage: deploy
+  only:
+    - master
   script:
     - apt-get update -qy
     - apt-get install -y ruby-dev
