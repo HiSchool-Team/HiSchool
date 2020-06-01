@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from rest_framework import viewsets
 
@@ -17,6 +17,15 @@ def schools(request):
     schools_list = School.objects.all()
     context = {'schools': schools_list}
     return render(request, 'app/schools.html', context)
+
+
+def return_json(request):
+    search_result = request.GET.get('search')
+    data = {
+        'search_result': search_result
+    }
+
+    return JsonResponse(data)
 
 
 class SchoolViewSet(viewsets.ModelViewSet):

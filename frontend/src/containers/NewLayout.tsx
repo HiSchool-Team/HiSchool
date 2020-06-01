@@ -1,7 +1,7 @@
 import React from "react";
-import {Layout, Menu, Typography} from 'antd';
-import Search from "antd/lib/input/Search";
+import {Layout, Menu} from 'antd';
 import  './NewLayout.css';
+import SearchBar from "../components/SearchBar";
 
 const {Header, Content, Sider} = Layout;
 
@@ -37,7 +37,7 @@ const NewLayout = (props: { children: React.ReactNode; }) => {
                 <Header style={{position: 'fixed', width: '100%', zIndex: 4}} >
                     <div className={"logo-title"}>WhichSchool?</div>
                     <div className={"search-bar"}>
-                        <Search placeholder="search by school name" onSearch={(value: string) => console.log(value)} enterButton />
+                        <SearchBar />
                     </div>
                     <div style={{textAlign: 'right'}}>
                         <a style={{margin: '8px'}} href={"/"}>Home</a>
