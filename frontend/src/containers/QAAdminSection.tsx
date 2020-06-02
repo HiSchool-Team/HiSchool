@@ -7,7 +7,7 @@ type State = {
     questions: Question[],
 }
 
-class QASection extends React.Component<unknown, State> {
+class QAAdminSection extends React.Component<unknown, State> {
     state = {
       questions: [
         { id: 0, title: 'Question0', body: 'question0 body', answer: undefined },
@@ -31,8 +31,8 @@ class QASection extends React.Component<unknown, State> {
 
     render () {
       // TODO ask roko if division in components and containers makes sense
-      return (<QAList data={this.state.questions} answerable={false}/>)
+      return (<QAList data={this.state.questions} answerable={true}/>)
     }
 }
 
-export default QASection
+export default QAAdminSection
