@@ -1,20 +1,25 @@
-export interface Answer {
-    id: number;
-    body: string;
-    avg_rating: number;
-    teacher_name?: string;
+export type Rating = {
+  value: number,
+  num_raters: number,
 }
 
-export interface Question {
-    id: number;
-    title: string;
-    body: string;
-    answer?: Answer;
+export type Answer = {
+  id: number,
+  body: string,
+  rating: Rating,
+  teacher_name?: string,
 }
 
-export interface School {
-    id: number;
-    name: string,
-    description: string
-    img_src: string
+export type Question = {
+  id: number,
+  title: string,
+  body: string,
+  answer?: Answer,
+}
+
+export type School = {
+  id: number,
+  name: string,
+  description: string,
+  img_src: string,
 }

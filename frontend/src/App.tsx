@@ -1,22 +1,19 @@
-import React from 'react';
-import './App.css';
-import {BrowserRouter as Router} from "react-router-dom";
-import BaseRouter from "./routes";
-import 'antd/dist/antd.css';
+import React from 'react'
+import './App.css'
+import { BrowserRouter as Router } from 'react-router-dom'
+import BaseRouter from './routes'
+import 'antd/dist/antd.css'
 
-import NewLayout from "./containers/NewLayout";
+import NewLayout from './containers/NewLayout'
 
-function App() {
-    return (
-        <div className="App">
-            <Router>
-                <NewLayout>
-                    <BaseRouter/>
-                </NewLayout>
-            </Router>
-        </div>
-    );
-}
+const App = () => (
+  <div className="App">
+    <Router>
+      <NewLayout>
+        <BaseRouter/>
+      </NewLayout>
+    </Router>
+  </div>
+)
 
-export default App;
-
+export default App
