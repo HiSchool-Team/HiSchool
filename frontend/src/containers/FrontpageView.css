@@ -1,0 +1,20 @@
+.which-school {
+    float: left;
+    margin-left: 5%;
+    padding-top: 30vh;
+    font-size: calc((60vw - 3rem) / 11);
+}
+
+.search-title {
+    float: right;
+    margin-right: 5%;
+    padding-top: 31.8vh;
+    font-size: calc((60vw - 3rem) / 50);
+}
+
+body{
+    background-image: url("../images/background_image.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 60%;
+}
