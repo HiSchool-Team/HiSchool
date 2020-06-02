@@ -1,26 +1,31 @@
 import React from "react";
+import {Answer, Question} from "../types";
 
-
-type Answer = {
-    id: number;
-    body: string;
-    avg_rating: number;
+interface AnswerProps {
+    answer: Answer
 }
 
-export type Question = {
-    id: number;
-    title: string;
-    body: string;
-    answer?: Answer;
+const AnswerComponent = ({answer}: AnswerProps) => {
+    return (
+        <div>
+            <h3>Answer</h3>
+            <p>{answer.body}</p>
+            <p>Rating: {answer.avg_rating}</p>
+            {answer.teacher_name && <p>{answer.teacher_name}</p>}
+        </div>
+    )
 }
 
+interface Props {
+    question: Question
+}
 
-export const QA = (props: { question: Question }) => {
-    const q = props.question;
+export const QA = ({question}: Props) => {
     return (
         <div className={"qa"}>
-            <p><h3>q.title</h3></p>
-            <p>q.body</p>
+            <h3>{question.title}</h3>
+            <p>{question.body}</p>
+            {question.answer && <AnswerComponent answer={question.answer}/>}
         </div>
     )
 }

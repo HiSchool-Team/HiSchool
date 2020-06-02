@@ -1,7 +1,8 @@
 import React from "react";
-import {List, Space, Card} from 'antd';
+import {Card, List, Space} from 'antd';
 import {StarOutlined} from '@ant-design/icons';
 import './Schools.css';
+import {School} from "../types";
 
 
 const loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis tellus justo. Vestibulum vestibulum turpis vel elit lacinia accumsan. Proin accumsan, purus nec congue lacinia, nisl nibh porttitor nunc, eget sagittis tellus metus vitae quam. Donec in porta dui. In hac habitasse platea dictumst. Curabitur id maximus purus, in commodo tellus. Ut orci purus, sagittis quis vulputate sit amet, pulvinar sit amet enim. Curabitur sit amet malesuada sem. Donec cursus ex eget turpis egestas, at tincidunt neque convallis. Maecenas dictum erat dui, et consectetur lorem convallis et."
@@ -19,13 +20,6 @@ const RepeatIcon = ({label, icon, times}) => {
             <Space><b>{label}</b>{icons}</Space>
         </div>
     );
-}
-
-export type School = {
-    id: number;
-    name: string,
-    description: string
-    img_src: string
 }
 
 const Schools = (props: { data: School[] }) => {

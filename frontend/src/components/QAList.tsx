@@ -1,6 +1,7 @@
 import React from "react";
-import {QA, Question} from "./QA";
+import {QA} from "./QA";
 import {List} from "antd";
+import {Question} from "../types";
 
 export const QAList = (props: {data: Question[]}) => {
     return (
