@@ -39,6 +39,7 @@ const NewLayout = (props: { children: React.ReactNode; }) => {
         })
     }
 
+    // TODO see if there is a better way
     const childrenWithProps = Children.map(props.children, child => {
         if (isValidElement(child)) {
             return cloneElement(child, {schools: schools});
@@ -94,25 +95,5 @@ const NewLayout = (props: { children: React.ReactNode; }) => {
         </div>
     );
 }
-
-
-// class NewLayout extends React.Component<RouteComponentProps, LayoutState> {
-//     constructor(props: RouteComponentProps) {
-//         super(props);
-//
-//         this.handleEvent = this.handleEvent.bind(this);
-//
-//         this.state = {
-//             schools: myData
-//         }
-//     }
-//
-//
-//     handleEvent(value: string, event?: SyntheticEvent) {
-//
-//
-//
-//     }
-// }
 
 export default NewLayout;
