@@ -8,14 +8,14 @@ import SearchBar from '../components/SearchBar';
 
 const { Header, Content, Sider } = Layout;
 
-const NewLayout = (props: { children: React.ReactNode; }) => {
+const NewLayout = (props: { children: React.ReactNode, }) => {
   const [schools, setSchools] = useState(myData);
 
   const handleEvent = (value: string, event?: SyntheticEvent) => {
     // https://stackoverflow.com/questions/42701129/how-to-push-to-history-in-react-router-v4
     history.push({
       pathname: '/list/',
-      search: `?${new URLSearchParams({ 'search': value })}`
+      search: `?${new URLSearchParams({ search: value })}`
     });
 
     const axios = require('axios');
@@ -23,9 +23,9 @@ const NewLayout = (props: { children: React.ReactNode; }) => {
 
     axios.get('/api/', {
       params: {
-        'search': value
+        search: value
       }
-    }).then((resp: { data: School[]; }) => {
+    }).then((resp: { data: School[], }) => {
       console.log(resp.data);
       setSchools(resp.data);
     });
@@ -48,7 +48,7 @@ const NewLayout = (props: { children: React.ReactNode; }) => {
             overflow: 'auto',
             height: '100vh',
             position: 'fixed',
-            left: 0,
+            left: 0
           }}
 
           width={'220px'}

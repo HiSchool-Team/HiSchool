@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import { Router } from 'react-router-dom';
 import BaseRouter from './routes';
 import 'antd/dist/antd.css';
@@ -14,7 +13,6 @@ const App = () => {
       </Router>
     </div>
   );
-}
+};
 
 export default App;
-

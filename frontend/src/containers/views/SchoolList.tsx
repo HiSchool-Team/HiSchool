@@ -4,12 +4,12 @@ import myData from '../../data.json';
 import Schools from '../../components/Schools';
 import { School } from '../../types';
 
-interface SchoolListProps {
+type Props = {
   schools: School[],
-}
+};
 
-class SchoolList extends React.Component<SchoolListProps> {
-  constructor (props: SchoolListProps) {
+class SchoolList extends React.Component<Props> {
+  constructor (props: Props) {
     super(props);
     this.state = {
       schools: myData
