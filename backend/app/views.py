@@ -27,7 +27,7 @@ def return_json(request):
             "name": "High School of Happy Sciences",
             "description": "XV. Gimnazija is the best school in Croatia",
             "img_src": "https://www.srednja.hr/app/uploads/2016/02/MIOC-1.jpg"
-        }
+        },
     ]
 
     return JsonResponse(data, safe=False)
