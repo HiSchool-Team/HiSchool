@@ -1,9 +1,9 @@
-import React from 'react'
-import { Layout, Menu } from 'antd'
-import Search from 'antd/lib/input/Search'
-import './NewLayout.css'
+import React from 'react';
+import { Layout, Menu } from 'antd';
+import Search from 'antd/lib/input/Search';
+import './NewLayout.css';
 
-const { Header, Content, Sider } = Layout
+const { Header, Content, Sider } = Layout;
 
 const NewLayout = (props: { children: React.ReactNode, }) => {
   return (
@@ -60,7 +60,7 @@ const NewLayout = (props: { children: React.ReactNode, }) => {
         </Layout>
       </Layout>
     </div>
-  )
-}
+  );
+};
 
-export default NewLayout
+export default NewLayout;

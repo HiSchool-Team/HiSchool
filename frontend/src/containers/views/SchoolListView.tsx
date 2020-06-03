@@ -1,12 +1,12 @@
-import React from 'react'
-import myData from '../data.json'
+import React from 'react';
+import myData from '../../data.json';
 
-import Schools from '../components/Schools'
+import Schools from '../../components/Schools';
 
 class SchoolList extends React.Component {
     state = {
       schools: myData
-    }
+    };
 
     componentDidMount () {
 
@@ -15,8 +15,8 @@ class SchoolList extends React.Component {
     render () {
       return (
         <Schools data={this.state.schools}/>
-      )
+      );
     }
 }
 
-export default SchoolList
+export default SchoolList;

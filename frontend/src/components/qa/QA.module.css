@@ -1,0 +1,13 @@
+.answer-rating-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.answer-rating {
+    text-align: center;
+}
+
+.question-title {
+    display: inline-block;
+}
