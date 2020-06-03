@@ -1,8 +1,8 @@
 import React from 'react';
-import myData from '../../data.json';
-import QAList from '../../components/qa/QAList';
-import { Question } from '../../types';
-import AskBar from '../../components/qa/AskBar';
+import myData from '../../../data.json';
+import QAList from '../../../components/qa/QAList';
+import { Question } from '../../../types';
+import AskBar from '../../../components/qa/AskBar';
 import { Card } from 'antd';
 
 type State = {
@@ -32,7 +32,7 @@ const exampleQuestions = [
   }
 ];
 
-class QAUserView extends React.Component<{}, State> {
+class QAUser extends React.Component<{}, State> {
   state = {
     questions: exampleQuestions
   };
@@ -58,4 +58,4 @@ class QAUserView extends React.Component<{}, State> {
   }
 }
 
-export default QAUserView;
+export default QAUser;

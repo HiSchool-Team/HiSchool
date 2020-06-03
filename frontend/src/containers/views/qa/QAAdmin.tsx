@@ -1,13 +1,13 @@
 import React from 'react';
-import myData from '../../data.json';
-import QAList from '../../components/qa/QAList';
-import { Question } from '../../types';
+import myData from '../../../data.json';
+import QAList from '../../../components/qa/QAList';
+import { Question } from '../../../types';
 
 type State = {
     questions: Question[],
 };
 
-class QAAdminView extends React.Component<unknown, State> {
+class QAAdmin extends React.Component<unknown, State> {
     state = {
       questions: [
         { id: 0, title: 'Question0', body: 'question0 body', answer: undefined },
@@ -34,4 +34,4 @@ class QAAdminView extends React.Component<unknown, State> {
     }
 }
 
-export default QAAdminView;
+export default QAAdmin;
