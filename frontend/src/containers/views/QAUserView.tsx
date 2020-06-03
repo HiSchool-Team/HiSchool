@@ -1,6 +1,6 @@
 import React from 'react';
 import myData from '../../data.json';
-import { QAList } from '../../components/qa/QAList';
+import QAList from '../../components/qa/QAList';
 import { Question } from '../../types';
 import AskBar from '../../components/qa/AskBar';
 import { Card } from 'antd';
@@ -49,7 +49,7 @@ class QAUserView extends React.Component<{}, State> {
     const view = (
       <div>
         <Card>
-          <AskBar />
+          <AskBar/>
           <QAList data={this.state.questions}/>
         </Card>
       </div>

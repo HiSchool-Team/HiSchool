@@ -29,7 +29,6 @@ const AskBar = () => {
     <Form onFinish={values => alert(values.toString())}>
       <Collapse
         bordered={false}
-        defaultActiveKey={[]}
         expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0}/>}>
 
         <Panel header={questionTitleInput} key="1" className="site-collapse-custom-panel">
