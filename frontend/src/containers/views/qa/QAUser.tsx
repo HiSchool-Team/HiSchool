@@ -4,6 +4,7 @@ import AskBar from '../../../components/qa/AskBar';
 import { Card } from 'antd';
 import { QAList } from '../../../components/qa/QAList';
 import NewLayout from '../../NewLayout';
+import { RouteComponentProps } from 'react-router-dom';
 
 type State = {
   questions: Question[],
@@ -33,7 +34,7 @@ const exampleQuestions = [
   }
 ];
 
-class QAUser extends React.Component<{}, State> {
+class QAUser extends React.Component<RouteComponentProps, State> {
   state = {
     questions: exampleQuestions
   };
@@ -49,7 +50,12 @@ class QAUser extends React.Component<{}, State> {
   render () {
     // FIXME figure out a better way to handle answerable
     const view = (
-      <NewLayout>
+      <NewLayout route={{
+        history: this.props.history,
+        location: this.props.location,
+        match: this.props.match,
+        staticContext: this.props.staticContext
+      }}>
         <div>
           <Card>
             <AskBar/>

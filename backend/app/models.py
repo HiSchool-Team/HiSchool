@@ -1,4 +1,5 @@
 from django.db import models
+import json
 
 # Create your models here.
 from django.db import models
@@ -29,13 +30,16 @@ class SchoolAccount(Account):
     pass
 
 
+# FIXME this is just to show that the database works but does not implement
+# any school separation
 class QA(models.Model):
-    recipient_school = models.ForeignKey(School, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
+    question_title = models.TextField()
+    question_body = models.TextField()
+    question_author = models.CharField(max_length=255)
 
-    title = models.TextField()
-    body = models.TextField()
-    author = models.ForeignKey(UserAccount, on_delete=models.DO_NOTHING)
+    answer_body = models.TextField(null=True, default=None)
+    answer_author = models.CharField(max_length=255, null=True, default=None)
+    answer_rating = models.IntegerField(null=True,
+                                        default=None)  # FIXME the avg rating should be calculated across multiple ratings
 
-    answer = models.TextField(null=True)
-    answer_author = models.ForeignKey(SchoolAccount, null=True, on_delete=models.DO_NOTHING)
+

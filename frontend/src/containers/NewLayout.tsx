@@ -1,40 +1,69 @@
-import React, { Children, cloneElement, isValidElement, SyntheticEvent, useState } from 'react';
+import React, { Children, cloneElement, isValidElement, SyntheticEvent, useEffect, useState } from 'react';
 import { Layout, Menu } from 'antd';
 import myData from '../newData.json';
 import './NewLayout.css';
 import history from '../history';
-import { School } from '../types';
 import SearchBar from '../components/SearchBar';
+import { School } from '../types';
+import Schools from '../components/Schools';
+import { RouteComponentProps } from 'react-router-dom';
 
 const { Header, Content, Sider } = Layout;
 
-const NewLayout = (props: { children: React.ReactNode, }) => {
+const NewLayout = (props: { children: React.ReactNode, route: RouteComponentProps, }) => {
   const [schools, setSchools] = useState(myData);
+
+  useEffect(() => {
+    console.log('New layout has mounted');
+
+    const searchResult = getSearchResult();
+    console.log(searchResult);
+
+    updateDataIfSchoolList(searchResult);
+  });
+
+  const getSearchResult = () => {
+    const qs = require('qs');
+    const queryParams = qs.parse(props.route.location.search, { ignoreQueryPrefix: true });
+    return queryParams.search;
+  };
+
+  const updateDataIfSchoolList = (value: string) => {
+    const schoolList = Boolean(Children.map(props.children, child => {
+      return isValidElement(child) && child.type === Schools;
+    })?.reduce((a, b) => a || b));
+
+    // only get data if we are dealing with a school list
+    if (schoolList) {
+      const axios = require('axios');
+      console.log('I am here');
+      setSchools(myData);
+
+      axios.get('/api/', {
+        params: {
+          search: value
+        }
+      }).then((resp: { data: School[], }) => {
+        console.log(resp.data);
+        setSchools(resp.data);
+      });
+    }
+  };
 
   const handleEvent = (value: string, event?: SyntheticEvent) => {
     // https://stackoverflow.com/questions/42701129/how-to-push-to-history-in-react-router-v4
     history.push({
-      pathname: '/list/',
+      pathname: '/schools/',
       search: `?${new URLSearchParams({ search: value })}`
     });
 
-    const axios = require('axios');
-    console.log('I am here');
-
-    axios.get('/api/', {
-      params: {
-        search: value
-      }
-    }).then((resp: { data: School[], }) => {
-      console.log(resp.data);
-      setSchools(resp.data);
-    });
+    updateDataIfSchoolList(value);
   };
 
   // TODO see if there is a better way
   const childrenWithProps = Children.map(props.children, child => {
     if (isValidElement(child)) {
-      return cloneElement(child, { schools: schools });
+      return cloneElement(child, { data: schools });
     }
     return child;
   });

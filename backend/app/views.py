@@ -1,8 +1,8 @@
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
-from rest_framework import viewsets
+from rest_framework import viewsets, renderers
 
-from .api.serializers import SchoolSerializer, QASerializer
+from .serializers import SchoolSerializer, QASerializer
 from .models import School, QA
 
 
@@ -27,7 +27,7 @@ def return_json(request):
             "name": "High School of Happy Sciences",
             "description": "XV. Gimnazija is the best school in Croatia",
             "img_src": "https://www.srednja.hr/app/uploads/2016/02/MIOC-1.jpg"
-        }
+        },
     ]
 
     return JsonResponse(data, safe=False)
@@ -38,7 +38,10 @@ class SchoolViewSet(viewsets.ModelViewSet):
     serializer_class = SchoolSerializer
 
 
-class QAViewSet(viewsets.ModelViewSets):
+class QAViewSet(viewsets.ModelViewSet):
+    # Disable web view
+    renderer_classes = [renderers.JSONRenderer]
+
     queryset = QA.objects.all()
     serializer_class = QASerializer
 
