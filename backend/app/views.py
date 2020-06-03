@@ -2,8 +2,8 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from rest_framework import viewsets
 
-from .api.serializers import SchoolSerializer
-from .models import School
+from .api.serializers import SchoolSerializer, QASerializer
+from .models import School, QA
 
 
 # Create your views here.
@@ -36,3 +36,9 @@ def return_json(request):
 class SchoolViewSet(viewsets.ModelViewSet):
     queryset = School.objects.all()
     serializer_class = SchoolSerializer
+
+
+class QAViewSet(viewsets.ModelViewSets):
+    queryset = QA.objects.all()
+    serializer_class = QASerializer
+

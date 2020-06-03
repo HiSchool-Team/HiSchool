@@ -3,13 +3,18 @@ export type Rating = {
   num_raters: number,
 };
 
+export type QA = {
+  question: Question,
+  answer?: Answer,
+};
+
 export type Answer = {
   id: number,
   body: string,
   rating: Rating,
   teacher_name?: string,
   being_edited: boolean,
-}
+};
 
 export type Question = {
   id: number,
