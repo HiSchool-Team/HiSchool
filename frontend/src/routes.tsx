@@ -2,31 +2,23 @@ import React from "react";
 
 import Frontpage from "./containers/FrontpageView";
 import SchoolList from "./containers/SchoolListView";
-import SchoolDetail from "./containers/SchoolDetailView";
+import myData from "./data.json"
 
-import NewLayout from "./containers/NewLayout";
 import {Route, RouteComponentProps} from "react-router-dom";
+import NewLayout from "./containers/NewLayout";
 
-const BaseRouter = () => (
-    <div className={"base-router"}>
-        <Route exact path={'/'} component={Frontpage}/>
-        <Route exact path={'/list'} component={(props: RouteComponentProps) =>
-            <NewLayout>
-                <SchoolList history={props.history} location={props.location}
-                            match={props.match}/>
-            </NewLayout>} />
-        <Route exact path={':schoolID'} component={SchoolDetailWithLayout} />
-    </div>
-);
-
-
-const SchoolDetailWithLayout = () => (
-    <NewLayout>
-        <SchoolDetail>
-
-        </SchoolDetail>
-    </NewLayout>
-)
+const BaseRouter = () => {
+    return (
+        <div className={"base-router"}>
+            <Route exact path={'/'} component={Frontpage}/>
+            <Route exact path={'/list'} component={(props: RouteComponentProps) =>
+                <NewLayout>
+                    <SchoolList schools={myData} />
+                </NewLayout>}/>
+            {/*<Route exact path={':schoolID'} component={SchoolDetailWithLayout}/>*/}
+        </div>
+    );
+}
 
 
 export default BaseRouter;

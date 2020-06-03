@@ -1,16 +1,15 @@
 import React from 'react';
 import './App.css';
-import {BrowserRouter as Router} from "react-router-dom";
+import {Router} from "react-router-dom";
 import BaseRouter from "./routes";
-import OtherRouter from "./routes";
 import 'antd/dist/antd.css';
 
-import NewLayout from "./containers/NewLayout";
+import history from "./history";
 
 function App() {
     return (
         <div className="App">
-            <Router>
+            <Router history={history}>
                     <BaseRouter/>
             </Router>
         </div>

@@ -1,20 +1,26 @@
 import React from "react";
 import myData from "../data.json"
 
-import Schools from "../components/Schools";
+import Schools, {School} from "../components/Schools";
 
-class SchoolList extends React.Component {
-    state = {
-        schools: myData
+interface SchoolListProps {
+    schools: School[];
+}
+
+class SchoolList extends React.Component<SchoolListProps, {}> {
+    constructor(props: SchoolListProps) {
+        super(props);
+        this.state = {
+            schools: myData
+        }
     }
 
-    componentDidMount() {
-
+    getNewData() {
     }
 
     render() {
         return (
-            <Schools data={this.state.schools}/>
+            <Schools data={this.props.schools}/>
         )
     }
 }
