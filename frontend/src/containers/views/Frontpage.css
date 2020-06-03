@@ -12,8 +12,8 @@
     font-size: calc((60vw - 3rem) / 50);
 }
 
-body{
-    background-image: url("../images/background_image.jpg");
+body {
+    background-image: url("../../images/background_image.jpg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100% 60%;

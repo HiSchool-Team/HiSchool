@@ -1,24 +1,21 @@
 import React from "react";
+import { Route } from "react-router-dom";
 
 import Frontpage from "./containers/FrontpageView";
-import SchoolList from "./containers/SchoolListView";
-import myData from "./data.json"
+import SchoolList from './containers/views/SchoolList';
+import SchoolDetail from './containers/views/SchoolDetail';
+import QAUser from './containers/views/qa/QAUser';
+import QAAdmin from './containers/views/qa/QAAdmin';
 
-import {Route, RouteComponentProps} from "react-router-dom";
-import NewLayout from "./containers/NewLayout";
 
-const BaseRouter = () => {
-    return (
-        <div className={"base-router"}>
-            <Route exact path={'/'} component={Frontpage}/>
-            <Route exact path={'/list'} component={(props: RouteComponentProps) =>
-                <NewLayout>
-                    <SchoolList schools={myData} />
-                </NewLayout>}/>
-            {/*<Route exact path={':schoolID'} component={SchoolDetailWithLayout}/>*/}
-        </div>
-    );
-}
-
+const BaseRouter = () => (
+  <div className={'base-router'}>
+    <Route exact path={'/'} component={Frontpage}/>
+    <Route exact path={'/schools'} component={SchoolList}/>
+    <Route exact path={'/:schoolID/qa'} component={QAUser}/>
+    <Route exact path={'/:schoolID/qa/admin'} component={QAAdmin}/>
+    <Route exact path={'/:schoolID'} component={SchoolDetail}/>
+  </div>
+);
 
 export default BaseRouter;

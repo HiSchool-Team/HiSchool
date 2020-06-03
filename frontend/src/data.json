@@ -1,50 +1,50 @@
 [
-    {
-        "id": 0,
-        "name": "High School of Happy Sciences",
-        "description": "XV. Gimnazija is the best school in Croatia",
-        "img_src": "https://www.srednja.hr/app/uploads/2016/02/MIOC-1.jpg"
-    },
-    {
-        "id": 1,
-        "name": "Paddington School of Arts",
-        "description": "Former competitor with XV. Gimnazija for the title of the best school in Zagreb. Recently, it's reputation tumbled but is still a respectable school",
-        "img_src": "https://radio.hrt.hr/data/article/188409_afb32584e4e79020976f.jpg"
-    },
-    {
-        "id": 2,
-        "name": "Dream College School",
-        "description": "The largest school in Croatia branded as the school with prettiest girls in Croatia.",
-        "img_src": "https://www.goethe.de/resources/files/jpg875/x-gimnazija-ivan-supek-zagreb_gebaeude1-formatkey-jpg-w320r.jpg"
-    },
-    {
-        "id": 3,
-        "name": "VIII. Gimnazija",
-        "description": "The most competitive non-maths school in Croatia. Heavily damaged in the recent earthquake.",
-        "img_src": "https://www.skolskiportal.hr/media/Gimnazija%20Titu%C5%A1a%20Brezova%C4%8Dkog%20Zagreb.jpg"
-    },
-    {
-        "id": 4,
-        "name": "XV. Gimnazija",
-        "description": "XV. Gimnazija is the best school in Croatia",
-        "img_src": "https://www.srednja.hr/app/uploads/2016/02/MIOC-1.jpg"
-    },
-    {
-        "id": 5,
-        "name": "V. Gimnazija",
-        "description": "Former competitor with XV. Gimnazija for the title of the best school in Zagreb. Recently, it's reputation tumbled but is still a respectable school",
-        "img_src": "https://radio.hrt.hr/data/article/188409_afb32584e4e79020976f.jpg"
-    },
-    {
-        "id": 6,
-        "name": "X. Gimnazija",
-        "description": "The largest school in Croatia branded as the school with prettiest girls in Croatia.",
-        "img_src": "https://www.goethe.de/resources/files/jpg875/x-gimnazija-ivan-supek-zagreb_gebaeude1-formatkey-jpg-w320r.jpg"
-    },
-    {
-        "id": 7,
-        "name": "VIII. Gimnazija",
-        "description": "The most competitive non-maths school in Croatia. Heavily damaged in the recent earthquak.",
-        "img_src": "https://www.skolskiportal.hr/media/Gimnazija%20Titu%C5%A1a%20Brezova%C4%8Dkog%20Zagreb.jpg"
-    }
+  {
+    "id": 0,
+    "name": "High School of Happy Sciences",
+    "description": "XV. Gimnazija is the best school in Croatia",
+    "img_src": "https://www.srednja.hr/app/uploads/2016/02/MIOC-1.jpg"
+  },
+  {
+    "id": 1,
+    "name": "Paddington School of Arts",
+    "description": "Former competitor with XV. Gimnazija for the title of the best school in Zagreb. Recently, it's reputation tumbled but is still a respectable school",
+    "img_src": "https://radio.hrt.hr/data/article/188409_afb32584e4e79020976f.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Dream College School",
+    "description": "The largest school in Croatia branded as the school with prettiest girls in Croatia.",
+    "img_src": "https://www.goethe.de/resources/files/jpg875/x-gimnazija-ivan-supek-zagreb_gebaeude1-formatkey-jpg-w320r.jpg"
+  },
+  {
+    "id": 3,
+    "name": "VIII. Gimnazija",
+    "description": "The most competitive non-maths school in Croatia. Heavily damaged in the recent earthquake.",
+    "img_src": "https://www.skolskiportal.hr/media/Gimnazija%20Titu%C5%A1a%20Brezova%C4%8Dkog%20Zagreb.jpg"
+  },
+  {
+    "id": 4,
+    "name": "XV. Gimnazija",
+    "description": "XV. Gimnazija is the best school in Croatia",
+    "img_src": "https://www.srednja.hr/app/uploads/2016/02/MIOC-1.jpg"
+  },
+  {
+    "id": 5,
+    "name": "V. Gimnazija",
+    "description": "Former competitor with XV. Gimnazija for the title of the best school in Zagreb. Recently, it's reputation tumbled but is still a respectable school",
+    "img_src": "https://radio.hrt.hr/data/article/188409_afb32584e4e79020976f.jpg"
+  },
+  {
+    "id": 6,
+    "name": "X. Gimnazija",
+    "description": "The largest school in Croatia branded as the school with prettiest girls in Croatia.",
+    "img_src": "https://www.goethe.de/resources/files/jpg875/x-gimnazija-ivan-supek-zagreb_gebaeude1-formatkey-jpg-w320r.jpg"
+  },
+  {
+    "id": 7,
+    "name": "VIII. Gimnazija",
+    "description": "The most competitive non-maths school in Croatia. Heavily damaged in the recent earthquak.",
+    "img_src": "https://www.skolskiportal.hr/media/Gimnazija%20Titu%C5%A1a%20Brezova%C4%8Dkog%20Zagreb.jpg"
+  }
 ]
