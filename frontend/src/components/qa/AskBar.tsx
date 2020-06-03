@@ -2,18 +2,23 @@ import React from 'react';
 import { Button, Form, Input, Collapse } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { CaretRightOutlined } from '@ant-design/icons/lib';
-import styles from './AskBar.module.css';
+import { Store } from 'antd/lib/form/interface';
 
 const { Panel } = Collapse;
 
+const onFinish = ({ title, description }: Store) => {
+  console.log('title: '.concat(title));
+  console.log('description: '.concat(description));
+};
+
 const AskBar = () => {
   const questionTitleInput =
-    <Form.Item name="Title" label="Ask a question" style={{ margin: 'auto' }}>
+    <Form.Item name="title" label="Ask a question" style={{ margin: 'auto' }}>
       <Input placeholder="The title of your question"/>
     </Form.Item>;
 
   const questionBodyInput =
-    <Form.Item name="Description" rules={[{ required: true }]}>
+    <Form.Item name="description" rules={[{ required: true }]}>
       <TextArea
         placeholder="A more extended description of your question"
         autoSize
@@ -26,7 +31,7 @@ const AskBar = () => {
     </Form.Item>;
 
   return (
-    <Form onFinish={values => alert(values.toString())}>
+    <Form onFinish={onFinish}>
       <Collapse
         bordered={false}
         expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0}/>}>

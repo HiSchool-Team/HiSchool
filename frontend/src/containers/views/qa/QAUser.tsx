@@ -1,9 +1,8 @@
 import React from 'react';
-import myData from '../../../data.json';
-import QAList from '../../../components/qa/QAList';
 import { Question } from '../../../types';
 import AskBar from '../../../components/qa/AskBar';
 import { Card } from 'antd';
+import { QAList } from '../../../components/qa/QAList';
 
 type State = {
   questions: Question[],
@@ -27,7 +26,8 @@ const exampleQuestions = [
         value: 4,
         num_raters: 2
       },
-      teacher_name: 'A name'
+      teacher_name: 'A name',
+      being_edited: false
     }
   }
 ];
@@ -46,11 +46,12 @@ class QAUser extends React.Component<{}, State> {
   }
 
   render () {
+    // FIXME figure out a better way to handle answerable
     const view = (
       <div>
         <Card>
           <AskBar/>
-          <QAList data={this.state.questions}/>
+          <QAList data={this.state.questions} answerable={false}/>
         </Card>
       </div>
     );

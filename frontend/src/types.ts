@@ -8,7 +8,8 @@ export type Answer = {
   body: string,
   rating: Rating,
   teacher_name?: string,
-};
+  being_edited: boolean,
+}
 
 export type Question = {
   id: number,
