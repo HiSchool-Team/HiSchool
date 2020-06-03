@@ -1,9 +1,10 @@
 import React from 'react';
 import { Answer, Question } from '../../types';
 import { StarRating } from '../Rating';
-import { Button, Col, Row, Input } from 'antd';
+import { Button, Col, Row, Input, Form } from 'antd';
 import styles from './QA.module.css';
 import { QuestionCircleTwoTone } from '@ant-design/icons/lib';
+import { Store } from 'antd/lib/form/interface';
 
 const { TextArea } = Input;
 
@@ -60,55 +61,36 @@ type AnswerInputProps = {
   qid: number,
 };
 
-type State = {
-  value: string,
-  props: AnswerInputProps,
-};
-
-class AnswerInputComponent extends React.Component<any, State> {
-  constructor (props: AnswerInputProps) {
-    super(props);
-    this.state = {
-      value: props.defaultValue ? props.defaultValue : '',
-      props: props
-    };
-  }
-
-  eventHandler = () => {
-    this.state.props.save(this.state.value, this.state.props.qid);
+const AnswerInputComponent = ({ defaultValue, save, qid }: AnswerInputProps) => {
+  const onFinish = ({ content }: Store) => {
+    save(content, qid);
   };
 
-  // FIXME figure the proper type out
-  registerChange = ({ target: { value } }: any) => {
-    this.setState({ value: value });
-  };
-
-  render () {
-    const { value } = this.state;
-
-    const textArea =
+  const textArea =
+    <Form.Item name="content">
       <TextArea
-        value={value}
         placeholder="Write answer here"
         autoSize={{ minRows: 3 }}
-        onChange={this.registerChange}
-      />;
+      />
+    </Form.Item>;
 
-    const saveButton =
+  const saveButton =
+    <Form.Item>
       <Button type="primary"
-        onClick={this.eventHandler}>
+        htmlType="submit">
         Submit Answer
-      </Button>;
+      </Button>
+    </Form.Item>;
 
-    return (<div className={'answerInput'}>
-      <Row>
-        <h2>Answer</h2>
-        {textArea}
-        {saveButton}
-      </Row>
-    </div>);
-  }
-}
+  return (
+    <Form onFinish={onFinish}
+      initialValues={{ content: (defaultValue || '') }}>
+      <h2>Answer</h2>
+      {textArea}
+      {saveButton}
+    </Form>
+  );
+};
 
 type Props = {
   question: Question,
