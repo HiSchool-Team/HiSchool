@@ -1,10 +1,9 @@
-import React from 'react'
-import './App.css'
-import { BrowserRouter as Router } from 'react-router-dom'
-import BaseRouter from './routes'
-import 'antd/dist/antd.css'
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import BaseRouter from './routes';
+import 'antd/dist/antd.css';
 
-import NewLayout from './containers/NewLayout'
+import NewLayout from './containers/NewLayout';
 
 const App = () => (
   <div className="App">
@@ -14,6 +13,6 @@ const App = () => (
       </NewLayout>
     </Router>
   </div>
-)
+);
 
-export default App
+export default App;

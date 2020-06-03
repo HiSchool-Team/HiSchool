@@ -1,13 +1,12 @@
-import React from 'react'
-import myData from '../data.json'
-import { QAList } from '../components/QAList'
-import { Answer, Question } from '../types'
+import { Question } from '../../../types';
+import React from 'react';
+import { QAList } from '../../../components/qa/QAList';
 
 type State = {
   questions: Question[],
-}
+};
 
-class QAAdminSection extends React.Component<unknown, State> {
+class QAAdmin extends React.Component<unknown, State> {
   state = {
     questions: [
       {
@@ -32,18 +31,18 @@ class QAAdminSection extends React.Component<unknown, State> {
         }
       }
     ]
-  }
+  };
 
   saveAnswer (newBody: string, qid: number): void {
     // FIXME this is terrible, but I am afraid of changing state directly
     // FIXME might be useful to get a better data structure for storing questions
-    const newQuestions = this.state.questions.slice()
+    const newQuestions = this.state.questions.slice();
     for (let i = 0; i < newQuestions.length; i++) {
       if (newQuestions[i].id == qid) {
-        let answer = newQuestions[i].answer
+        let answer = newQuestions[i].answer;
         if (answer) {
-          answer.being_edited = false
-          answer.body = newBody
+          answer.being_edited = false;
+          answer.body = newBody;
         } else {
           // FIXME figure out a way to give proper attributes
           answer = {
@@ -55,29 +54,29 @@ class QAAdminSection extends React.Component<unknown, State> {
             },
             teacher_name: 'NOBODY',
             being_edited: false
-          }
-          newQuestions[i].answer = answer
+          };
+          newQuestions[i].answer = answer;
         }
-        break
+        break;
       }
     }
-    this.setState({ questions: newQuestions })
+    this.setState({ questions: newQuestions });
   }
 
   editAnswer (qid: number): void {
     // FIXME this is terrible, but I am afraid of changing state directly
     // FIXME might be useful to get a better data structure for storing questions
-    const newQuestions = this.state.questions.slice()
+    const newQuestions = this.state.questions.slice();
     for (let i = 0; i < newQuestions.length; i++) {
       if (newQuestions[i].id == qid) {
-        const answer = newQuestions[i].answer
+        const answer = newQuestions[i].answer;
         if (answer) {
-          answer.being_edited = true
+          answer.being_edited = true;
         }
-        break
+        break;
       }
     }
-    this.setState({ questions: newQuestions })
+    this.setState({ questions: newQuestions });
   }
 
   componentDidMount () {
@@ -91,8 +90,8 @@ class QAAdminSection extends React.Component<unknown, State> {
       answerable={true}
       saveAnswer={this.saveAnswer.bind(this)}
       editAnswer={this.editAnswer.bind(this)}
-    />)
+    />);
   }
 }
 
-export default QAAdminSection
+export default QAAdmin;

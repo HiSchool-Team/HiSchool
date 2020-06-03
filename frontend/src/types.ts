@@ -1,7 +1,7 @@
 export type Rating = {
   value: number,
   num_raters: number,
-}
+};
 
 export type Answer = {
   id: number,
@@ -16,11 +16,11 @@ export type Question = {
   title: string,
   body: string,
   answer?: Answer,
-}
+};
 
 export type School = {
   id: number,
   name: string,
   description: string,
   img_src: string,
-}
+};
