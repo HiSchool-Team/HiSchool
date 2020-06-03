@@ -20,6 +20,19 @@ const AnswerComponent = ({ answer, editable, edit, qid }: AnswerProps) => {
     edit(qid);
   };
 
+  const editButton =
+    <Button type="primary"
+      onClick={eventHandler}>
+      Edit Answer
+    </Button>;
+
+  const answerRating =
+    <div className={styles.answerRatingContainer}>
+      <div className={styles.answerRating}>
+        <StarRating rating={answer.rating}/>
+      </div>
+    </div>;
+
   return (
     <div className={styles.answerRating}>
       <Row>
@@ -29,19 +42,12 @@ const AnswerComponent = ({ answer, editable, edit, qid }: AnswerProps) => {
           {answer.teacher_name && <p>{answer.teacher_name}</p>}
         </Col>
         <Col span={6}>
-          <div className={styles.answerRatingContainer}>
-            <div className={styles.answerRating}>
-              <StarRating rating={answer.rating}/>
-            </div>
-          </div>
+          {answerRating}
         </Col>
       </Row>
       {editable &&
       <Row>
-        <Button type="primary"
-          onClick={eventHandler}>
-          Edit Answer
-        </Button>
+        {editButton}
       </Row>}
     </div>
   );
@@ -80,19 +86,25 @@ class AnswerInputComponent extends React.Component<any, State> {
   render () {
     const { value } = this.state;
 
+    const textArea =
+      <TextArea
+        value={value}
+        placeholder="Write answer here"
+        autoSize={{ minRows: 3 }}
+        onChange={this.registerChange}
+      />;
+
+    const saveButton =
+      <Button type="primary"
+        onClick={this.eventHandler}>
+        Submit Answer
+      </Button>;
+
     return (<div className={'answerInput'}>
       <Row>
         <h2>Answer</h2>
-        <TextArea
-          value={value}
-          placeholder="Write answer here"
-          autoSize={{ minRows: 3 }}
-          onChange={this.registerChange}
-        />
-        <Button type="primary"
-          onClick={this.eventHandler}>
-          Submit Answer
-        </Button>
+        {textArea}
+        {saveButton}
       </Row>
     </div>);
   }

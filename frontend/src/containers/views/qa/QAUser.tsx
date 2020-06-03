@@ -46,11 +46,11 @@ class QAUser extends React.Component<{}, State> {
   }
 
   render () {
+    // FIXME figure out a better way to handle answerable
     const view = (
       <div>
         <Card>
           <AskBar/>
-          //FIXME figure out a better way to handle answerable
           <QAList data={this.state.questions} answerable={false}/>
         </Card>
       </div>
