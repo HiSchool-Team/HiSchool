@@ -1,6 +1,7 @@
 import { Question } from '../../../types';
 import React from 'react';
 import { QAList } from '../../../components/qa/QAList';
+import NewLayout from '../../NewLayout';
 
 type State = {
   questions: Question[],
@@ -87,13 +88,16 @@ class QAAdmin extends React.Component<unknown, State> {
 
   render () {
     // TODO ask roko if division in components and containers makes sense
-    return (<QAList
-      data={this.state.questions}
-      // FIXME find a better way to handle answerable
-      answerable={true}
-      saveAnswer={this.saveAnswer.bind(this)}
-      editAnswer={this.editAnswer.bind(this)}
-    />);
+    return (
+      <NewLayout>
+        <QAList
+          data={this.state.questions}
+          // FIXME find a better way to handle answerable
+          answerable={true}
+          saveAnswer={this.saveAnswer.bind(this)}
+          editAnswer={this.editAnswer.bind(this)}
+        />
+      </NewLayout>);
   }
 }
 

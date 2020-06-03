@@ -3,6 +3,7 @@ import { Question } from '../../../types';
 import AskBar from '../../../components/qa/AskBar';
 import { Card } from 'antd';
 import { QAList } from '../../../components/qa/QAList';
+import NewLayout from '../../NewLayout';
 
 type State = {
   questions: Question[],
@@ -48,12 +49,14 @@ class QAUser extends React.Component<{}, State> {
   render () {
     // FIXME figure out a better way to handle answerable
     const view = (
-      <div>
-        <Card>
-          <AskBar/>
-          <QAList data={this.state.questions} answerable={false}/>
-        </Card>
-      </div>
+      <NewLayout>
+        <div>
+          <Card>
+            <AskBar/>
+            <QAList data={this.state.questions} answerable={false}/>
+          </Card>
+        </div>
+      </NewLayout>
     );
     return view;
   }
