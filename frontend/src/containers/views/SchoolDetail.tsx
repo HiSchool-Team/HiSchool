@@ -63,10 +63,19 @@ class SchoolDetail extends React.Component<RouteComponentProps> {
                     </th>
                     <th className={"tag-fields"}>
                         <table className={"new-table"}>
-                            <tr><th>Type</th></tr><tr>Type Pills</tr>
-                            <tr><th>Extracurricular</th></tr><tr>Pills</tr>
-                            <tr><th>Amenities</th></tr><tr>Pills</tr>
-                            <tr><th>Other</th></tr><tr>Pills</tr>
+                            <tr><th>Type</th></tr><tr>
+                                <th className={"pill"}>Public School</th> <th className={"pill"}>Boarding School</th>
+                            </tr>
+                            <tr><th>Extracurricular</th></tr><tr>
+                                <th className={"pill"}>Dueling Club</th><th className={"pill"}>Quidditch</th>
+                                <th className={"pill"}>Charms Club</th><th className={"pill"}>Potions Club</th>
+                                <th className={"pill"}>Astronomy Club</th>
+                            </tr>
+                            <tr><th>Amenities</th></tr><tr>
+                                <th className={"pill"}>Quidditch pitch</th><th className={"pill"}>Flying Grounds</th>
+                                <th className={"pill"}>Hospital Wing</th><th className={"pill"}>Dining Hall</th>
+                            </tr>
+                            <tr><th>Other</th></tr><tr className={"pill"}>Triwizard Tournament</tr>
                         </table>
                     </th>
                     <th className={"misc"}>
