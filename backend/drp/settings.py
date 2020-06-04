@@ -150,3 +150,9 @@ REST_FRAMEWORK = {
     #     'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     # ]
 }
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'frontend', 'public', 'media')
+
+
+
+

@@ -24,5 +24,7 @@ export type School = {
   id: number,
   name: string,
   description: string,
-  imgSrc: string,
+  student_satisfaction: number,
+  parent_satisfaction: number,
+  img_src: string,
 };
