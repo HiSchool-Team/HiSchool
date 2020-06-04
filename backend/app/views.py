@@ -39,9 +39,8 @@ class SchoolViewSet(viewsets.ModelViewSet):
 
 
 class QAViewSet(viewsets.ModelViewSet):
-    # Disable web view
-    renderer_classes = [renderers.JSONRenderer]
+    renderer_classes = [renderers.JSONRenderer]  # Disables web view
+    authentication_classes = []  # FIXME this drops authentication
 
     queryset = QA.objects.all()
     serializer_class = QASerializer
-

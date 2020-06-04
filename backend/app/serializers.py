@@ -47,7 +47,7 @@ class QASerializer(serializers.ModelSerializer):
                 'question_body': data['question']['body'],
                 'question_author': data['question']['author']}
 
-            if data['answer'] is None:
+            if ('answer' not in data) or (data['answer'] is None):
                 flattened_data.update({
                     'answer_body': None,
                     'answer_author': None,
