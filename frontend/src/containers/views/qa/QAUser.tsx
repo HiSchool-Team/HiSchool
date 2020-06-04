@@ -7,44 +7,17 @@ import NewLayout from '../../NewLayout';
 import { RouteComponentProps } from 'react-router-dom';
 import { fetchQAs } from '../../../api';
 
-const exampleQAs: QA[] = [
-  {
-    id: 0,
-    question: {
-      title: 'Question0',
-      body: 'question0 body'
-    },
-    answer: undefined
-  },
-  {
-    id: 1,
-    question: {
-      title: 'Question1',
-      body: 'question1 body'
-    },
-    answer: {
-      body: 'this is an answer',
-      rating: 4,
-      author: 'A name'
-    }
-  }
-];
-
-export type QAUpdater = (qa: QA) => void;
-
 type State = {
   qas: QA[],
-  qasUpdaters: QAUpdater[],
 };
 
 class QAUser extends React.Component<RouteComponentProps, State> {
   state = {
-    qas: [],
-    qasUpdaters: []
+    qas: []
   };
 
   componentDidMount () {
-    fetchQAs().then(qas => this.setState({ qas: qas }));
+    fetchQAs().then(qas => qas && this.setState({ qas: qas.reverse() }));
   }
 
   render () {

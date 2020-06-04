@@ -9,7 +9,7 @@ import { QA } from '../../types';
 const { Panel } = Collapse;
 
 const onFinish = ({ title, description }: Store) => {
-  console.log('Calling POSTQA');
+  console.log('Calling postQA');
   const qa: QA = {
     id: 0,
     question: {
@@ -21,6 +21,8 @@ const onFinish = ({ title, description }: Store) => {
   console.log('Calling postQA with');
   console.log(qa);
   postQA(qa);
+
+  window.location.reload(true); // FIXME This is bad practice
 };
 
 const AskBar = () => {

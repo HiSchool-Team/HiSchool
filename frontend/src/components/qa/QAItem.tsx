@@ -5,6 +5,7 @@ import { Button, Col, Row, Input, Form } from 'antd';
 import styles from './QA.module.css';
 import { QuestionCircleTwoTone } from '@ant-design/icons/lib';
 import { Store } from 'antd/lib/form/interface';
+import { postQA, putQA } from '../../api';
 
 const { TextArea } = Input;
 
@@ -61,7 +62,7 @@ const AnswerInputComponent = ({ defaultValue, onSubmit }: AnswerInputProps) => {
     onSubmit({
       body: answerBody,
       author: 'The name of a teacher',
-      rating: Math.random() * 5
+      rating: Math.round(Math.random() * 5)
     });
   };
 
@@ -99,7 +100,14 @@ type Props = {
 const QAItem = ({ qa, answerable }: Props) => {
   const [currentQA, setCurrentQA] = React.useState(qa);
   const [editing, setEditing] = React.useState(!currentQA.answer && answerable);
-  const updateAnswer = (a: Answer) => setCurrentQA(qa => ({ ...qa, answer: a }));
+  const updateAnswer = (a: Answer) => {
+    setCurrentQA(qa => {
+      const updatedQA: QA = { ...qa, answer: a };
+      putQA(updatedQA);
+
+      return updatedQA;
+    });
+  };
   const toggleEditing = () => setEditing(e => !e);
 
   const green = '#01d71b';
