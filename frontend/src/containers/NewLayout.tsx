@@ -11,7 +11,7 @@ import {RouteComponentProps} from 'react-router-dom';
 const {Header, Content, Sider} = Layout;
 
 const NewLayout = (props: { children: React.ReactNode, route: RouteComponentProps, }) => {
-    const [schools, setSchools] = useState(myData);
+    const [schools, setSchools] = useState();
 
     useEffect(() => {
         console.log('New layout has mounted');

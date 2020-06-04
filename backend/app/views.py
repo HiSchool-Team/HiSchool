@@ -15,7 +15,10 @@ def index(request):
 def return_json(request):
     search_result = request.GET.get('search')  # contains parameter passed to search bar
 
-    schools = School.objects.filter(name=search_result)
+    schools = School.objects.all()
+
+    if search_result:
+        schools = schools.filter(name=search_result)
 
     # ser = SchoolSerializer(schools) TODO Rishi
     # return HttpResponse(ser.data, content_type='application/json')
