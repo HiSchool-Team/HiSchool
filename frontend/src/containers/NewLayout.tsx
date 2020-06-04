@@ -37,15 +37,12 @@ const NewLayout = (props: { children: React.ReactNode, route: RouteComponentProp
         if (schoolList) {
             const axios = require('axios');
 
-            axios.get('/api/', {
+            axios.get('/app/api/search/', {
                 params: {
                     search: value
                 }
             }).then((resp: { data: School[] }) => {
                 console.log(resp.data);
-                console.log(resp.data.map(school => (
-                    {...school, img_src: `/static/media/${school.img_src}`})
-                ));
                 const newData = resp.data.map(school => (
                     {...school, img_src: `/static/media/${school.img_src}`})
                 );

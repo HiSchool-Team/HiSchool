@@ -7,6 +7,6 @@ router = routers.DefaultRouter()
 router.register(r'qa', views.QAViewSet)
 
 urlpatterns = [
-    #path('', views.return_json),
+    path('api/search/', views.return_json),
     path('api/', include(router.urls))
 ]
