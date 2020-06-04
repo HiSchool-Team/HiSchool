@@ -7,9 +7,6 @@ export const QAList =
   (props: {
     data: Question[],
     answerable: boolean,
-    // FIXME figure it out
-    saveAnswer?: any,
-    editAnswer?: any,
   }) => {
     return (
       <List
@@ -20,8 +17,7 @@ export const QAList =
           <Card>
             <QA question={item}
               answerable={props.answerable}
-              saveAnswer={props.saveAnswer}
-              editAnswer={props.editAnswer}/>
+            />
           </Card>}
       />
     );

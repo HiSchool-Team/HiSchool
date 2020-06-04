@@ -10,7 +10,7 @@ type State = {
   questions: Question[],
 };
 
-const exampleQuestions = [
+const exampleQuestions: Question[] = [
   {
     id: 0,
     title: 'Question0',
@@ -22,14 +22,9 @@ const exampleQuestions = [
     title: 'Question1',
     body: 'question1 body',
     answer: {
-      id: 0,
       body: 'this is an answer',
-      rating: {
-        value: 4,
-        num_raters: 2
-      },
-      teacher_name: 'A name',
-      being_edited: false
+      rating: 4,
+      author: 'A name'
     }
   }
 ];

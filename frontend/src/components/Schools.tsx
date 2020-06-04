@@ -42,7 +42,7 @@ const Schools = ({ data }: Props) => {
             <List.Item.Meta title={<a href={`/${item.id}`}><b>{item.name}</b></a>}/>
 
             <div>
-              <div className={'school-picture'}><img alt="logo" src={item.img_src}/></div>
+              <div className={'school-picture'}><img alt="logo" src={item.imgSrc}/></div>
               <div className={'school-description'}><p>{loremIpsum}</p></div>
               <div className={'satisfaction-levels'}>
                 <RepeatIcon label={'Student satisfaction'} icon={StarOutlined} times={5}/>
