@@ -5,29 +5,6 @@ import NewLayout from '../../NewLayout';
 import { RouteComponentProps } from 'react-router-dom';
 import { fetchQAs } from '../../../api';
 
-const exampleQuestions: QA[] = [
-  {
-    id: 0,
-    question: {
-      title: 'Question0',
-      body: 'question0 body'
-    },
-    answer: undefined
-  },
-  {
-    id: 1,
-    question: {
-      title: 'Question1',
-      body: 'question1 body'
-    },
-    answer: {
-      body: 'this is an answer',
-      rating: 4,
-      author: 'A name'
-    }
-  }
-];
-
 type State = {
   qas: QA[],
 };
@@ -38,7 +15,7 @@ class QAAdmin extends React.Component<RouteComponentProps, State> {
   };
 
   componentDidMount () {
-    fetchQAs().then(qas => this.setState({ qas: qas }));
+    fetchQAs().then(qas => qas && this.setState({ qas: qas.reverse() }));
   }
 
   render () {
