@@ -1,11 +1,11 @@
 import React from 'react';
 import { QA, Question } from '../../../types';
 import AskBar from '../../../components/qa/AskBar';
-import { Card } from 'antd';
 import { QAList } from '../../../components/qa/QAList';
 import NewLayout from '../../NewLayout';
 import { RouteComponentProps } from 'react-router-dom';
 import { fetchQAs } from '../../../api';
+import { Card } from 'antd'
 
 const exampleQAs: QA[] = [
   {

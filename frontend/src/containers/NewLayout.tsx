@@ -72,6 +72,8 @@ const NewLayout = (props: { children: React.ReactNode, route: RouteComponentProp
     <div>
       <Layout>
         <Sider
+          breakpoint="lg"
+          collapsedWidth="0"
           style={{
             marginTop: '64px',
             overflow: 'auto',
@@ -96,22 +98,22 @@ const NewLayout = (props: { children: React.ReactNode, route: RouteComponentProp
             </Menu.Item>
           </Menu>
         </Sider>
-        <Header style={{
-          position: 'fixed',
-          width: '100%',
-          zIndex: 4
-        }}>
-          <div className={'logo-title'}>WhichSchool?</div>
-          <div className={'search-bar'}>
-            <SearchBar handleSearch={handleEvent}/>
-          </div>
-          <div style={{ textAlign: 'right' }}>
-            <a style={{ margin: '8px' }} href={'/'}>Home</a>
-            <a style={{ margin: '8px' }} href={'#MySchools'}>MySchools</a>
-            <a style={{ margin: '8px' }} href={'#MyProfile'}>MyProfile</a>
-          </div>
-        </Header>
-        <Layout className="site-layout" style={{ marginLeft: 200 }}>
+        <Layout>
+          <Header style={{
+            position: 'fixed',
+            width: '100%',
+            zIndex: 4
+          }}>
+            <div className={'logo-title'}>WhichSchool?</div>
+            <div className={'search-bar'}>
+              <SearchBar handleSearch={handleEvent}/>
+            </div>
+            <div style={{ textAlign: 'right' }}>
+              <a style={{ margin: '8px' }} href={'/'}>Home</a>
+              <a style={{ margin: '8px' }} href={'#MySchools'}>MySchools</a>
+              <a style={{ margin: '8px' }} href={'#MyProfile'}>MyProfile</a>
+            </div>
+          </Header>
           <Content style={{
             margin: '64px 30px 24px 30px',
             overflow: 'initial'

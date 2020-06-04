@@ -19,8 +19,7 @@ export const QAList = ({ qas, answerable }: Props) => {
       itemLayout="vertical"
       size="large"
       dataSource={qas}
-      renderItem={(qa: QA) => <Card><QAItem qa={qa} answerable={answerable}/></Card>
-      }
+      renderItem={(qa: QA) => <Card><QAItem qa={qa} answerable={answerable}/></Card>}
     />
   );
 };

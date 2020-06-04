@@ -5,8 +5,26 @@ import { Button, Col, Row, Input, Form } from 'antd';
 import styles from './QA.module.css';
 import { QuestionCircleTwoTone } from '@ant-design/icons/lib';
 import { Store } from 'antd/lib/form/interface';
+import Paragraph from 'antd/es/typography/Paragraph';
 
 const { TextArea } = Input;
+
+const makeColumn = (flex: number, item?: JSX.Element) => {
+  if (item) {
+    return <Col flex={flex}>
+      {item}
+    </Col>;
+  } else {
+    return <Col flex={flex}/>;
+  }
+};
+
+const responsiveGutter = {
+  xs: 8,
+  sm: 16,
+  md: 24,
+  lg: 32
+};
 
 type AnswerProps = {
   answer: Answer,
@@ -33,19 +51,23 @@ const AnswerComponent = ({ answer, answerable, onEdit }: AnswerProps) => {
 
   return (
     <div className={styles.answerRating}>
-      <Row>
-        <Col span={18}>
-          <h2>Answer</h2>
-          <p>{answer.body}</p>
-          {answer.author && <p>{answer.author}</p>}
-        </Col>
-        <Col span={6}>
-          {answerRating}
-        </Col>
+      <Row gutter={responsiveGutter} justify="start">
+        {makeColumn(2, <h2>Answer</h2>)}
+        {makeColumn(1)}
+      </Row>
+      <Row gutter={responsiveGutter} justify="start">
+        {makeColumn(8, <Paragraph>{answer.body}</Paragraph>)}
+        {makeColumn(1)}
+        {makeColumn(3, answerRating)}
+      </Row>
+      <Row gutter={responsiveGutter} justify="start">
+        {makeColumn(2, <Paragraph>{answer.author}</Paragraph>)}
+        {makeColumn(1)}
       </Row>
       {answerable &&
-      <Row>
-        {editButton}
+      <Row gutter={responsiveGutter} justify="start">
+        {makeColumn(2, editButton)}
+        {makeColumn(1)}
       </Row>}
     </div>
   );
@@ -84,9 +106,18 @@ const AnswerInputComponent = ({ defaultValue, onSubmit }: AnswerInputProps) => {
   return (
     <Form onFinish={onFinish}
       initialValues={{ answerBody: defaultValue }}>
-      <h2>Answer</h2>
-      {textArea}
-      {saveButton}
+      <Row gutter={responsiveGutter} justify="start">
+        {makeColumn(2, <h2>Answer</h2>)}
+        {makeColumn(1)}
+      </Row>
+      <Row gutter={responsiveGutter} justify="start">
+        {makeColumn(2, textArea)}
+        {makeColumn(1)}
+      </Row>
+      <Row gutter={responsiveGutter} justify="start">
+        {makeColumn(2, saveButton)}
+        {makeColumn(1)}
+      </Row>
     </Form>
   );
 };
@@ -99,7 +130,10 @@ type Props = {
 const QAItem = ({ qa, answerable }: Props) => {
   const [currentQA, setCurrentQA] = React.useState(qa);
   const [editing, setEditing] = React.useState(!currentQA.answer && answerable);
-  const updateAnswer = (a: Answer) => setCurrentQA(qa => ({ ...qa, answer: a }));
+  const updateAnswer = (a: Answer) => setCurrentQA(qa => ({
+    ...qa,
+    answer: a
+  }));
   const toggleEditing = () => setEditing(e => !e);
 
   const green = '#01d71b';
@@ -109,10 +143,10 @@ const QAItem = ({ qa, answerable }: Props) => {
     : <QuestionCircleTwoTone twoToneColor={red} title="this question has not been answered yet"/>;
 
   const defaultValue = currentQA.answer ? currentQA.answer.body : '';
-  let answerComponent;
+  let answerDisplayComponent;
 
   if (editing) {
-    answerComponent = <AnswerInputComponent
+    answerDisplayComponent = <AnswerInputComponent
       defaultValue={defaultValue}
       onSubmit={(a: Answer) => {
         updateAnswer(a);
@@ -120,7 +154,7 @@ const QAItem = ({ qa, answerable }: Props) => {
       }}
     />;
   } else {
-    answerComponent =
+    answerDisplayComponent =
       <AnswerComponent answer={currentQA.answer as Answer} answerable={answerable} onEdit={toggleEditing}/>;
   }
 
@@ -129,11 +163,17 @@ const QAItem = ({ qa, answerable }: Props) => {
   return (
     <div>
       <div className={styles.questionTitle}>
-        <p><h2>{questionMarkIcon} {question.title}</h2></p>
+        <Row gutter={responsiveGutter} justify="start">
+          {makeColumn(1, <Paragraph><h2>{questionMarkIcon}</h2></Paragraph>)}
+          {makeColumn(15, <Paragraph><h2>{question.title}</h2></Paragraph>)}
+          {makeColumn(8)}
+        </Row>
       </div>
-      <p>{question.body}</p>
+      <Row gutter={responsiveGutter} justify="start">
+        {makeColumn(1, <Paragraph>{question.body}</Paragraph>)}
+      </Row>
       <br/>
-      {(currentQA.answer || editing) && answerComponent}
+      {(currentQA.answer || editing) && answerDisplayComponent}
     </div>
   );
 };
