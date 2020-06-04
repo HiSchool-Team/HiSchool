@@ -1,0 +1,75 @@
+
+.horizontal-table {
+    display: table;
+    overflow: auto;
+}
+
+.school-description {
+    float: left;
+    overflow: no-display;
+    text-align: start;
+
+    position: relative;
+    width: 70%;
+    vertical-align: top;
+}
+
+.vertical-table {
+    display: block;
+}
+
+.school-links{
+    text-align: center;
+    float: left;
+
+    position: relative;
+    width: 1%;
+    margin-left: 1% ;
+    vertical-align: top;
+}
+
+.school-picture {
+    float: right;
+    height: auto;
+    text-align: center;
+    display: block;
+
+    position: relative;
+    width: 20%;
+    margin-left: 5% ;
+}
+
+
+.school-tour {
+    text-align: center;
+    float: left;
+
+    position: relative;
+    width: 500px;
+    margin-left: 2% ;
+}
+
+.tag-fields {
+    text-align: center;
+
+    float: top;
+    position: relative;
+    width: 100%;
+    margin-left: 5% ;
+}
+
+.misc {
+    text-align: center;
+    float: left;
+    position: relative;
+    width: 15%;
+    margin-left: 2% ;
+}
+
+table{
+}
+
+th, td {
+  padding: 5px;
+  text-align: left;
+}
