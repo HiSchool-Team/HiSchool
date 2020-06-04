@@ -3,12 +3,16 @@
     "id": 0,
     "name": "High School of Happy Sciences",
     "description": "XV. Gimnazija is the best school in Croatia",
+    "student_satisfaction": 4.2,
+    "parent_satisfaction": 4.2,
     "img_src": "https://www.srednja.hr/app/uploads/2016/02/MIOC-1.jpg"
   },
   {
     "id": 1,
-    "name": "Paddington School of Arts",
-    "description": "Former competitor with XV. Gimnazija for the title of the best school in Zagreb. Recently, it's reputation tumbled but is still a respectable school",
-    "img_src": "https://radio.hrt.hr/data/article/188409_afb32584e4e79020976f.jpg"
+    "name": "High School of Happy Sciences",
+    "description": "XV. Gimnazija is the best school in Croatia",
+    "student_satisfaction": 4.2,
+    "parent_satisfaction": 4.2,
+    "img_src": "/media/photos/2020/06/04/mioc.jpg"
   }
 ]

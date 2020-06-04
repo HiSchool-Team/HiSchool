@@ -20,7 +20,7 @@ const NewLayout = (props: { children: React.ReactNode, route: RouteComponentProp
         console.log(searchResult);
 
         updateDataIfSchoolList(searchResult);
-    });
+    }, [props]);
 
     const getSearchResult = () => {
         const qs = require('qs');
@@ -36,16 +36,21 @@ const NewLayout = (props: { children: React.ReactNode, route: RouteComponentProp
         // only get data if we are dealing with a school list
         if (schoolList) {
             const axios = require('axios');
-            console.log('I am here');
-            setSchools(myData);
 
             axios.get('/api/', {
                 params: {
                     search: value
                 }
-            }).then((resp: { data: School[], }) => {
+            }).then((resp: { data: School[] }) => {
                 console.log(resp.data);
-                setSchools(resp.data);
+                console.log(resp.data.map(school => (
+                    {...school, img_src: `/static/media/${school.img_src}`})
+                ));
+                const newData = resp.data.map(school => (
+                    {...school, img_src: `/static/media/${school.img_src}`})
+                );
+                console.log(newData)
+                setSchools(newData);
             });
 
         }
