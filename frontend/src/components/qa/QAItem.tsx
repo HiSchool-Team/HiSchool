@@ -1,5 +1,5 @@
 import React from 'react';
-import { Answer, Question } from '../../types';
+import { Answer, QA, Question } from '../../types';
 import { StarRating } from '../Rating';
 import { Button, Col, Row, Input, Form } from 'antd';
 import styles from './QA.module.css';
@@ -92,23 +92,23 @@ const AnswerInputComponent = ({ defaultValue, onSubmit }: AnswerInputProps) => {
 };
 
 type Props = {
-  question: Question,
+  qa: QA,
   answerable: boolean,
 };
 
-export const QA = (props: Props) => {
-  const [question, setQuestion] = React.useState(props.question);
-  const [editing, setEditing] = React.useState(!question.answer);
-  const updateAnswer = (a: Answer) => setQuestion(q => ({ ...q, answer: a }));
+const QAItem = ({ qa, answerable }: Props) => {
+  const [currentQA, setCurrentQA] = React.useState(qa);
+  const [editing, setEditing] = React.useState(!currentQA.answer && answerable);
+  const updateAnswer = (a: Answer) => setCurrentQA(qa => ({ ...qa, answer: a }));
   const toggleEditing = () => setEditing(e => !e);
 
   const green = '#01d71b';
   const red = 'red';
-  const questionMarkIcon = question.answer
+  const questionMarkIcon = currentQA.answer
     ? <QuestionCircleTwoTone twoToneColor={green} title="this question has been answered"/>
     : <QuestionCircleTwoTone twoToneColor={red} title="this question has not been answered yet"/>;
 
-  const defaultValue = question.answer ? question.answer.body : '';
+  const defaultValue = currentQA.answer ? currentQA.answer.body : '';
   let answerComponent;
 
   if (editing) {
@@ -121,8 +121,10 @@ export const QA = (props: Props) => {
     />;
   } else {
     answerComponent =
-      <AnswerComponent answer={question.answer as Answer} answerable={props.answerable} onEdit={toggleEditing}/>;
+      <AnswerComponent answer={currentQA.answer as Answer} answerable={answerable} onEdit={toggleEditing}/>;
   }
+
+  const question = currentQA.question;
 
   return (
     <div>
@@ -131,7 +133,9 @@ export const QA = (props: Props) => {
       </div>
       <p>{question.body}</p>
       <br/>
-      {(question.answer || editing) && answerComponent}
+      {(currentQA.answer || editing) && answerComponent}
     </div>
   );
 };
+
+export default QAItem;

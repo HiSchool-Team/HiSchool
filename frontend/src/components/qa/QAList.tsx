@@ -1,24 +1,25 @@
 import React from 'react';
-import { QA } from './QA';
+import QAItem from './QAItem';
 import { Card, List } from 'antd';
-import { Question } from '../../types';
+import { QA, Question } from '../../types';
 
-export const QAList =
-  (props: {
-    data: Question[],
-    answerable: boolean,
-  }) => {
-    return (
-      <List
-        itemLayout="vertical"
-        size="large"
-        dataSource={props.data}
-        renderItem={(item: Question) =>
-          <Card>
-            <QA question={item}
-              answerable={props.answerable}
-            />
-          </Card>}
-      />
-    );
-  };
+type Props = {
+  qas: QA[],
+  answerable: boolean,
+};
+
+export const QAList = ({ qas, answerable }: Props) => {
+  return (
+    <List
+      itemLayout="vertical"
+      size="large"
+      dataSource={qas}
+      renderItem={(item: QA) =>
+        <Card>
+          <QAItem qa={item}
+            answerable={answerable}
+          />
+        </Card>}
+    />
+  );
+};

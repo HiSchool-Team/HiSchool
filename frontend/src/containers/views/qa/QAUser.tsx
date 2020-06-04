@@ -1,26 +1,26 @@
 import React from 'react';
-import { Question } from '../../../types';
+import { QA, Question } from '../../../types';
 import AskBar from '../../../components/qa/AskBar';
 import { Card } from 'antd';
 import { QAList } from '../../../components/qa/QAList';
 import NewLayout from '../../NewLayout';
 import { RouteComponentProps } from 'react-router-dom';
 
-type State = {
-  questions: Question[],
-};
-
-const exampleQuestions: Question[] = [
+const exampleQAs: QA[] = [
   {
     id: 0,
-    title: 'Question0',
-    body: 'question0 body',
+    question: {
+      title: 'Question0',
+      body: 'question0 body'
+    },
     answer: undefined
   },
   {
     id: 1,
-    title: 'Question1',
-    body: 'question1 body',
+    question: {
+      title: 'Question1',
+      body: 'question1 body'
+    },
     answer: {
       body: 'this is an answer',
       rating: 4,
@@ -29,9 +29,13 @@ const exampleQuestions: Question[] = [
   }
 ];
 
+type State = {
+  qas: QA[],
+};
+
 class QAUser extends React.Component<RouteComponentProps, State> {
   state = {
-    questions: exampleQuestions
+    qas: exampleQAs
   };
 
   private fetchQuestions () {
@@ -43,7 +47,6 @@ class QAUser extends React.Component<RouteComponentProps, State> {
   }
 
   render () {
-    // FIXME figure out a better way to handle answerable
     const view = (
       <NewLayout route={{
         history: this.props.history,
@@ -54,7 +57,7 @@ class QAUser extends React.Component<RouteComponentProps, State> {
         <div>
           <Card>
             <AskBar/>
-            <QAList data={this.state.questions} answerable={false}/>
+            <QAList qas={this.state.qas} answerable={false}/>
           </Card>
         </div>
       </NewLayout>

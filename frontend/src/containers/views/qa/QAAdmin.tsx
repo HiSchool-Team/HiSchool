@@ -1,24 +1,24 @@
-import { Question } from '../../../types';
+import { QA, Question } from '../../../types';
 import React from 'react';
 import { QAList } from '../../../components/qa/QAList';
 import NewLayout from '../../NewLayout';
 import { RouteComponentProps } from 'react-router-dom';
 
-type State = {
-  questions: Question[],
-};
-
-const exampleQuestions: Question[] = [
+const exampleQuestions: QA[] = [
   {
     id: 0,
-    title: 'Question0',
-    body: 'question0 body',
+    question: {
+      title: 'Question0',
+      body: 'question0 body'
+    },
     answer: undefined
   },
   {
     id: 1,
-    title: 'Question1',
-    body: 'question1 body',
+    question: {
+      title: 'Question1',
+      body: 'question1 body'
+    },
     answer: {
       body: 'this is an answer',
       rating: 4,
@@ -26,6 +26,10 @@ const exampleQuestions: Question[] = [
     }
   }
 ];
+
+type State = {
+  questions: QA[],
+};
 
 class QAAdmin extends React.Component<RouteComponentProps, State> {
   state = {
@@ -87,7 +91,7 @@ class QAAdmin extends React.Component<RouteComponentProps, State> {
   render () {
     // TODO ask roko if division in components and containers makes sense
     return (
-      <QAList data={this.state.questions} answerable/>);
+      <QAList qas={this.state.questions} answerable/>);
   }
 }
 
