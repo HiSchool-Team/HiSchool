@@ -1,26 +1,26 @@
-import React, {SyntheticEvent} from 'react';
+import React, { SyntheticEvent } from 'react';
 
 import '../NewLayout.css';
 import './Frontpage.css';
 import Background from "../../images/background_image.jpg"
 
-import {Layout} from 'antd';
-import SearchBar from "../../components/SearchBar";
-import history from "../../history";
+import { Layout } from 'antd';
+import SearchBar from '../../components/SearchBar';
+import history from '../../history';
 import {url} from "inspector";
 
 // TODO check if this import is needed
 
 const {Header, Content, Sider} = Layout;
 
-//TODO duplication
+// TODO duplication
 const handleEvent = (value: string, event?: SyntheticEvent) => {
-    // https://stackoverflow.com/questions/42701129/how-to-push-to-history-in-react-router-v4
-    history.push({
-        pathname: '/schools/',
-        search: `?${new URLSearchParams({search: value})}`
-    });
-}
+  // https://stackoverflow.com/questions/42701129/how-to-push-to-history-in-react-router-v4
+  history.push({
+    pathname: '/schools/',
+    search: `?${new URLSearchParams({ search: value })}`
+  });
+};
 
 const Frontpage = (props: { children: React.ReactNode, }) => {
     return (

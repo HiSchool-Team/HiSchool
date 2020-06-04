@@ -4,17 +4,17 @@ import myData from '../newData.json';
 import './NewLayout.css';
 import history from '../history';
 import SearchBar from '../components/SearchBar';
-import {School} from "../types";
-import Schools from "../components/Schools";
+import {School} from '../types';
+import Schools from '../components/Schools';
 import {RouteComponentProps} from 'react-router-dom';
 
 const {Header, Content, Sider} = Layout;
 
-const NewLayout = (props: { children: React.ReactNode, route: RouteComponentProps }) => {
+const NewLayout = (props: { children: React.ReactNode, route: RouteComponentProps, }) => {
     const [schools, setSchools] = useState(myData);
 
     useEffect(() => {
-        console.log("New layout has mounted")
+        console.log('New layout has mounted');
 
         const searchResult = getSearchResult();
         console.log(searchResult);
@@ -26,10 +26,10 @@ const NewLayout = (props: { children: React.ReactNode, route: RouteComponentProp
         const qs = require('qs');
         const queryParams = qs.parse(props.route.location.search, {ignoreQueryPrefix: true});
         return queryParams.search;
-    }
+    };
 
     const updateDataIfSchoolList = (value: string) => {
-        const schoolList: boolean = Boolean(Children.map(props.children, child => {
+        const schoolList = Boolean(Children.map(props.children, child => {
             return isValidElement(child) && child.type === Schools;
         })?.reduce((a, b) => a || b));
 

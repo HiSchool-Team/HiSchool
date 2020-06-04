@@ -1,21 +1,23 @@
 export type Rating = {
   value: number,
-  num_raters: number,
+  numRaters: number,
+};
+
+export type QA = {
+  id: number,
+  question: Question,
+  answer?: Answer,
+};
+
+export type Question = {
+  title: string,
+  body: string,
 };
 
 export type Answer = {
-  id: number,
   body: string,
-  rating: Rating,
-  teacher_name?: string,
-  being_edited: boolean,
-}
-
-export type Question = {
-  id: number,
-  title: string,
-  body: string,
-  answer?: Answer,
+  rating: number, // FIXME substitute for Rating
+  author: string,
 };
 
 export type School = {
@@ -24,5 +26,5 @@ export type School = {
   description: string,
   student_satisfaction: number,
   parent_satisfaction: number,
-  img_src: string
+  img_src: string,
 };

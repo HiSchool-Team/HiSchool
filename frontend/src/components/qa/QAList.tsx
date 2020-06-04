@@ -1,28 +1,26 @@
 import React from 'react';
-import { QA } from './QA';
+import QAItem from './QAItem';
 import { Card, List } from 'antd';
-import { Question } from '../../types';
+import { QA, Question } from '../../types';
+import { QAUpdater } from '../../containers/views/qa/QAUser';
 
-export const QAList =
-  (props: {
-    data: Question[],
-    answerable: boolean,
-    // FIXME figure it out
-    saveAnswer?: any,
-    editAnswer?: any,
-  }) => {
-    return (
-      <List
-        itemLayout="vertical"
-        size="large"
-        dataSource={props.data}
-        renderItem={(item: Question) =>
-          <Card>
-            <QA question={item}
-              answerable={props.answerable}
-              saveAnswer={props.saveAnswer}
-              editAnswer={props.editAnswer}/>
-          </Card>}
-      />
-    );
-  };
+type Props = {
+  qas: QA[],
+  answerable: boolean,
+};
+
+function zip<A, B> (arr1: A[], arr2: B[]): [A, B][] {
+  return arr1.map((k, i) => [k, arr2[i]]);
+}
+
+export const QAList = ({ qas, answerable }: Props) => {
+  return (
+    <List
+      itemLayout="vertical"
+      size="large"
+      dataSource={qas}
+      renderItem={(qa: QA) => <Card><QAItem qa={qa} answerable={answerable}/></Card>
+      }
+    />
+  );
+};

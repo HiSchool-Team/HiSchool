@@ -1,10 +1,9 @@
-import json
-
-from django.core import serializers as s
-from rest_framework import serializers, generics
 from django.http import HttpResponse, JsonResponse
+from rest_framework import serializers, generics
+from rest_framework import viewsets, renderers
 
-from .models import School
+from .models import School, QA
+from .serializers import QASerializer
 
 
 # Create your views here.
@@ -29,7 +28,7 @@ class SchoolSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class PurchaseList(generics.ListAPIView):
+class SchoolList(generics.ListAPIView):
     serializer_class = SchoolSerializer
 
     def get_queryset(self):
@@ -38,3 +37,11 @@ class PurchaseList(generics.ListAPIView):
         if search is not None:
             queryset = queryset.filter(name=search)
         return queryset
+
+
+class QAViewSet(viewsets.ModelViewSet):
+    renderer_classes = [renderers.JSONRenderer]  # Disables web view
+    authentication_classes = []  # FIXME this drops authentication
+
+    queryset = QA.objects.all()
+    serializer_class = QASerializer

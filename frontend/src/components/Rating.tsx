@@ -10,7 +10,7 @@ export const StarRating = ({ rating }: Props) => {
   return (
     <div>
       <Rate disabled defaultValue={rating.value}/>
-      <p>from {rating.num_raters} ratings</p>
+      <p>from {rating.numRaters} ratings</p>
     </div>
   );
 };

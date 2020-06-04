@@ -2,6 +2,7 @@ from time import strftime
 
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+import json
 
 
 # Create your models here.
@@ -28,6 +29,34 @@ class School(models.Model):
         return self.name
 
 
-class Question(models.Model):
-    recipient = models.ForeignKey(School, on_delete=models.CASCADE)
-    text = models.TextField()
+# FIXME we probably should be relying on django built-in account system
+# the following is just for testing purposes
+class Account(models.Model):
+    email = models.EmailField
+    name = models.CharField(max_length=255)
+
+    class Meta:
+        abstract = True
+
+
+class UserAccount(Account):
+    pass
+
+
+class SchoolAccount(Account):
+    pass
+
+
+# FIXME this is just to show that the database works but does not implement
+# any school separation
+class QA(models.Model):
+    question_title = models.TextField()
+    question_body = models.TextField()
+    question_author = models.CharField(max_length=255)
+
+    answer_body = models.TextField(null=True, default=None)
+    answer_author = models.CharField(max_length=255, null=True, default=None)
+    answer_rating = models.IntegerField(null=True,
+                                        default=None)  # FIXME the avg rating should be calculated across multiple ratings
+
+

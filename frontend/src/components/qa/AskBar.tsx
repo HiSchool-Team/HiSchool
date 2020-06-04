@@ -3,12 +3,24 @@ import { Button, Form, Input, Collapse } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { CaretRightOutlined } from '@ant-design/icons/lib';
 import { Store } from 'antd/lib/form/interface';
+import { postQA } from '../../api';
+import { QA } from '../../types';
 
 const { Panel } = Collapse;
 
 const onFinish = ({ title, description }: Store) => {
-  console.log('title: '.concat(title));
-  console.log('description: '.concat(description));
+  console.log('Calling POSTQA');
+  const qa: QA = {
+    id: 0,
+    question: {
+      title: title,
+      body: description
+    },
+    answer: undefined
+  };
+  console.log('Calling postQA with');
+  console.log(qa);
+  postQA(qa);
 };
 
 const AskBar = () => {

@@ -1,110 +1,57 @@
-import {Question} from '../../../types';
+import { QA, Question } from '../../../types';
 import React from 'react';
-import {QAList} from '../../../components/qa/QAList';
+import { QAList } from '../../../components/qa/QAList';
 import NewLayout from '../../NewLayout';
-import {RouteComponentProps} from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
+import { fetchQAs } from '../../../api';
 
-type State = {
-    questions: Question[],
-};
-
-const exampleQuestions = [
-    {
-        id: 0,
-        title: 'Question0',
-        body: 'question0 body',
-        answer: undefined
+const exampleQuestions: QA[] = [
+  {
+    id: 0,
+    question: {
+      title: 'Question0',
+      body: 'question0 body'
     },
-    {
-        id: 1,
-        title: 'Question1',
-        body: 'question1 body',
-        answer: {
-            id: 0,
-            body: 'this is an answer',
-            rating: {
-                value: 4,
-                num_raters: 2
-            },
-            teacher_name: 'A name',
-            being_edited: false
-        }
+    answer: undefined
+  },
+  {
+    id: 1,
+    question: {
+      title: 'Question1',
+      body: 'question1 body'
+    },
+    answer: {
+      body: 'this is an answer',
+      rating: 4,
+      author: 'A name'
     }
+  }
 ];
 
+type State = {
+  qas: QA[],
+};
+
 class QAAdmin extends React.Component<RouteComponentProps, State> {
-    state = {
-        questions: exampleQuestions
-    };
+  state = {
+    qas: []
+  };
 
-    saveAnswer(newBody: string, qid: number): void {
-        // FIXME this is terrible, but I am afraid of changing state directly
-        // FIXME might be useful to get a better data structure for storing questions
-        const newQuestions = this.state.questions.slice();
-        for (let i = 0; i < newQuestions.length; i++) {
-            if (newQuestions[i].id === qid) {
-                let answer = newQuestions[i].answer;
-                if (answer) {
-                    answer.being_edited = false;
-                    answer.body = newBody;
-                } else {
-                    // FIXME figure out a way to give proper attributes
-                    answer = {
-                        id: 0,
-                        body: newBody,
-                        rating: {
-                            value: 5,
-                            num_raters: 0
-                        },
-                        teacher_name: 'NOBODY',
-                        being_edited: false
-                    };
-                    newQuestions[i].answer = answer;
-                }
-                break;
-            }
-        }
-        this.setState({questions: newQuestions});
-    }
+  componentDidMount () {
+    fetchQAs().then(qas => this.setState({ qas: qas }));
+  }
 
-    editAnswer(qid: number): void {
-        // FIXME this is terrible, but I am afraid of changing state directly
-        // FIXME might be useful to get a better data structure for storing questions
-        const newQuestions = this.state.questions.slice();
-        for (let i = 0; i < newQuestions.length; i++) {
-            if (newQuestions[i].id == qid) {
-                const answer = newQuestions[i].answer;
-                if (answer) {
-                    answer.being_edited = true;
-                }
-                break;
-            }
-        }
-        this.setState({questions: newQuestions});
-    }
-
-    componentDidMount() {
-        // TODO
-    }
-
-    render() {
-        // TODO ask roko if division in components and containers makes sense
-        return (
-            <NewLayout route={{
-                history: this.props.history,
-                location: this.props.location,
-                match: this.props.match,
-                staticContext: this.props.staticContext
-            }}>
-                <QAList
-                    data={this.state.questions}
-                    // FIXME find a better way to handle answerable
-                    answerable={true}
-                    saveAnswer={this.saveAnswer.bind(this)}
-                    editAnswer={this.editAnswer.bind(this)}
-                />
-            </NewLayout>);
-    }
+  render () {
+    return (
+      <NewLayout route={{
+        history: this.props.history,
+        location: this.props.location,
+        match: this.props.match,
+        staticContext: this.props.staticContext
+      }}>
+        <QAList qas={this.state.qas} answerable/>
+      </NewLayout>);
+  }
 }
 
 export default QAAdmin;
