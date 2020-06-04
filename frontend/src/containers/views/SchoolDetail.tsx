@@ -39,9 +39,43 @@ class SchoolDetail extends React.Component<RouteComponentProps> {
           staticContext: this.props.staticContext
         }}>
           <Card title={this.state.school.name}>
-            <div className={'school-picture'}><img alt="logo" src={this.state.school.img_src}/></div>
-            <div className={'school-description'}><p>{loremIpsum}</p></div>
-          </Card>
+                    <div className={'horizontal-table'}>
+                        <p className={'school-description'}>{loremIpsum}</p>
+                        <div className={"school-links"}>
+                            <div className={"vertical-table"}>
+                                <a href="https://www.google.com">Facebook</a><br/>
+                                <a href="https://www.google.com">Twitter</a><br/>
+                                <a href="https://www.google.com">Instagram</a>
+                            </div>
+                        </div>
+                        <img className={"school-picture"} alt="" src={this.state.school.img_src}/>
+                    </div>
+                </Card>
+
+                <table>
+                    <tr>
+                    <th className={"school-tour"}>
+                        <h1>School tour</h1>
+                        <iframe width="420" height="315"
+                          src="https://www.youtube.com/embed/TtNWXCwDs7o">
+                        </iframe>
+                    </th>
+                    <th className={"tag-fields"}>
+                        <table className={"new-table"}>
+                            <tr><th>Type</th></tr><tr>Type Pills</tr>
+                            <tr><th>Extracurricular</th></tr><tr>Pills</tr>
+                            <tr><th>Amenities</th></tr><tr>Pills</tr>
+                            <tr><th>Other</th></tr><tr>Pills</tr>
+                        </table>
+                    </th>
+                    <th className={"misc"}>
+                        <iframe src="https://calendar.google.com/calendar/embed?src=0dmsr8gecd94i4sjrdq18j96j4%40group.calendar.google.com&ctz=Europe%2FLondon"
+                                width="300" height="200" frameBorder="0" scrolling="no"/><br/>
+
+                                <iframe src="http://maps.google.com/maps?q=56.207862,-2.803599&z=15&output=embed"></iframe>
+                    </th>
+                    </tr>
+                </table>
         </NewLayout>
       );
     }
