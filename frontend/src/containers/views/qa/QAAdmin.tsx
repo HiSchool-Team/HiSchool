@@ -3,6 +3,7 @@ import React from 'react';
 import { QAList } from '../../../components/qa/QAList';
 import NewLayout from '../../NewLayout';
 import { RouteComponentProps } from 'react-router-dom';
+import { fetchQAs } from '../../../api';
 
 const exampleQuestions: QA[] = [
   {
@@ -28,70 +29,28 @@ const exampleQuestions: QA[] = [
 ];
 
 type State = {
-  questions: QA[],
+  qas: QA[],
 };
 
 class QAAdmin extends React.Component<RouteComponentProps, State> {
   state = {
-    questions: exampleQuestions
+    qas: []
   };
 
-  /*
-
-  saveAnswer (newBody: string, qid: number): void {
-    // FIXME this is terrible, but I am afraid of changing state directly
-    // FIXME might be useful to get a better data structure for storing questions
-    const newQuestions = this.state.questions.slice();
-    for (let i = 0; i < newQuestions.length; i++) {
-      if (newQuestions[i].id === qid) {
-        let answer = newQuestions[i].answer;
-        if (answer) {
-          answer.being_edited = false;
-          answer.body = newBody;
-        } else {
-          // FIXME figure out a way to give proper attributes
-          answer = {
-            id: 0,
-            body: newBody,
-            rating: {
-              value: 5,
-              num_raters: 0
-            },
-            teacher_name: 'NOBODY',
-            being_edited: false
-          };
-          newQuestions[i].answer = answer;
-        }
-        break;
-      }
-    }
-    this.setState({ questions: newQuestions });
-  }
-
-  editAnswer (qid: number): void {
-    // FIXME this is terrible, but I am afraid of changing state directly
-    // FIXME might be useful to get a better data structure for storing questions
-    const newQuestions = this.state.questions.slice();
-    for (let i = 0; i < newQuestions.length; i++) {
-      if (newQuestions[i].id == qid) {
-        const answer = newQuestions[i].answer;
-        if (answer) {
-          answer.being_edited = true;
-        }
-        break;
-      }
-    }
-    this.setState({ questions: newQuestions });
-  } */
-
   componentDidMount () {
-    // TODO
+    fetchQAs().then(qas => this.setState({ qas: qas }));
   }
 
   render () {
-    // TODO ask roko if division in components and containers makes sense
     return (
-      <QAList qas={this.state.questions} answerable/>);
+      <NewLayout route={{
+        history: this.props.history,
+        location: this.props.location,
+        match: this.props.match,
+        staticContext: this.props.staticContext
+      }}>
+        <QAList qas={this.state.qas} answerable/>
+      </NewLayout>);
   }
 }
 

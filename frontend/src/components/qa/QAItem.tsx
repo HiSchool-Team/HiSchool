@@ -60,8 +60,8 @@ const AnswerInputComponent = ({ defaultValue, onSubmit }: AnswerInputProps) => {
   const onFinish = ({ answerBody }: Store) => {
     onSubmit({
       body: answerBody,
-      author: 'exampleName',
-      rating: 0
+      author: 'The name of a teacher',
+      rating: Math.random() * 5
     });
   };
 

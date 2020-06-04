@@ -5,6 +5,7 @@ import { Card } from 'antd';
 import { QAList } from '../../../components/qa/QAList';
 import NewLayout from '../../NewLayout';
 import { RouteComponentProps } from 'react-router-dom';
+import { fetchQAs } from '../../../api';
 
 const exampleQAs: QA[] = [
   {
@@ -29,25 +30,28 @@ const exampleQAs: QA[] = [
   }
 ];
 
+export type QAUpdater = (qa: QA) => void;
+
 type State = {
   qas: QA[],
+  qasUpdaters: QAUpdater[],
 };
 
 class QAUser extends React.Component<RouteComponentProps, State> {
   state = {
-    qas: exampleQAs
+    qas: [],
+    qasUpdaters: []
   };
 
-  private fetchQuestions () {
-    // TODO
-  }
-
   componentDidMount () {
-    this.fetchQuestions();
+    fetchQAs().then(qas => this.setState({ qas: qas }));
   }
 
   render () {
+    console.log('Rerendering QAUser with state');
+    console.log(this.state);
     const view = (
+
       <NewLayout route={{
         history: this.props.history,
         location: this.props.location,
