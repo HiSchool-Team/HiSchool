@@ -33,7 +33,7 @@ class SchoolDetail extends React.Component<RouteComponentProps> {
             }}>
                 <Card title={this.state.school.name}>
                     <div className={'horizontal-table'}>
-                        <p className={'school-description'}>{this.state.school.description}</p>
+                        <p className={'school-description'}>{this.state.school.description}</p><br/>
                         <div style={{position: "absolute", bottom: "25px", display: "flex", alignItems: "strech"}}>
                             <a className={'qa-link'} style={{float: "left"}}
                                href={`${window.location.href}/qa`}>Questions & Answers </a>

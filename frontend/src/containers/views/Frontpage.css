@@ -1,6 +1,7 @@
 .hi-school {
     float: left;
     margin-left: 5%;
+    color: white;
     padding-top: 30vh;
     font-size: calc((60vw - 3rem) / 11);
 }
@@ -8,6 +9,7 @@
 .search-title {
     float: right;
     margin-right: 5%;
+    color: white;
     padding-top: 31.8vh;
     font-size: calc((60vw - 3rem) / 50);
 }
