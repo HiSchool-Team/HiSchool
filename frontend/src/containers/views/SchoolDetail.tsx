@@ -60,14 +60,14 @@ class SchoolDetail extends React.Component<RouteComponentProps> {
                         <th className={"tag-fields"}>
                             <table className={"new-table"}>
                                 <tr>
-                                    <th>Type</th>
+                                    <th style={{textAlign: "center"}}>Type</th>
                                 </tr>
                                 <tr>
                                     <th className={"pill"}>Public School</th>
                                     <th className={"pill"}>Boarding School</th>
                                 </tr>
                                 <tr>
-                                    <th>Extracurricular</th>
+                                    <th style={{textAlign: "center"}}>Extracurricular</th>
                                 </tr>
                                 <tr>
                                     <th className={"pill"}>Dueling Club</th>
@@ -77,7 +77,7 @@ class SchoolDetail extends React.Component<RouteComponentProps> {
                                     <th className={"pill"}>Astronomy Club</th>
                                 </tr>
                                 <tr>
-                                    <th>Amenities</th>
+                                    <th style={{textAlign: "center"}}>Amenities</th>
                                 </tr>
                                 <tr>
                                     <th className={"pill"}>Quidditch pitch</th>
@@ -86,7 +86,7 @@ class SchoolDetail extends React.Component<RouteComponentProps> {
                                     <th className={"pill"}>Dining Hall</th>
                                 </tr>
                                 <tr>
-                                    <th>Other</th>
+                                    <th style={{textAlign: "center"}}>Other</th>
                                 </tr>
                                 <tr className={"pill"}>Triwizard Tournament</tr>
                             </table>
