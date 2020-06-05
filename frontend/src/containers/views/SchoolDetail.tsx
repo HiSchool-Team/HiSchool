@@ -34,9 +34,16 @@ class SchoolDetail extends React.Component<RouteComponentProps> {
                 <Card title={this.state.school.name}>
                     <div className={'horizontal-table'}>
                         <p className={'school-description'}>{this.state.school.description}</p>
-                        <div style={{position: "absolute", bottom: "25px"}}>
-                            <a className={'qa-link'}
-                                href={`${window.location.href}/qa`}>Questions & Answers </a>
+                        <div style={{position: "absolute", bottom: "25px", display: "flex", alignItems: "strech"}}>
+                            <a className={'qa-link'} style={{float: "left"}}
+                               href={`${window.location.href}/qa`}>Questions & Answers </a>
+                            <div style={{float: "left", marginLeft: "20px", alignSelf: "center"}}>
+                                <b style={{float: "left", fontSize: "large"}}>School Motto:</b>
+                                <div
+                                    style={{marginLeft: "10px", float: "left", fontSize: "large", fontStyle: "italic"}}>
+                                    Draco Dormiens Numquam Titillandus
+                                </div>
+                            </div>
                         </div>
                         <div className={"school-links"}>
                             <div className={"vertical-table"}>
@@ -97,7 +104,7 @@ class SchoolDetail extends React.Component<RouteComponentProps> {
                                 width="300" height="200" frameBorder="0" scrolling="no"/>
                             <br/>
 
-                            <iframe src="http://maps.google.com/maps?q=56.207862,-2.803599&z=15&output=embed"></iframe>
+                            <iframe src="http://maps.google.com/maps?q=56.207862,-2.803599&z=15&output=embed"/>
                         </th>
                     </tr>
                 </table>
