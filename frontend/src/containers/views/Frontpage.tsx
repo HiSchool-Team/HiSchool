@@ -30,7 +30,7 @@ const Frontpage = (props: { children: React.ReactNode, }) => {
         width: '100%',
         zIndex: 4
       }}>
-        <div className={'logo-title'}>WhichSchool?</div>
+        <div className={'logo-title'}>HiSchool</div>
         <div style={{ textAlign: 'right' }}>
           <a style={{ margin: '8px' }} href={'/'}>Home</a>
           <a style={{ margin: '8px' }} href={'#MySchools'}>MySchools</a>
@@ -49,7 +49,7 @@ const Frontpage = (props: { children: React.ReactNode, }) => {
       </Layout>
 
       <body>
-        <p className="which-school"> WhichSchool?</p>
+        <p className="hi-school"> HiSchool</p>
         <p className="search-title"> Type the name of the school you wish to search
           <SearchBar handleSearch={handleEvent}/>
         </p>

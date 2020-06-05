@@ -106,7 +106,7 @@ const NewLayout = (props: { children: React.ReactNode, route: RouteComponentProp
           width: '100%',
           zIndex: 4
         }}>
-          <div className={'logo-title'}>WhichSchool?</div>
+          <div className={'logo-title'}>HiSchool</div>
           <div className={'search-bar'}>
             <SearchBar handleSearch={handleEvent}/>
           </div>
