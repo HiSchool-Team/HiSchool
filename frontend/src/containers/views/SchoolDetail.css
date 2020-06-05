@@ -39,6 +39,16 @@
     margin-left: 5%;
 }
 
+.qa-link {
+    background-color: red;
+    color: white;
+    padding: 1em 1.5em;
+}
+
+.qa-link:hover {
+    background-color: #555555;
+}
+
 
 .school-tour {
     text-align: center;

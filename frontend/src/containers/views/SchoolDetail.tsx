@@ -34,6 +34,10 @@ class SchoolDetail extends React.Component<RouteComponentProps> {
                 <Card title={this.state.school.name}>
                     <div className={'horizontal-table'}>
                         <p className={'school-description'}>{this.state.school.description}</p>
+                        <div style={{position: "absolute", bottom: "25px"}}>
+                            <a className={'qa-link'}
+                                href={`${window.location.href}/qa`}>Questions & Answers </a>
+                        </div>
                         <div className={"school-links"}>
                             <div className={"vertical-table"}>
                                 <a href="https://www.wizardingworld.com/">Website</a><br/>
