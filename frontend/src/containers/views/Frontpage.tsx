@@ -35,6 +35,8 @@ const Frontpage = (props: { children: React.ReactNode, }) => {
           <a style={{ margin: '8px' }} href={'/'}>Home</a>
           <a style={{ margin: '8px' }} href={'#MySchools'}>MySchools</a>
           <a style={{ margin: '8px' }} href={'#MyProfile'}>MyProfile</a>
+          <a style={{ margin: '8px' }} href={'/7/qa/'}>Questions&Answers</a>
+          <a style={{ margin: '8px' }} href={'/7/qa/admin/'}>Teacher View</a>
         </div>
       </Header>
       <Layout className="site-layout" style={{ marginLeft: 200 }}>
