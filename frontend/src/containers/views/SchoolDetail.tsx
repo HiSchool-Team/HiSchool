@@ -6,20 +6,34 @@ import NewLayout from '../NewLayout';
 import {RouteComponentProps} from 'react-router-dom';
 import './SchoolDetail.css';
 
+// TODO will go in as props in the future
+const types = ["Public School", "Boarding School"];
+const extracurriculars = ["Dueling Club", "Quiddich", "Charms Club", "Potions Club", "Astronomy Club"];
+const amenities = ["Quidditch Pitch", "Flying Grounds", "Hospital Wing", "Dining Hall"];
+const others = ["Triwizard Tournament"];
+
+const categories = [{name: "Type", value: types},
+  {name: "Extracurricular", value: extracurriculars},
+  {name: "Amenities", value: amenities},
+  {name: "Other", value: others}]
+
 class SchoolDetail extends React.Component<RouteComponentProps> {
   state = {
     school: {
       name: 'unset_name',
       description: 'unset_description',
       img_src: 'no_src'
-    }
+    },
+
+    clickedTags: []
   };
 
   componentDidMount() {
     let correctSchool = myData[0];
 
     this.setState({
-      school: correctSchool
+      school: correctSchool,
+      clickedTags: []
     });
   }
 
@@ -65,37 +79,20 @@ class SchoolDetail extends React.Component<RouteComponentProps> {
               </iframe>
             </th>
             <th className={"tag-fields"}>
-              <table className={"new-table"}>
-                <tr>
-                  <th style={{textAlign: "center"}}>Type</th>
-                </tr>
-                <tr>
-                  <th className={"pill"}>Public School</th>
-                  <th className={"pill"}>Boarding School</th>
-                </tr>
-                <tr>
-                  <th style={{textAlign: "center"}}>Extracurricular</th>
-                </tr>
-                <tr>
-                  <th className={"pill"}>Dueling Club</th>
-                  <th className={"pill"}>Quidditch</th>
-                  <th className={"pill"}>Charms Club</th>
-                  <th className={"pill"}>Potions Club</th>
-                  <th className={"pill"}>Astronomy Club</th>
-                </tr>
-                <tr>
-                  <th style={{textAlign: "center"}}>Amenities</th>
-                </tr>
-                <tr>
-                  <th className={"pill"}>Quidditch pitch</th>
-                  <th className={"pill"}>Flying Grounds</th>
-                  <th className={"pill"}>Hospital Wing</th>
-                  <th className={"pill"}>Dining Hall</th>
-                </tr>
-                <tr>
-                  <th style={{textAlign: "center"}}>Other</th>
-                </tr>
-                <tr className={"pill"}>Triwizard Tournament</tr>
+              <table style={{display: "flex", flexFlow: "column wrap", alignItems: "center"}}>
+                {categories.map(elem => {
+                  return (
+                    <div>
+                      <tr>
+                        <th style={{textAlign: "center"}}>{elem.name}</th>
+                      </tr>
+                      <tr>
+                        {elem.value.map(pill => {
+                          return <th key={pill} className={"pill"}>{pill}</th>
+                        })}
+                      </tr>
+                    </div>
+                  )})}
               </table>
             </th>
             <th className={"misc"}>
@@ -104,7 +101,7 @@ class SchoolDetail extends React.Component<RouteComponentProps> {
                 width="300" height="200" frameBorder="0" scrolling="no"/>
               <br/>
 
-              <iframe src="http://maps.google.com/maps?q=56.207862,-2.803599&z=15&output=embed"></iframe>
+              <iframe src="http://maps.google.com/maps?q=56.207862,-2.803599&z=15&output=embed"/>
             </th>
           </tr>
         </table>
