@@ -6,7 +6,7 @@ import NewLayout from '../NewLayout';
 import { RouteComponentProps } from 'react-router-dom';
 
 interface Props extends RouteComponentProps {
-    schools: School[],
+  schools: School[],
 }
 
 class SchoolList extends React.Component<Props> {
@@ -16,7 +16,7 @@ class SchoolList extends React.Component<Props> {
 
   render () {
     return (
-    // TODO check how route can be directly provided by Route. Change for every component implemented this way
+      // TODO check how route can be directly provided by Route. Change for every component implemented this way
       <NewLayout route={{
         history: this.props.history,
         location: this.props.location,
