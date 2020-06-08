@@ -10,20 +10,9 @@ type State = {
   schools: School[],
 };
 
-const testSchools: School[] = [
-  {
-    id: 0,
-    name: 'test school',
-    description: 'come here to learn how TODO',
-    student_satisfaction: 0,
-    parent_satisfaction: 0,
-    img_src: 'nopath'
-  }
-];
-
 class SavedSchools extends React.Component<RouteComponentProps, State> {
   state = {
-    schools: testSchools
+    schools: []
   };
 
   componentDidMount () {
@@ -38,9 +27,8 @@ class SavedSchools extends React.Component<RouteComponentProps, State> {
         match: this.props.match,
         staticContext: this.props.staticContext
       }}>
-        <Button>Test Button</Button>
-        {console.log('*\n*\n')}
-        {console.log(this.state.schools[0].description)}
+        <Button>My Questions</Button>
+        {console.log(this.state.schools.length)}
         <Schools data={this.state.schools}/>
       </NewLayout>
     );
