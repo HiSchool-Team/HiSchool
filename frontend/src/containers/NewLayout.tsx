@@ -13,6 +13,7 @@ const { Header, Content, Sider } = Layout;
 
 const NewLayout = (props: { children: React.ReactNode, route: RouteComponentProps, }) => {
   const [schools, setSchools] = useState();
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   useEffect(() => {
     console.log('New layout has mounted');
@@ -90,27 +91,28 @@ const NewLayout = (props: { children: React.ReactNode, route: RouteComponentProp
         >
 
           <div className="logo"/>
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} className="menu">
+          <Menu theme="dark" mode="inline" className="menu" multiple={true} defaultSelectedKeys={['4', '5']}
+                defaultOpenKeys={['1', '2', '3']}
+                onSelect={(x) => {setSelectedTags([...selectedTags, x.key])}}
+                onDeselect={(x) => {setSelectedTags(selectedTags.filter(key => key !== x.key))}}
+                selectedKeys={selectedTags}>
             <SubMenu key={"1"} title={"tags"}>
-              <Menu.Item key="8">Tag 1</Menu.Item>
-              <Menu.Item key="9">Tag 2</Menu.Item>
-              <Menu.Item key="10">Tag 3</Menu.Item>
-              <Menu.Item key="11">Tag 4</Menu.Item>
-              <Menu.Item key="12">Tag 5</Menu.Item>
+              <Menu.Item key={"10"}>Tag 1</Menu.Item>
+              <Menu.Item key={"11"}>Tag 2</Menu.Item>
+              <Menu.Item key={"12"}>Tag 3</Menu.Item>
+              <Menu.Item key={"13"}>Tag 4</Menu.Item>
             </SubMenu>
             <SubMenu key={"2"} title={"proximity"}>
-              <Menu.Item key="8">Tag 1</Menu.Item>
-              <Menu.Item key="9">Tag 2</Menu.Item>
-              <Menu.Item key="10">Tag 3</Menu.Item>
-              <Menu.Item key="11">Tag 4</Menu.Item>
-              <Menu.Item key="12">Tag 5</Menu.Item>
+              <Menu.Item key={"20"}>Tag 1</Menu.Item>
+              <Menu.Item key={"21"}>Tag 2</Menu.Item>
+              <Menu.Item key={"22"}>Tag 3</Menu.Item>
+              <Menu.Item key={"23"}>Tag 4</Menu.Item>
             </SubMenu>
             <SubMenu key={"3"} title={"user score"}>
-              <Menu.Item key="8">Tag 1</Menu.Item>
-              <Menu.Item key="9">Tag 2</Menu.Item>
-              <Menu.Item key="10">Tag 3</Menu.Item>
-              <Menu.Item key="11">Tag 4</Menu.Item>
-              <Menu.Item key="12">Tag 5</Menu.Item>
+              <Menu.Item key={"30"}>Tag 1</Menu.Item>
+              <Menu.Item key={"31"}>Tag 2</Menu.Item>
+              <Menu.Item key={"32"}>Tag 3</Menu.Item>
+              <Menu.Item key={"33"}>Tag 4</Menu.Item>
             </SubMenu>
           </Menu>
         </Sider>
