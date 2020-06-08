@@ -20,9 +20,8 @@ def return_json(request):
     if search_result:
         schools = schools.filter(name=search_result)
 
-    # ser = SchoolSerializer(schools) TODO Rishi
-    # return HttpResponse(ser.data, content_type='application/json')
-    return JsonResponse(list(schools.values()), safe=False)
+    ser = SchoolSerializer(schools, many=True)
+    return HttpResponse(renderers.JSONRenderer().render(ser.data), content_type='application/json')
 
 
 class SchoolSerializer(serializers.ModelSerializer):

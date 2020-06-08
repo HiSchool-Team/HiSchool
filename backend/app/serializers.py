@@ -4,12 +4,6 @@ from rest_framework.exceptions import ValidationError
 from .models import School, QA
 
 
-class SchoolSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = School
-        fields = ('name',)
-
-
 class QASerializer(serializers.ModelSerializer):
     class Meta:
         model = QA

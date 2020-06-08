@@ -152,7 +152,3 @@ REST_FRAMEWORK = {
 }
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'frontend', 'public', 'media')
-
-
-
-
