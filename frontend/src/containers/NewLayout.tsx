@@ -7,6 +7,7 @@ import SearchBar from '../components/SearchBar';
 import { School } from '../types';
 import Schools from '../components/Schools';
 import { RouteComponentProps } from 'react-router-dom';
+import SubMenu from 'antd/lib/menu/SubMenu';
 
 const { Header, Content, Sider } = Layout;
 
@@ -90,15 +91,27 @@ const NewLayout = (props: { children: React.ReactNode, route: RouteComponentProp
 
           <div className="logo"/>
           <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} className="menu">
-            <Menu.Item key="1">
-              tags
-            </Menu.Item>
-            <Menu.Item key="2">
-              proximity
-            </Menu.Item>
-            <Menu.Item key="3">
-              user score
-            </Menu.Item>
+            <SubMenu key={"1"} title={"tags"}>
+              <Menu.Item key="8">Tag 1</Menu.Item>
+              <Menu.Item key="9">Tag 2</Menu.Item>
+              <Menu.Item key="10">Tag 3</Menu.Item>
+              <Menu.Item key="11">Tag 4</Menu.Item>
+              <Menu.Item key="12">Tag 5</Menu.Item>
+            </SubMenu>
+            <SubMenu key={"2"} title={"proximity"}>
+              <Menu.Item key="8">Tag 1</Menu.Item>
+              <Menu.Item key="9">Tag 2</Menu.Item>
+              <Menu.Item key="10">Tag 3</Menu.Item>
+              <Menu.Item key="11">Tag 4</Menu.Item>
+              <Menu.Item key="12">Tag 5</Menu.Item>
+            </SubMenu>
+            <SubMenu key={"3"} title={"user score"}>
+              <Menu.Item key="8">Tag 1</Menu.Item>
+              <Menu.Item key="9">Tag 2</Menu.Item>
+              <Menu.Item key="10">Tag 3</Menu.Item>
+              <Menu.Item key="11">Tag 4</Menu.Item>
+              <Menu.Item key="12">Tag 5</Menu.Item>
+            </SubMenu>
           </Menu>
         </Sider>
         <Header style={{
