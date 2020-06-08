@@ -1,15 +1,15 @@
-import React, { Children, cloneElement, isValidElement, SyntheticEvent, useEffect, useState } from 'react';
-import { Layout, Menu } from 'antd';
+import React, {Children, cloneElement, isValidElement, SyntheticEvent, useEffect, useState} from 'react';
+import {Layout, Menu} from 'antd';
 import myData from '../newData.json';
 import './NewLayout.css';
 import history from '../history';
 import SearchBar from '../components/SearchBar';
-import { School } from '../types';
+import {School} from '../types';
 import Schools from '../components/Schools';
-import { RouteComponentProps } from 'react-router-dom';
+import {RouteComponentProps} from 'react-router-dom';
 import SubMenu from 'antd/lib/menu/SubMenu';
 
-const { Header, Content, Sider } = Layout;
+const {Header, Content, Sider} = Layout;
 
 const tags = ['football', 'rugby', 'cricket', 'swimming']
 
@@ -28,7 +28,7 @@ const NewLayout = (props: { children: React.ReactNode, route: RouteComponentProp
 
   const getSearchResult = () => {
     const qs = require('qs');
-    const queryParams = qs.parse(props.route.location.search, { ignoreQueryPrefix: true });
+    const queryParams = qs.parse(props.route.location.search, {ignoreQueryPrefix: true});
     return queryParams.search;
   };
 
@@ -63,7 +63,7 @@ const NewLayout = (props: { children: React.ReactNode, route: RouteComponentProp
     // https://stackoverflow.com/questions/42701129/how-to-push-to-history-in-react-router-v4
     history.push({
       pathname: '/schools/',
-      search: `?${new URLSearchParams({ search: value })}`
+      search: `?${new URLSearchParams({search: value})}`
     });
 
     updateDataIfSchoolList(value);
@@ -72,7 +72,7 @@ const NewLayout = (props: { children: React.ReactNode, route: RouteComponentProp
   // TODO see if there is a better way
   const childrenWithProps = Children.map(props.children, child => {
     if (isValidElement(child)) {
-      return cloneElement(child, { data: schools });
+      return cloneElement(child, {data: schools});
     }
     return child;
   });
@@ -94,8 +94,12 @@ const NewLayout = (props: { children: React.ReactNode, route: RouteComponentProp
 
           <div className="logo"/>
           <Menu theme="dark" mode="inline" className="menu" multiple={true}
-                onSelect={(x) => {setSelectedTags([...selectedTags, x.key])}}
-                onDeselect={(x) => {setSelectedTags(selectedTags.filter(key => key !== x.key))}}
+                onSelect={(x) => {
+                  setSelectedTags([...selectedTags, x.key])
+                }}
+                onDeselect={(x) => {
+                  setSelectedTags(selectedTags.filter(key => key !== x.key))
+                }}
                 selectedKeys={selectedTags}>
             <SubMenu key={"1"} title={"tags"}>
               {tags.map(elem => {
@@ -115,15 +119,15 @@ const NewLayout = (props: { children: React.ReactNode, route: RouteComponentProp
           <div className={'search-bar'}>
             <SearchBar handleSearch={handleEvent}/>
           </div>
-          <div style={{ textAlign: 'right' }}>
-            <a style={{ margin: '8px' }} href={'/'}>Home</a>
-            <a style={{ margin: '8px' }} href={'#MySchools'}>MySchools</a>
-            <a style={{ margin: '8px' }} href={'#MyProfile'}>MyProfile</a>
-            <a style={{ margin: '8px' }} href={'/7/qa/'}>Questions&Answers</a>
-            <a style={{ margin: '8px' }} href={'/7/qa/admin/'}>Teacher View</a>
+          <div style={{textAlign: 'right'}}>
+            <a style={{margin: '8px'}} href={'/'}>Home</a>
+            <a style={{margin: '8px'}} href={'#MySchools'}>MySchools</a>
+            <a style={{margin: '8px'}} href={'#MyProfile'}>MyProfile</a>
+            <a style={{margin: '8px'}} href={'/7/qa/'}>Questions&Answers</a>
+            <a style={{margin: '8px'}} href={'/7/qa/admin/'}>Teacher View</a>
           </div>
         </Header>
-        <Layout className="site-layout" style={{ marginLeft: 200 }}>
+        <Layout className="site-layout" style={{marginLeft: 200}}>
           <Content style={{
             margin: '64px 30px 24px 30px',
             overflow: 'initial'
