@@ -11,6 +11,8 @@ import SubMenu from 'antd/lib/menu/SubMenu';
 
 const { Header, Content, Sider } = Layout;
 
+const tags = ['football', 'rugby', 'cricket', 'swimming']
+
 const NewLayout = (props: { children: React.ReactNode, route: RouteComponentProps, }) => {
   const [schools, setSchools] = useState();
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
@@ -91,29 +93,17 @@ const NewLayout = (props: { children: React.ReactNode, route: RouteComponentProp
         >
 
           <div className="logo"/>
-          <Menu theme="dark" mode="inline" className="menu" multiple={true} defaultSelectedKeys={['4', '5']}
-                defaultOpenKeys={['1', '2', '3']}
+          <Menu theme="dark" mode="inline" className="menu" multiple={true}
                 onSelect={(x) => {setSelectedTags([...selectedTags, x.key])}}
                 onDeselect={(x) => {setSelectedTags(selectedTags.filter(key => key !== x.key))}}
                 selectedKeys={selectedTags}>
             <SubMenu key={"1"} title={"tags"}>
-              <Menu.Item key={"10"}>Tag 1</Menu.Item>
-              <Menu.Item key={"11"}>Tag 2</Menu.Item>
-              <Menu.Item key={"12"}>Tag 3</Menu.Item>
-              <Menu.Item key={"13"}>Tag 4</Menu.Item>
+              {tags.map(elem => {
+                return <Menu.Item key={elem}>{elem}</Menu.Item>
+              })}
             </SubMenu>
-            <SubMenu key={"2"} title={"proximity"}>
-              <Menu.Item key={"20"}>Tag 1</Menu.Item>
-              <Menu.Item key={"21"}>Tag 2</Menu.Item>
-              <Menu.Item key={"22"}>Tag 3</Menu.Item>
-              <Menu.Item key={"23"}>Tag 4</Menu.Item>
-            </SubMenu>
-            <SubMenu key={"3"} title={"user score"}>
-              <Menu.Item key={"30"}>Tag 1</Menu.Item>
-              <Menu.Item key={"31"}>Tag 2</Menu.Item>
-              <Menu.Item key={"32"}>Tag 3</Menu.Item>
-              <Menu.Item key={"33"}>Tag 4</Menu.Item>
-            </SubMenu>
+            <SubMenu key={"2"} title={"proximity"} disabled={true}/>
+            <SubMenu key={"3"} title={"user score"} disabled={true}/>
           </Menu>
         </Sider>
         <Header style={{
