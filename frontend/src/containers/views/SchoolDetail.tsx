@@ -104,7 +104,7 @@ class SchoolDetail extends React.Component<RouteComponentProps> {
                                 width="300" height="200" frameBorder="0" scrolling="no"/>
                             <br/>
 
-                            <iframe src="http://maps.google.com/maps?q=56.207862,-2.803599&z=15&output=embed"/>
+                            <iframe src="http://maps.google.com/maps?q=56.207862,-2.803599&z=15&output=embed"> </iframe>
                         </th>
                     </tr>
                 </table>
