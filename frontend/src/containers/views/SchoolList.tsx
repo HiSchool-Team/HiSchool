@@ -10,10 +10,6 @@ interface Props extends RouteComponentProps {
 }
 
 class SchoolList extends React.Component<Props> {
-  constructor (props: Props) {
-    super(props);
-  }
-
   render () {
     return (
     // TODO check how route can be directly provided by Route. Change for every component implemented this way

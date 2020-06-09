@@ -5,6 +5,8 @@ import myData from '../../newData.json'
 import NewLayout from '../NewLayout';
 import {RouteComponentProps} from 'react-router-dom';
 import './SchoolDetail.css';
+import {School} from "../../types";
+import Tooltip from 'antd/es/tooltip';
 
 // TODO will go in as props in the future
 const types = ["Public School", "Boarding School"];
@@ -17,15 +19,21 @@ const categories = [{name: "Type", value: types},
   {name: "Amenities", value: amenities},
   {name: "Other", value: others}]
 
+
+interface State {
+  school: School;
+}
+
 class SchoolDetail extends React.Component<RouteComponentProps> {
-  state = {
+  state: Readonly<State> = {
     school: {
+      id: 0,
       name: 'unset_name',
       description: 'unset_description',
+      student_satisfaction: 0,
+      parent_satisfaction: 0,
       img_src: 'no_src'
     },
-
-    clickedTags: []
   };
 
   componentDidMount() {
@@ -33,7 +41,6 @@ class SchoolDetail extends React.Component<RouteComponentProps> {
 
     this.setState({
       school: correctSchool,
-      clickedTags: []
     });
   }
 
@@ -48,7 +55,7 @@ class SchoolDetail extends React.Component<RouteComponentProps> {
         <Card title={this.state.school.name}>
           <div className={'horizontal-table'}>
             <p className={'school-description'}>{this.state.school.description}</p><br/>
-            <div style={{position: "absolute", bottom: "25px", display: "flex", alignItems: "strech"}}>
+            <div style={{position: "absolute", bottom: "25px", display: "flex"}}>
               <a className={'qa-link'} style={{float: "left"}}
                  href={`${window.location.href}/qa`}>Questions & Answers </a>
               <div style={{float: "left", marginLeft: "20px", alignSelf: "center"}}>
@@ -88,11 +95,15 @@ class SchoolDetail extends React.Component<RouteComponentProps> {
                       </tr>
                       <tr>
                         {elem.value.map(pill => {
-                          return <th key={pill} className={"pill"}>{pill}</th>
+                          // The search results go to tooltip
+                          return <Tooltip title={pill}>
+                            <th style={{flexShrink: 2}} className={"pill"}>{pill}</th>
+                          </Tooltip>
                         })}
                       </tr>
                     </div>
-                  )})}
+                  )
+                })}
               </table>
             </th>
             <th className={"misc"}>
