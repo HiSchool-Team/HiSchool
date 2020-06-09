@@ -2,10 +2,21 @@ from time import strftime
 
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
-import json
 
 
 # Create your models here.
+
+class Tag(models.Model):
+    name = models.CharField(max_length=50)
+    type = models.CharField(max_length=50,
+                            choices=[('TY', 'Type'),
+                                     ('EX', 'Extracurricular'),
+                                     ('AM', 'Amenities'),
+                                     ('OT', 'Other')])
+
+    def __str__(self):
+        return self.name
+
 
 class School(models.Model):
     id = models.AutoField(primary_key=True)
@@ -24,6 +35,7 @@ class School(models.Model):
         validators=[MinValueValidator(0), MaxValueValidator(5)]
     )
     img_src = models.ImageField(upload_to=strftime('photos/%Y/%m/%d'), null=True)
+    tags = models.ManyToManyField(Tag)
 
     def __str__(self):
         return self.name
@@ -58,5 +70,3 @@ class QA(models.Model):
     answer_author = models.CharField(max_length=255, null=True, default=None)
     answer_rating = models.IntegerField(null=True,
                                         default=None)  # FIXME the avg rating should be calculated across multiple ratings
-
-
