@@ -1,10 +1,12 @@
 import React from 'react';
 
-import { Card } from 'antd';
+import { Card, Col, Row } from 'antd';
 import myData from '../../newData.json';
 import NewLayout from '../NewLayout';
 import { RouteComponentProps } from 'react-router-dom';
 import './SchoolDetail.css';
+import Paragraph from 'antd/es/typography/Paragraph';
+import { StarOutlined } from '@ant-design/icons';
 
 class SchoolDetail extends React.Component<RouteComponentProps> {
   state = {
@@ -14,6 +16,16 @@ class SchoolDetail extends React.Component<RouteComponentProps> {
       img_src: 'no_src'
     }
   };
+
+  savedIcon () {
+    // TODO add retrieval of information based on user account
+    // and add <StarFilled /> return
+    return <StarOutlined style={{ fontSize: '2.71vw' }} onClick={e => this.changeSavedIcon()}/>;
+  }
+
+  changeSavedIcon () {
+    // TODO cause change of saved status for user account
+  }
 
   componentDidMount () {
     const correctSchool = myData[0];
@@ -32,45 +44,45 @@ class SchoolDetail extends React.Component<RouteComponentProps> {
         staticContext: this.props.staticContext
       }}>
         <Card title={this.state.school.name}>
-          <div className={'horizontal-table'}>
-            <p className={'school-description'}>{this.state.school.description}</p><br/>
-            <div style={{
-              position: 'absolute',
-              bottom: '25px',
-              display: 'flex',
-              alignItems: 'strech'
-            }}>
+          <Row>
+            <Col span={16}>
+              <Paragraph>
+                {this.state.school.description}
+              </Paragraph>
+            </Col>
+            <Col span={1}/>
+            <Col span={2}>
+              <a href="https://www.wizardingworld.com/">Website</a><br/>
+              <a href="https://www.google.com">Twitter</a><br/>
+              <a href="https://www.facebook.com/wizardingworld/">Facebook</a><br/>
+            </Col>
+            <Col span={5}>
+              <img className={'school-picture'} alt="" src={this.state.school.img_src}/>
+            </Col>
+          </Row>
+          <Row>
+            <Col span={2}>
+              <Paragraph strong style={{ fontSize: 'large' }}>School Motto:</Paragraph>
+            </Col>
+            <Col span={22}>
+              <Paragraph style={{
+                fontSize: 'large',
+                fontStyle: 'italic'
+              }}>
+                Draco Dormiens Numquam Titillandus
+              </Paragraph>
+            </Col>
+          </Row>
+          <Row>
+            <Col span={3}>
               <a className={'qa-link'} style={{ float: 'left' }}
                 href={`${window.location.href}/qa`}>Questions & Answers </a>
-              <div style={{
-                float: 'left',
-                marginLeft: '20px',
-                alignSelf: 'center'
-              }}>
-                <b style={{
-                  float: 'left',
-                  fontSize: 'large'
-                }}>School Motto:</b>
-                <div
-                  style={{
-                    marginLeft: '10px',
-                    float: 'left',
-                    fontSize: 'large',
-                    fontStyle: 'italic'
-                  }}>
-                  Draco Dormiens Numquam Titillandus
-                </div>
-              </div>
-            </div>
-            <div className={'school-links'}>
-              <div className={'vertical-table'}>
-                <a href="https://www.wizardingworld.com/">Website</a><br/>
-                <a href="https://www.google.com">Twitter</a><br/>
-                <a href="https://www.facebook.com/wizardingworld/">Facebook</a><br/>
-              </div>
-            </div>
-            <img className={'school-picture'} alt="" src={this.state.school.img_src}/>
-          </div>
+            </Col>
+            <Col span={1}/>
+            <Col span={20}>
+              {this.savedIcon()}
+            </Col>
+          </Row>
         </Card>
 
         <table>
