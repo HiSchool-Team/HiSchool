@@ -3,7 +3,7 @@ import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import NewLayout from '../../NewLayout';
 import Schools from '../../../components/Schools';
-import { Button } from 'antd';
+import { Button, Card } from 'antd'
 
 type State = {
   schools: School[],
@@ -32,8 +32,10 @@ class SavedSchools extends React.Component<RouteComponentProps, State> {
   render () {
     return (
       <NewLayout>
-        <Button>My Questions</Button>
-        <Schools data={this.state.schools}/>
+        <Card>
+          <Button  href='savedQuestions'>My Questions</Button>
+          <Schools data={this.state.schools}/>
+        </Card>
       </NewLayout>
     );
   }

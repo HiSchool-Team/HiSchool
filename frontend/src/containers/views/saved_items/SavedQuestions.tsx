@@ -1,10 +1,11 @@
 import React from 'react';
 import { QA } from '../../../types';
 import AskBar from '../../../components/qa/AskBar';
-import { Card } from 'antd';
+import { Button, Card } from 'antd'
 import { QAList } from '../../../components/qa/QAList';
 import NewLayout from '../../NewLayout';
 import { RouteComponentProps } from 'react-router-dom';
+import Schools from '../../../components/Schools'
 
 type State = {
   qas: QA[],
@@ -33,7 +34,10 @@ class SavedQuestions extends React.Component<RouteComponentProps, State> {
   render () {
     const view = (
       <NewLayout>
-        <QAList qas={this.state.qas} answerable={false}/>
+        <Card>
+          <Button  href='savedSchools'>My Schools</Button>
+          <QAList qas={this.state.qas} answerable={false}/>
+        </Card>
       </NewLayout>
     );
     return view;
