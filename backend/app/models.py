@@ -9,10 +9,10 @@ from django.db import models
 class Tag(models.Model):
     name = models.CharField(max_length=50)
     type = models.CharField(max_length=50,
-                            choices=[('TY', 'Type'),
-                                     ('EX', 'Extracurricular'),
-                                     ('AM', 'Amenities'),
-                                     ('OT', 'Other')])
+                            choices=[('Type', 'Type'),
+                                     ('Extracurricular', 'Extracurricular'),
+                                     ('Amenities', 'Amenities'),
+                                     ('Other', 'Other')])
 
     def __str__(self):
         return self.name

@@ -1,9 +1,9 @@
-from django.http import HttpResponse, JsonResponse
-from rest_framework import serializers, generics
+from django.http import HttpResponse
 from rest_framework import viewsets, renderers
+import json
 
-from .models import School, QA
-from .serializers import QASerializer
+from .models import School, QA, Tag
+from .serializers import QASerializer, SchoolSerializer, TagSerializer
 
 
 # Create your views here.
@@ -20,25 +20,14 @@ def return_json(request):
     if search_result:
         schools = schools.filter(name=search_result)
 
-    ser = SchoolSerializer(schools, many=True)
-    return HttpResponse(renderers.JSONRenderer().render(ser.data), content_type='application/json')
+    tags = Tag.objects.none()
+    for school in schools:
+        tags = tags | school.tags.all()
 
-
-class SchoolSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = School
-        fields = '__all__'
-
-
-class SchoolList(generics.ListAPIView):
-    serializer_class = SchoolSerializer
-
-    def get_queryset(self):
-        queryset = School.objects.all()
-        search = self.request.query_params.get('search', None)
-        if search is not None:
-            queryset = queryset.filter(name=search)
-        return queryset
+    schools_json = renderers.JSONRenderer().render(SchoolSerializer(schools, many=True).data)
+    tags_json = renderers.JSONRenderer().render(TagSerializer(tags, many=True).data)
+    tags_school = b'{ "schools": ' + schools_json + b', "tags": ' + tags_json + b' }'
+    return HttpResponse(tags_school, content_type='application/json')
 
 
 class QAViewSet(viewsets.ModelViewSet):
