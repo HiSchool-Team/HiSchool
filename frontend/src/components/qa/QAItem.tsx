@@ -3,7 +3,7 @@ import { Answer, QA, Question } from '../../types';
 import { StarRating } from '../Rating';
 import { Button, Col, Row, Input, Form } from 'antd';
 import styles from './QA.module.css';
-import { QuestionCircleTwoTone } from '@ant-design/icons/lib';
+import { QuestionCircleTwoTone, StarOutlined } from '@ant-design/icons/lib';
 import { Store } from 'antd/lib/form/interface';
 import { postQA, putQA } from '../../api';
 
@@ -13,6 +13,18 @@ type AnswerProps = {
   answer: Answer,
   answerable: boolean,
   onEdit: () => void,
+};
+
+// FIXME remove duplication with equivalent in SchoolDetails
+// TODO work out if the admin view should have this!
+const savedIcon = () => {
+  // TODO add retrieval of information based on user account
+  // and add <StarFilled /> return
+  return <StarOutlined style={{ fontSize: '1.9vw' }} onClick={e => changeSavedIcon()}/>;
+};
+
+const changeSavedIcon = () => {
+  // TODO cause change of saved status for user account
 };
 
 const AnswerComponent = ({ answer, answerable, onEdit }: AnswerProps) => {
@@ -35,13 +47,21 @@ const AnswerComponent = ({ answer, answerable, onEdit }: AnswerProps) => {
   return (
     <div className={styles.answerRating}>
       <Row>
-        <Col span={18}>
+        <Col span={24}>
           <h2>Answer</h2>
+        </Col>
+      </Row>
+      <Row>
+        <Col span={18}>
           <p>{answer.body}</p>
-          {answer.author && <p>{answer.author}</p>}
         </Col>
         <Col span={6}>
           {answerRating}
+        </Col>
+      </Row>
+      <Row>
+        <Col span={24}>
+          {answer.author && <p>{answer.author}</p>}
         </Col>
       </Row>
       {answerable &&
@@ -102,7 +122,10 @@ const QAItem = ({ qa, answerable }: Props) => {
   const [editing, setEditing] = React.useState(!currentQA.answer && answerable);
   const updateAnswer = (a: Answer) => {
     setCurrentQA(qa => {
-      const updatedQA: QA = { ...qa, answer: a };
+      const updatedQA: QA = {
+        ...qa,
+        answer: a
+      };
       putQA(updatedQA);
 
       return updatedQA;
@@ -137,7 +160,15 @@ const QAItem = ({ qa, answerable }: Props) => {
   return (
     <div>
       <div className={styles.questionTitle}>
-        <p><h2>{questionMarkIcon} {question.title}</h2></p>
+        <Row>
+          <Col span={17}>
+            <p><h2>{questionMarkIcon} {question.title}</h2></p>
+          </Col>
+          <Col span={1}/>
+          <Col span={6}>
+            {savedIcon()}
+          </Col>
+        </Row>
       </div>
       <p>{question.body}</p>
       <br/>
