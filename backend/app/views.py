@@ -1,9 +1,11 @@
-from django.http import HttpResponse, JsonResponse
-from rest_framework import serializers, generics
+from django.http import HttpResponse
+import django_filters
+from rest_framework import generics
 from rest_framework import viewsets, renderers
+from rest_framework.decorators import action
 
 from .models import School, QA
-from .serializers import QASerializer
+from .serializers import QASerializer, SchoolSerializer
 
 
 # Create your views here.
@@ -24,12 +26,6 @@ def return_json(request):
     return HttpResponse(renderers.JSONRenderer().render(ser.data), content_type='application/json')
 
 
-class SchoolSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = School
-        fields = '__all__'
-
-
 class SchoolList(generics.ListAPIView):
     serializer_class = SchoolSerializer
 
@@ -41,9 +37,21 @@ class SchoolList(generics.ListAPIView):
         return queryset
 
 
+# FIXME there might be some unnecassy repetition with school list, which can probably be merged into this
+class SchoolViewSet(viewsets.ModelViewSet):
+    renderers = [renderers.JSONRenderer]
+    authentication_classes = []
+
+    queryset = School.objects.all()
+    serializer_class = SchoolSerializer
+
+
 class QAViewSet(viewsets.ModelViewSet):
     renderer_classes = [renderers.JSONRenderer]  # Disables web view
     authentication_classes = []  # FIXME this drops authentication
 
     queryset = QA.objects.all()
     serializer_class = QASerializer
+
+    filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
+    filterset_fields =['recipient_school']

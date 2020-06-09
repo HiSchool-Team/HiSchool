@@ -50,6 +50,7 @@ class SchoolAccount(Account):
 # FIXME this is just to show that the database works but does not implement
 # any school separation
 class QA(models.Model):
+    recipient_school = models.ForeignKey(School, on_delete=models.CASCADE)
     question_title = models.TextField()
     question_body = models.TextField()
     question_author = models.CharField(max_length=255)
