@@ -6,6 +6,7 @@ import { QAList } from '../../../components/qa/QAList';
 import NewLayout from '../../NewLayout';
 import { RouteComponentProps } from 'react-router-dom';
 import { fetchQAs } from '../../../api';
+import {doNothing} from "../../../utils/utils";
 
 type State = {
   qas: QA[],
@@ -25,12 +26,7 @@ class QAUser extends React.Component<RouteComponentProps, State> {
     console.log(this.state);
     const view = (
 
-      <NewLayout route={{
-        history: this.props.history,
-        location: this.props.location,
-        match: this.props.match,
-        staticContext: this.props.staticContext
-      }}>
+      <NewLayout>
         <div>
           <Card>
             <AskBar/>

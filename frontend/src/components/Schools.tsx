@@ -24,16 +24,12 @@ const RepeatIcon = ({ label, icon, times }) => {
   );
 };
 
-type Props = {
-    data: School[],
-};
-
-const Schools = ({ data }: Props) => {
+const Schools = (props: { data: School[] | undefined }) => {
   return (
     <List
       itemLayout="vertical"
       size="large"
-      dataSource={data}
+      dataSource={props.data}
       renderItem={(item: School) => (
         <Card>
           <List.Item key={uuidv4()}>

@@ -7,14 +7,36 @@ import { RouteComponentProps } from 'react-router-dom';
 import './SchoolDetail.css';
 import Paragraph from 'antd/es/typography/Paragraph';
 import { StarOutlined } from '@ant-design/icons';
+import {School} from "../../types";
+import Tooltip from 'antd/es/tooltip';
+import {doNothing} from "../../utils/utils";
+
+// TODO will go in as props in the future
+const types = ["Public School", "Boarding School"];
+const extracurriculars = ["Dueling Club", "Quiddich", "Charms Club", "Potions Club", "Astronomy Club"];
+const amenities = ["Quidditch Pitch", "Flying Grounds", "Hospital Wing", "Dining Hall"];
+const others = ["Triwizard Tournament"];
+
+const categories = [{name: "Type", value: types},
+  {name: "Extracurricular", value: extracurriculars},
+  {name: "Amenities", value: amenities},
+  {name: "Other", value: others}]
+
+
+interface State {
+  school: School;
+}
 
 class SchoolDetail extends React.Component<RouteComponentProps> {
-  state = {
+  state: Readonly<State> = {
     school: {
+      id: 0,
       name: 'unset_name',
       description: 'unset_description',
+      student_satisfaction: 0,
+      parent_satisfaction: 0,
       img_src: 'no_src'
-    }
+    },
   };
 
   savedIcon () {
@@ -27,22 +49,17 @@ class SchoolDetail extends React.Component<RouteComponentProps> {
     // TODO cause change of saved status for user account
   }
 
-  componentDidMount () {
-    const correctSchool = myData[0];
+  componentDidMount() {
+    let correctSchool = myData[0];
 
     this.setState({
-      school: correctSchool
+      school: correctSchool,
     });
   }
 
-  render () {
+  render() {
     return (
-      <NewLayout route={{
-        history: this.props.history,
-        location: this.props.location,
-        match: this.props.match,
-        staticContext: this.props.staticContext
-      }}>
+      <NewLayout>
         <Card title={this.state.school.name}>
           <Row>
             <Col span={16}>
@@ -87,53 +104,40 @@ class SchoolDetail extends React.Component<RouteComponentProps> {
 
         <table>
           <tr>
-            <th className={'school-tour'}>
+            <th className={"school-tour"}>
               <h1>School tour</h1>
               <iframe width="420" height="315"
-                src="https://www.youtube.com/embed/TtNWXCwDs7o">
+                      src="https://www.youtube.com/embed/TtNWXCwDs7o">
               </iframe>
             </th>
-            <th className={'tag-fields'}>
-              <table className={'new-table'}>
-                <tr>
-                  <th style={{ textAlign: 'center' }}>Type</th>
-                </tr>
-                <tr>
-                  <th className={'pill'}>Public School</th>
-                  <th className={'pill'}>Boarding School</th>
-                </tr>
-                <tr>
-                  <th style={{ textAlign: 'center' }}>Extracurricular</th>
-                </tr>
-                <tr>
-                  <th className={'pill'}>Dueling Club</th>
-                  <th className={'pill'}>Quidditch</th>
-                  <th className={'pill'}>Charms Club</th>
-                  <th className={'pill'}>Potions Club</th>
-                  <th className={'pill'}>Astronomy Club</th>
-                </tr>
-                <tr>
-                  <th style={{ textAlign: 'center' }}>Amenities</th>
-                </tr>
-                <tr>
-                  <th className={'pill'}>Quidditch pitch</th>
-                  <th className={'pill'}>Flying Grounds</th>
-                  <th className={'pill'}>Hospital Wing</th>
-                  <th className={'pill'}>Dining Hall</th>
-                </tr>
-                <tr>
-                  <th style={{ textAlign: 'center' }}>Other</th>
-                </tr>
-                <tr className={'pill'}>Triwizard Tournament</tr>
+            <th className={"tag-fields"}>
+              <table style={{display: "flex", flexFlow: "column wrap", alignItems: "center"}}>
+                {categories.map(elem => {
+                  return (
+                    <div>
+                      <tr>
+                        <th style={{textAlign: "center"}}>{elem.name}</th>
+                      </tr>
+                      <tr>
+                        {elem.value.map(pill => {
+                          // The search results go to tooltip
+                          return <Tooltip title={pill}>
+                            <th style={{flexShrink: 2}} className={"pill"}>{pill}</th>
+                          </Tooltip>
+                        })}
+                      </tr>
+                    </div>
+                  )
+                })}
               </table>
             </th>
-            <th className={'misc'}>
+            <th className={"misc"}>
               <iframe
                 src="https://calendar.google.com/calendar/embed?src=0dmsr8gecd94i4sjrdq18j96j4%40group.calendar.google.com&ctz=Europe%2FLondon"
                 width="300" height="200" frameBorder="0" scrolling="no"/>
               <br/>
 
-              <iframe src="http://maps.google.com/maps?q=56.207862,-2.803599&z=15&output=embed"></iframe>
+              <iframe src="http://maps.google.com/maps?q=56.207862,-2.803599&z=15&output=embed"/>
             </th>
           </tr>
         </table>
