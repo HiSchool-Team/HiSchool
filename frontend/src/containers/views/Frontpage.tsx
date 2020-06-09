@@ -6,7 +6,7 @@ import Background from '../../images/background_image.jpg';
 
 import { Layout } from 'antd';
 import SearchBar from '../../components/SearchBar';
-import history from '../../history';
+import history from '../../utils/history';
 import { url } from 'inspector';
 
 // TODO check if this import is needed

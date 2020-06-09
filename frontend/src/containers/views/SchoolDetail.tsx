@@ -7,6 +7,7 @@ import {RouteComponentProps} from 'react-router-dom';
 import './SchoolDetail.css';
 import {School} from "../../types";
 import Tooltip from 'antd/es/tooltip';
+import {doNothing} from "../../utils/utils";
 
 // TODO will go in as props in the future
 const types = ["Public School", "Boarding School"];
@@ -46,12 +47,7 @@ class SchoolDetail extends React.Component<RouteComponentProps> {
 
   render() {
     return (
-      <NewLayout route={{
-        history: this.props.history,
-        location: this.props.location,
-        match: this.props.match,
-        staticContext: this.props.staticContext
-      }}>
+      <NewLayout>
         <Card title={this.state.school.name}>
           <div className={'horizontal-table'}>
             <p className={'school-description'}>{this.state.school.description}</p><br/>

@@ -1,5 +1,5 @@
-import {Location} from 'history';
 import history from "./history";
+import {Location} from "history";
 
 export const getSearchResult = (location: Location): string => {
   const qs = require('qs');
@@ -15,3 +15,5 @@ export const goToNewUrl = (basePath: string,
     search: `?${new URLSearchParams(searchParams)}`
   });
 }
+
+export const doNothing = () => {}
