@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework.decorators import action
 from rest_framework.exceptions import ValidationError
 
-from .models import School, QA
+from .models import School, QA, UserAccount
 
 
 class QASerializer(serializers.ModelSerializer):
@@ -69,3 +69,8 @@ class SchoolSerializer(serializers.ModelSerializer):
         model = School
         fields = '__all__'
 
+
+class UserAccountSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserAccount
+        fields = '__all__'

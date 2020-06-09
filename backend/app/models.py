@@ -1,14 +1,19 @@
 from time import strftime
 
+from django.contrib.auth.models import AbstractUser
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
-import json
 
 
-# Create your models here.
+class User(AbstractUser):
+    # FIXME Default should be false in both but left true for development purposes
+    is_user = models.BooleanField(default=True)
+    is_school = models.BooleanField(default=True)
+
 
 class School(models.Model):
     id = models.AutoField(primary_key=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     description = models.CharField(max_length=1000, default='')
     student_satisfaction = models.DecimalField(
@@ -29,24 +34,6 @@ class School(models.Model):
         return self.name
 
 
-# FIXME we probably should be relying on django built-in account system
-# the following is just for testing purposes
-class Account(models.Model):
-    email = models.EmailField
-    name = models.CharField(max_length=255)
-
-    class Meta:
-        abstract = True
-
-
-class UserAccount(Account):
-    pass
-
-
-class SchoolAccount(Account):
-    pass
-
-
 # FIXME this is just to show that the database works but does not implement
 # any school separation
 class QA(models.Model):
@@ -59,5 +46,11 @@ class QA(models.Model):
     answer_author = models.CharField(max_length=255, null=True, default=None)
     answer_rating = models.IntegerField(null=True,
                                         default=None)  # FIXME the avg rating should be calculated across multiple ratings
+
+
+class UserAccount(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    saved_schools = models.ManyToManyField(School, blank=True)
+    useful_qas = models.ManyToManyField(QA, blank=True)
 
 

@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import rest_framework
+from rest_framework import permissions
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Quick-start development settings - unsuitable for production
@@ -39,7 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'django_filters',
-    'crispy_forms'
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -74,12 +77,17 @@ DATABASES = {
     }
 }
 
+DATABASES['default'] = DATABASES['testdb']
+
 # http://stackoverflow.com/questions/4650509/different-db-for-testing-in-django
 import sys
 
 if 'test' in sys.argv:
     DATABASES['default'] = DATABASES['testdb']
 
+
+# Use custom definition of user account
+AUTH_USER_MODEL = 'app.User'
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
@@ -144,7 +152,7 @@ TEMPLATES = [
 # FIXME: Everyone can don anything
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [],
-    'DEFAULT_PERMISSION_CLASSES': [],
+    'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.AllowAny'],
     'UNAUTHENTICATED_USER': None,
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.

@@ -36,12 +36,7 @@ class QAView extends React.Component<RouteComponentProps<Params> & Props, State>
 
    const view = (
 
-     <NewLayout route={{
-       history: this.props.history,
-       location: this.props.location,
-       match: this.props.match,
-       staticContext: this.props.staticContext
-     }}>
+     <NewLayout route={this.props}>
        <div>
          <Card>
            {!this.props.isAdmin && <AskBar />}
