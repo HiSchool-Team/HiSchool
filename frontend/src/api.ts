@@ -1,8 +1,17 @@
 import { QA } from './types';
 import axios from 'axios';
 
-export const fetchQAs = (): Promise<QA[]> => {
+export const fetchAllQAs = (): Promise<QA[]> => {
   return axios.get('/app/api/qa/')
+    .then(res => res.data)
+    .catch((err) => {
+      alert('error when fetching QAs');
+      console.warn('error when fetching QAs', err);
+    });
+};
+
+export const fetchQAs = (school_id: number): Promise<QA[]> => {
+  return axios.get(`/app/api/qa/?recipient_school=${school_id}`)
     .then(res => res.data)
     .catch((err) => {
       alert('error when fetching QAs');
