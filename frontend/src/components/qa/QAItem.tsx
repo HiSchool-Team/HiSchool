@@ -1,11 +1,11 @@
 import React from 'react';
-import { Answer, QA, Question } from '../../types';
+import { Answer, QA } from '../../types';
 import { StarRating } from '../Rating';
 import { Button, Col, Row, Input, Form } from 'antd';
 import styles from './QA.module.css';
 import { QuestionCircleTwoTone, StarOutlined } from '@ant-design/icons/lib';
 import { Store } from 'antd/lib/form/interface';
-import { postQA, putQA } from '../../api';
+import { putQA } from '../../api';
 
 const { TextArea } = Input;
 
