@@ -1,4 +1,4 @@
-import { QA, Question } from '../../../types';
+import { QA } from '../../../types';
 import React from 'react';
 import { QAList } from '../../../components/qa/QAList';
 import NewLayout from '../../NewLayout';

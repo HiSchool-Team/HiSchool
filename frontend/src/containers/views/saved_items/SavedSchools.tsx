@@ -1,18 +1,28 @@
-import { QA, School } from '../../../types';
+import {School } from '../../../types';
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import NewLayout from '../../NewLayout';
 import Schools from '../../../components/Schools';
-import { fetchQAs } from '../../../api';
 import { Button } from 'antd';
 
 type State = {
   schools: School[],
 };
 
+const savedSchools: School[] = [
+  {
+    id: 0,
+    name: 'name',
+    description: 'description',
+    student_satisfaction: 1,
+    parent_satisfaction: 1,
+    img_src: 'N/A'
+  }
+];
+
 class SavedSchools extends React.Component<RouteComponentProps, State> {
   state = {
-    schools: []
+    schools: savedSchools
   };
 
   componentDidMount () {
@@ -28,7 +38,7 @@ class SavedSchools extends React.Component<RouteComponentProps, State> {
         staticContext: this.props.staticContext
       }}>
         <Button>My Questions</Button>
-        {console.log(this.state.schools.length)}
+        {console.log(this.state.schools)}
         <Schools data={this.state.schools}/>
       </NewLayout>
     );

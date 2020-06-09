@@ -7,12 +7,14 @@ import SchoolDetail from './containers/views/SchoolDetail';
 import QAUser from './containers/views/qa/QAUser';
 import QAAdmin from './containers/views/qa/QAAdmin';
 import SavedSchools from './containers/views/saved_items/SavedSchools'
+import SavedQuestions from './containers/views/saved_items/SavedQuestions'
 
 const BaseRouter = () => (
   <div className={'base-router'}>
     <Switch>
       <Route exact path={'/'} component={Frontpage}/>
       <Route exact path={'/schools'} component={SchoolList}/>
+      <Route exact path={'/savedQuestions'} component={SavedQuestions}/>
       <Route exact path={'/savedSchools'} component={SavedSchools}/>
       <Route exact path={'/:schoolID/qa'} component={QAUser}/>
       <Route exact path={'/:schoolID/qa/admin'} component={QAAdmin}/>
