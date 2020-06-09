@@ -1,4 +1,4 @@
-import {School } from '../../../types';
+import { School } from '../../../types';
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import NewLayout from '../../NewLayout';
@@ -31,14 +31,8 @@ class SavedSchools extends React.Component<RouteComponentProps, State> {
 
   render () {
     return (
-      <NewLayout route={{
-        history: this.props.history,
-        location: this.props.location,
-        match: this.props.match,
-        staticContext: this.props.staticContext
-      }}>
+      <NewLayout>
         <Button>My Questions</Button>
-        {console.log(this.state.schools)}
         <Schools data={this.state.schools}/>
       </NewLayout>
     );

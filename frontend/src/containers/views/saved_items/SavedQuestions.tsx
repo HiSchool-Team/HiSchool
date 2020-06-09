@@ -32,12 +32,7 @@ class SavedQuestions extends React.Component<RouteComponentProps, State> {
 
   render () {
     const view = (
-      <NewLayout route={{
-        history: this.props.history,
-        location: this.props.location,
-        match: this.props.match,
-        staticContext: this.props.staticContext
-      }}>
+      <NewLayout>
         <QAList qas={this.state.qas} answerable={false}/>
       </NewLayout>
     );

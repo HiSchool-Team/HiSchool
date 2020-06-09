@@ -7,24 +7,35 @@ import { RouteComponentProps } from 'react-router-dom';
 import './SchoolDetail.css';
 import Paragraph from 'antd/es/typography/Paragraph';
 import { StarOutlined } from '@ant-design/icons';
-import {School} from "../../types";
+import { School } from '../../types';
 import Tooltip from 'antd/es/tooltip';
-import {doNothing} from "../../utils/utils";
+import { doNothing } from '../../utils/utils';
 
 // TODO will go in as props in the future
-const types = ["Public School", "Boarding School"];
-const extracurriculars = ["Dueling Club", "Quiddich", "Charms Club", "Potions Club", "Astronomy Club"];
-const amenities = ["Quidditch Pitch", "Flying Grounds", "Hospital Wing", "Dining Hall"];
-const others = ["Triwizard Tournament"];
+const types = ['Public School', 'Boarding School'];
+const extracurriculars = ['Dueling Club', 'Quiddich', 'Charms Club', 'Potions Club', 'Astronomy Club'];
+const amenities = ['Quidditch Pitch', 'Flying Grounds', 'Hospital Wing', 'Dining Hall'];
+const others = ['Triwizard Tournament'];
 
-const categories = [{name: "Type", value: types},
-  {name: "Extracurricular", value: extracurriculars},
-  {name: "Amenities", value: amenities},
-  {name: "Other", value: others}]
-
+const categories = [{
+  name: 'Type',
+  value: types
+},
+{
+  name: 'Extracurricular',
+  value: extracurriculars
+},
+{
+  name: 'Amenities',
+  value: amenities
+},
+{
+  name: 'Other',
+  value: others
+}];
 
 interface State {
-  school: School;
+  school: School,
 }
 
 class SchoolDetail extends React.Component<RouteComponentProps> {
@@ -36,7 +47,7 @@ class SchoolDetail extends React.Component<RouteComponentProps> {
       student_satisfaction: 0,
       parent_satisfaction: 0,
       img_src: 'no_src'
-    },
+    }
   };
 
   savedIcon () {
@@ -49,15 +60,15 @@ class SchoolDetail extends React.Component<RouteComponentProps> {
     // TODO cause change of saved status for user account
   }
 
-  componentDidMount() {
-    let correctSchool = myData[0];
+  componentDidMount () {
+    const correctSchool = myData[0];
 
     this.setState({
-      school: correctSchool,
+      school: correctSchool
     });
   }
 
-  render() {
+  render () {
     return (
       <NewLayout>
         <Card title={this.state.school.name}>
@@ -104,34 +115,38 @@ class SchoolDetail extends React.Component<RouteComponentProps> {
 
         <table>
           <tr>
-            <th className={"school-tour"}>
+            <th className={'school-tour'}>
               <h1>School tour</h1>
               <iframe width="420" height="315"
-                      src="https://www.youtube.com/embed/TtNWXCwDs7o">
+                src="https://www.youtube.com/embed/TtNWXCwDs7o">
               </iframe>
             </th>
-            <th className={"tag-fields"}>
-              <table style={{display: "flex", flexFlow: "column wrap", alignItems: "center"}}>
+            <th className={'tag-fields'}>
+              <table style={{
+                display: 'flex',
+                flexFlow: 'column wrap',
+                alignItems: 'center'
+              }}>
                 {categories.map(elem => {
                   return (
                     <div>
                       <tr>
-                        <th style={{textAlign: "center"}}>{elem.name}</th>
+                        <th style={{ textAlign: 'center' }}>{elem.name}</th>
                       </tr>
                       <tr>
                         {elem.value.map(pill => {
                           // The search results go to tooltip
                           return <Tooltip title={pill}>
-                            <th style={{flexShrink: 2}} className={"pill"}>{pill}</th>
-                          </Tooltip>
+                            <th style={{ flexShrink: 2 }} className={'pill'}>{pill}</th>
+                          </Tooltip>;
                         })}
                       </tr>
                     </div>
-                  )
+                  );
                 })}
               </table>
             </th>
-            <th className={"misc"}>
+            <th className={'misc'}>
               <iframe
                 src="https://calendar.google.com/calendar/embed?src=0dmsr8gecd94i4sjrdq18j96j4%40group.calendar.google.com&ctz=Europe%2FLondon"
                 width="300" height="200" frameBorder="0" scrolling="no"/>
