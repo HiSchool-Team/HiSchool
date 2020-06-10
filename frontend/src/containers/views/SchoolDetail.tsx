@@ -119,52 +119,55 @@ class SchoolDetail extends React.Component<RouteComponentProps> {
           </Row>
         </Card>
 
-        <table>
-          <tr>
-            <th className={'school-tour'}>
-              <h1>School tour</h1>
-              <iframe width="420" height="315"
-                src="https://www.youtube.com/embed/TtNWXCwDs7o">
-              </iframe>
-            </th>
-            <th className={'tag-fields'}>
-              <table style={{
-                display: 'flex',
-                flexFlow: 'column wrap',
-                alignItems: 'center'
-              }}>
-                {categories.map(elem => {
-                  return (
-                    <div>
-                      <tr>
-                        <th style={{ textAlign: 'center' }}>{elem.name}</th>
-                      </tr>
-                      <tr>
-                        {elem.value.map(pill => {
-                          // The search results go to tooltip
-                          return <Tooltip title={"Click to find all schools with this tag"}>
-                            <th style={{ flexShrink: 2 }} className={'pill'}
-                                onClick={() => goToNewUrl(schoolListBasePath, {tags: pill})}>
-                              {pill}
-                            </th>
-                          </Tooltip>;
-                        })}
-                      </tr>
-                    </div>
-                  );
-                })}
-              </table>
-            </th>
-            <th className={'misc'}>
-              <iframe
-                src="https://calendar.google.com/calendar/embed?src=0dmsr8gecd94i4sjrdq18j96j4%40group.calendar.google.com&ctz=Europe%2FLondon"
-                width="300" height="200" frameBorder="0" scrolling="no"/>
-              <br/>
-
-              <iframe src="http://maps.google.com/maps?q=56.207862,-2.803599&z=15&output=embed"/>
-            </th>
-          </tr>
-        </table>
+        <div style={{display: 'flex', alignItems: "center",
+                     justifyContent: "space-evenly",
+                     flexFlow: 'row wrap'}}>
+          <div style={{
+            display: 'flex',
+            textAlign: "center",
+            flexFlow: "column nowrap"
+          }}>
+            <h1>School tour</h1>
+            <iframe width="420" height="315"
+                    src="https://www.youtube.com/embed/TtNWXCwDs7o">
+            </iframe>
+          </div>
+          <div style={{
+            display: 'flex',
+            flexFlow: 'column wrap',
+            alignItems: 'center'
+          }}>
+            {categories.map(elem => {
+              return (
+                <div>
+                  <div style={{textAlign: 'center'}}>
+                    {elem.name}
+                  </div>
+                  <div>
+                    {elem.value.map(pill => {
+                      return <Tooltip title={"Click to find all schools with this tag"}>
+                        <div style={{flexShrink: 2}} className={'pill'}
+                            onClick={() => goToNewUrl(schoolListBasePath, {tags: pill})}>
+                          {pill}
+                        </div>
+                      </Tooltip>;
+                    })}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <div style={{
+            display: 'flex',
+            flexFlow: 'column wrap',
+            alignItems: 'center'
+          }}>
+            <iframe
+              src="https://calendar.google.com/calendar/embed?src=0dmsr8gecd94i4sjrdq18j96j4%40group.calendar.google.com&ctz=Europe%2FLondon"
+              width="300" height="200" frameBorder="0" scrolling="no"/>
+            <iframe src="http://maps.google.com/maps?q=56.207862,-2.803599&z=15&output=embed"/>
+          </div>
+        </div>
       </NewLayout>
     );
   }
