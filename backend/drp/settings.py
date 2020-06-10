@@ -77,8 +77,6 @@ DATABASES = {
     }
 }
 
-DATABASES['default'] = DATABASES['testdb']
-
 # http://stackoverflow.com/questions/4650509/different-db-for-testing-in-django
 import sys
 
