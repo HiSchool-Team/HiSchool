@@ -74,7 +74,7 @@ class SchoolDetailAdmin extends React.Component<RouteComponentProps> {
 
     const pageTitleObject =
       <Row>
-        <Col span={24}>
+        <Col span={4}>
           <PageHeader title='School Page Editor'/>
         </Col>
       </Row>;
@@ -92,16 +92,15 @@ class SchoolDetailAdmin extends React.Component<RouteComponentProps> {
     const titleEditorSection =
       <div>
         <Row>
-          <Col span={24}>
+          <Col span={4} offset={5}>
             <h2>School Name</h2>
           </Col>
         </Row>
 
         <Row>
-          <Col span={9}>
+          <Col span={9} offset={5}>
             {titleEditorFormItem}
           </Col>
-          <Col span={15}/>
         </Row>
       </div>;
 
@@ -121,16 +120,15 @@ class SchoolDetailAdmin extends React.Component<RouteComponentProps> {
     const descriptionEditorSection =
       <div>
         <Row>
-          <Col span={24}>
+          <Col span={4} offset={5}>
             <h2>School Description</h2>
           </Col>
         </Row>
 
         <Row>
-          <Col span={15}>
+          <Col span={15} offset={5}>
             {descriptionEditorFormItem}
           </Col>
-          <Col span={9}/>
         </Row>
       </div>;
 
@@ -145,16 +143,15 @@ class SchoolDetailAdmin extends React.Component<RouteComponentProps> {
     const mottoEditorSection =
       <div>
         <Row>
-          <Col span={24}>
+          <Col span={4} offset={5}>
             <h2>School Motto (Optional)</h2>
           </Col>
         </Row>
 
         <Row>
-          <Col span={15}>
+          <Col span={15} offset={5}>
             {mottoEditorFormItem}
           </Col>
-          <Col span={9}/>
         </Row>
       </div>;
 
@@ -185,30 +182,27 @@ class SchoolDetailAdmin extends React.Component<RouteComponentProps> {
     const linkEditorSection =
       <div>
         <Row>
-          <Col span={24}>
+          <Col span={4} offset={5}>
             <h2>Links (Optional)</h2>
           </Col>
         </Row>
 
         <Row>
-          <Col span={15}>
+          <Col span={15} offset={5}>
             {websiteLinkFormItem}
           </Col>
-          <Col span={9}/>
         </Row>
 
         <Row>
-          <Col span={15}>
+          <Col span={15} offset={5}>
             {facebookLinkFormItem}
           </Col>
-          <Col span={9}/>
         </Row>
 
         <Row>
-          <Col span={15}>
+          <Col span={15} offset={5}>
             {twitterLinkFormItem}
           </Col>
-          <Col span={9}/>
         </Row>
       </div>;
 
@@ -223,16 +217,15 @@ class SchoolDetailAdmin extends React.Component<RouteComponentProps> {
     const videoLinkFormSection =
       <div>
         <Row>
-          <Col span={24}>
+          <Col span={4} offset={5}>
             <h2>School Video Youtube Link (Optional)</h2>
           </Col>
         </Row>
 
         <Row>
-          <Col span={15}>
+          <Col span={15} offset={5}>
             {videoLinkFormItem}
           </Col>
-          <Col span={9}/>
         </Row>
       </div>;
 
@@ -247,16 +240,15 @@ class SchoolDetailAdmin extends React.Component<RouteComponentProps> {
     const calendarLinkSection =
       <div>
         <Row>
-          <Col span={24}>
+          <Col span={4} offset={5}>
             <h2>School Google Calendar Link (Optional)</h2>
           </Col>
         </Row>
 
         <Row>
-          <Col span={15}>
+          <Col span={15} offset={5}>
             {calendarLinkFormItem}
           </Col>
-          <Col span={9}/>
         </Row>
       </div>;
 
@@ -271,22 +263,21 @@ class SchoolDetailAdmin extends React.Component<RouteComponentProps> {
     const mapLinkSection =
       <div>
         <Row>
-          <Col span={24}>
+          <Col span={4} offset={5}>
             <h2>School Google Maps Link (Optional)</h2>
           </Col>
         </Row>
 
         <Row>
-          <Col span={15}>
+          <Col span={15} offset={5}>
             {mapLinkFormItem}
           </Col>
-          <Col span={9}/>
         </Row>
       </div>;
 
     const saveButton =
       <Row>
-        <Col span={24}>
+        <Col span={4} offset={5}>
           <Form.Item>
             <Button type="primary"
               htmlType="submit">
