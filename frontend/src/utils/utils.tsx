@@ -1,10 +1,9 @@
 import history from "./history";
 import {Location} from "history";
 
-export const getSearchResult = (location: Location): string => {
+export const getSearchResult = (location: Location): Record<string, string> => {
   const qs = require('qs');
-  const queryParams = qs.parse(location.search, {ignoreQueryPrefix: true});
-  return queryParams.search;
+  return qs.parse(location.search, {ignoreQueryPrefix: true});
 };
 
 export const goToNewUrl = (basePath: string,
