@@ -21,11 +21,13 @@ const NewLayout = (props: {
   const [tagTypes, setTagTypes] = useState<Set<string>>(new Set());
 
   useEffect(() => {
-    const newTypes = new Set<string>(tagTypes);
-    props.tags?.forEach(tag => {
-      newTypes.add(tag.type);
-    })
-    setTagTypes(newTypes);
+    setTagTypes(prevTagTypes => {
+      const newTypes = new Set<string>(prevTagTypes);
+      props.tags?.forEach(tag => {
+        newTypes.add(tag.type);
+      })
+      return newTypes;
+    });
   }, [props.tags])
 
   const updateDisplayedSchools = (newSelectedTags: string[]): void => {
