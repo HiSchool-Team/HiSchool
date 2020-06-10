@@ -27,6 +27,11 @@ const NewLayout = (props: {
     setTagTypes(newTypes);
   }, [props.tags])
 
+  const updateDisplayedSchools = (newSelectedTags: string[]): void => {
+    setSelectedTags(newSelectedTags);
+    props.updateDisplayedSchool?.(newSelectedTags.map(tag => parseInt(tag)));
+  }
+
   return (
     <div>
       <Layout>
@@ -45,14 +50,10 @@ const NewLayout = (props: {
           <div className="logo"/>
           <Menu theme="dark" mode="inline" className="menu" multiple={true}
                 onSelect={(x) => {
-                  let newSelectedTags = [...selectedTags, x.key];
-                  setSelectedTags(newSelectedTags);
-                  props.updateDisplayedSchool?.(newSelectedTags.map(tag => parseInt(tag)));
+                  updateDisplayedSchools([...selectedTags, x.key]);
                 }}
                 onDeselect={(x) => {
-                  let newSelectedTags = selectedTags.filter(key => key !== x.key);
-                  setSelectedTags(newSelectedTags);
-                  props.updateDisplayedSchool?.(newSelectedTags.map(tag => parseInt(tag)));
+                  updateDisplayedSchools(selectedTags.filter(key => key !== x.key));
                 }}
                 selectedKeys={selectedTags}>
 
