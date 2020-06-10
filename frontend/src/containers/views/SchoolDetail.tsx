@@ -78,45 +78,47 @@ class SchoolDetail extends React.Component<RouteComponentProps> {
     return (
       <NewLayout>
         <Card title={this.state.school.name}>
-          <Row>
-            <Col span={16}>
-              <Paragraph>
-                {this.state.school.description}
-              </Paragraph>
-            </Col>
-            <Col span={1}/>
-            <Col span={2}>
+          <div style={{
+            display: "flex",
+            flexFlow: "row nowrap",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}>
+            <div style={{alignSelf: "flex-start", width: "75%"}}>
+              {this.state.school.description}
+            </div>
+            <div style={{
+              padding: "2px 15px 2px 15px"
+            }}>
               <a href="https://www.wizardingworld.com/">Website</a><br/>
               <a href="https://www.google.com">Twitter</a><br/>
               <a href="https://www.facebook.com/wizardingworld/">Facebook</a><br/>
-            </Col>
-            <Col span={5}>
-              <img className={'school-picture'} alt="" src={this.state.school.img_src}/>
-            </Col>
-          </Row>
-          <Row>
-            <Col span={2}>
-              <Paragraph strong style={{ fontSize: 'large' }}>School Motto:</Paragraph>
-            </Col>
-            <Col span={22}>
-              <Paragraph style={{
-                fontSize: 'large',
-                fontStyle: 'italic'
-              }}>
-                Draco Dormiens Numquam Titillandus
-              </Paragraph>
-            </Col>
-          </Row>
-          <Row>
-            <Col span={3}>
-              <a className={'qa-link'} style={{ float: 'left' }}
-                href={`${window.location.href}/qa`}>Questions & Answers </a>
-            </Col>
-            <Col span={1}/>
-            <Col span={20}>
+            </div>
+            <img style={{width: "20%"}} src={this.state.school.img_src}/>
+          </div>
+          <div style={{
+            display: "flex",
+            alignItems: "center",
+          }}>
+            <Paragraph strong style={{fontSize: 'large'}}>School Motto:</Paragraph>
+            <Paragraph style={{
+              fontSize: 'large',
+              fontStyle: 'italic'
+            }}>
+              Draco Dormiens Numquam Titillandus
+            </Paragraph>
+          </div>
+          <div style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}>
+            <a className={'qa-link'} style={{float: 'left'}}
+               href={`${window.location.href}/qa`}>Questions & Answers </a>
+            <div>
               {this.savedIcon()}
-            </Col>
-          </Row>
+            </div>
+          </div>
         </Card>
 
         <div style={{display: 'flex', alignItems: "center",
