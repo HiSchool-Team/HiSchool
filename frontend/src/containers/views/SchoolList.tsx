@@ -9,8 +9,7 @@ import {getSearchResult} from '../../utils/utils';
 const SchoolList = () => {
   const [schools, setSchools] = useState<School[]>();
   const [displayedSchools, setDisplayedSchools] = useState<School[]>();
-  const [tags, setTags] = useState<Set<Tag>>(new Set());
-
+  const [tags, setTags] = useState<Tag[]>([]); // Set would be better but no custom equality for now
   const location = useLocation();
 
   useEffect(() => {
@@ -30,37 +29,43 @@ const SchoolList = () => {
       const newSchoolData = resp.data.schools.map(school => (
         {
           ...school,
-          img_src: `/static/media/${school.img_src}`
+          tags: new Set<number>(school.tags),
+          img_src: `/static/media/${school.img_src}`,
         })
       );
       console.log(newSchoolData);
       console.log(resp.data.tags);
       setSchools(newSchoolData);
-      setTags(new Set(resp.data.tags));
+      const uniqueTags: Tag[] = [];
+      resp.data.tags.forEach(tag => {
+        if (!containsTagWithId(tag.id, uniqueTags)) {
+          uniqueTags.push(tag);
+        }
+      })
+      setTags(uniqueTags);
+      console.log(uniqueTags);
       setDisplayedSchools(newSchoolData);
     });
   };
 
-  const findTagById = (id: number): Tag => {
-    tags.forEach(tag => {
+  const containsTagWithId = (id: number, tags: Tag[]): boolean => {
+    for (const tag of tags) {
       if (tag.id === id) {
-        return tag;
+        return true;
       }
-    })
-    alert("Tag has not been found");
-    return tags.values().next().value;
+    }
+    return false;
   }
 
   const changeDisplay = (selectedTags: number[]): void => {
-    const newlySelectedSchools = schools?.filter(school => {
-      return selectedTags.map(tagId => school.tags.has(findTagById(tagId)))
-        .reduce((a, b) => a && b, true);
-    })
+    const newlySelectedSchools = schools?.filter(school =>
+      selectedTags.map(tag => school.tags.has(tag)).reduce((a, b) => a && b, true)
+    );
     setDisplayedSchools(newlySelectedSchools);
   }
 
   return (
-    <NewLayout updateDisplayedSchool={changeDisplay} tags={Array.from(tags)} searchClick={reloadResults}>
+    <NewLayout updateDisplayedSchool={changeDisplay} tags={tags} searchClick={reloadResults}>
       <Schools data={displayedSchools}/>
     </NewLayout>
   );

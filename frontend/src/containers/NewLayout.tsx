@@ -45,12 +45,14 @@ const NewLayout = (props: {
           <div className="logo"/>
           <Menu theme="dark" mode="inline" className="menu" multiple={true}
                 onSelect={(x) => {
-                  setSelectedTags([...selectedTags, x.key]);
-                  props.updateDisplayedSchool?.(selectedTags.map(tag => parseInt(tag)));
+                  let newSelectedTags = [...selectedTags, x.key];
+                  setSelectedTags(newSelectedTags);
+                  props.updateDisplayedSchool?.(newSelectedTags.map(tag => parseInt(tag)));
                 }}
                 onDeselect={(x) => {
-                  setSelectedTags(selectedTags.filter(key => key !== x.key));
-                  props.updateDisplayedSchool?.(selectedTags.map(tag => parseInt(tag)));
+                  let newSelectedTags = selectedTags.filter(key => key !== x.key);
+                  setSelectedTags(newSelectedTags);
+                  props.updateDisplayedSchool?.(newSelectedTags.map(tag => parseInt(tag)));
                 }}
                 selectedKeys={selectedTags}>
 

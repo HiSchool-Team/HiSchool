@@ -46,7 +46,7 @@ class SchoolDetail extends React.Component<RouteComponentProps> {
       student_satisfaction: 0,
       parent_satisfaction: 0,
       img_src: 'no_src',
-      tags: new Set<Tag>(),
+      tags: new Set<number>(),
     }
   };
 

@@ -17,7 +17,7 @@ const savedSchools: School[] = [
     student_satisfaction: 1,
     parent_satisfaction: 1,
     img_src: 'N/A',
-    tags: new Set<Tag>(),
+    tags: new Set<number>(),
   }
 ];
 
