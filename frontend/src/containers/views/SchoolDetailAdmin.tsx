@@ -44,7 +44,8 @@ class SchoolDetailAdmin extends React.Component<RouteComponentProps> {
       description: 'unset_description',
       student_satisfaction: 0,
       parent_satisfaction: 0,
-      img_src: 'no_src'
+      img_src: 'no_src',
+      tags: new Set<number>(),
     }
   };
 
