@@ -15,7 +15,7 @@ export const fetchQAs = (school_id: number): Promise<QA[]> => {
     .then(res => res.data)
     .catch((err) => {
       alert('error when fetching QAs');
-      console.warn('error when fetching QAs', err);
+      console.warn(`error when fetching QAs for school with id ${school_id}`, err);
     });
 };
 

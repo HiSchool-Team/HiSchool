@@ -6,7 +6,7 @@ import Background from '../../images/background_image.jpg';
 
 import { Layout } from 'antd';
 import SearchBar from '../../components/SearchBar';
-import history from '../../history';
+import history from '../../utils/history';
 import { url } from 'inspector';
 
 // TODO check if this import is needed
@@ -33,7 +33,7 @@ const Frontpage = (props: { children: React.ReactNode, }) => {
         <div className={'logo-title'}>HiSchool</div>
         <div style={{ textAlign: 'right' }}>
           <a style={{ margin: '8px' }} href={'/'}>Home</a>
-          <a style={{ margin: '8px' }} href={'#MySchools'}>MySchools</a>
+          <a style={{ margin: '8px' }} href={'/savedSchools'}>MySchools</a>
           <a style={{ margin: '8px' }} href={'#MyProfile'}>MyProfile</a>
           <a style={{ margin: '8px' }} href={'/7/qa/'}>Questions&Answers</a>
           <a style={{ margin: '8px' }} href={'/7/qa/admin/'}>Teacher View</a>
