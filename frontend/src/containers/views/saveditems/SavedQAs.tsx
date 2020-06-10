@@ -4,7 +4,7 @@ import AskBar from '../../../components/qa/AskBar';
 import { Button, Card } from 'antd';
 import { QAList } from '../../../components/qa/QAList';
 import NewLayout from '../../NewLayout';
-import user from '../../../api/user';
+import userAPI from '../../../api/UserAPI';
 
 const testQuestions: QA[] = [
   {
@@ -20,7 +20,7 @@ const testQuestions: QA[] = [
 const SavedQAs = () => {
   const [qas, setQAs] = useState(new Array<QA>());
   useEffect(() => {
-    user.getSavedQAs().then(qas => setQAs(qas));
+    userAPI.getSavedQAs().then(qas => setQAs(qas));
   }, []);
 
   return (

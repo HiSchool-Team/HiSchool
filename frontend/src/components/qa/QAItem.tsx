@@ -5,8 +5,8 @@ import { Button, Col, Form, Input, Row } from 'antd';
 import styles from './QA.module.css';
 import { QuestionCircleTwoTone } from '@ant-design/icons/lib';
 import { Store } from 'antd/lib/form/interface';
-import { putQA } from '../../api/qa';
-import user from '../../api/user';
+import { putQA } from '../../api/QA';
+import userAPI from '../../api/UserAPI';
 import { SavedIcon } from '../SavedIcon';
 
 const { TextArea } = Input;
@@ -114,7 +114,7 @@ const QAItem = ({ qa, answerable }: Props) => {
 
   // Configures initial value of saved state
   useEffect(() => {
-    user.hasSavedQA(qa).then(isSaved => {
+    userAPI.hasSavedQA(qa).then(isSaved => {
       console.log(`setting saved to ${isSaved}`);
       setSaved(isSaved);
     });
@@ -135,12 +135,12 @@ const QAItem = ({ qa, answerable }: Props) => {
   const toggleEditing = () => setEditing(e => !e);
 
   const userSave = () => {
-    user.saveQA(qa);
+    userAPI.saveQA(qa);
     setSaved(true);
   };
 
   const userUnsave = () => {
-    user.unsaveQA(qa);
+    userAPI.unsaveQA(qa);
     setSaved(false);
   };
 

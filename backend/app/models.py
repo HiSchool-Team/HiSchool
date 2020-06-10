@@ -11,6 +11,18 @@ class User(AbstractUser):
     is_school = models.BooleanField(default=True)
 
 
+class Tag(models.Model):
+    name = models.CharField(max_length=50)
+    type = models.CharField(max_length=50,
+                            choices=[('Type', 'Type'),
+                                     ('Extracurricular', 'Extracurricular'),
+                                     ('Amenities', 'Amenities'),
+                                     ('Other', 'Other')])
+
+    def __str__(self):
+        return self.name
+
+
 class School(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -29,6 +41,7 @@ class School(models.Model):
         validators=[MinValueValidator(0), MaxValueValidator(5)]
     )
     img_src = models.ImageField(upload_to=strftime('photos/%Y/%m/%d'), null=True)
+    tags = models.ManyToManyField(Tag)
 
     def __str__(self):
         return self.name

@@ -5,7 +5,7 @@ import { Card } from 'antd';
 import { QAList } from '../../components/qa/QAList';
 import NewLayout from '../NewLayout';
 import { RouteComponentProps, useParams } from 'react-router-dom';
-import { fetchAllQAs, fetchQAs } from '../../api/qa';
+import { fetchAllQAs, fetchQAs } from '../../api/QA';
 
 type Props = {
   isAdmin: boolean,

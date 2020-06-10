@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Button, Card, Col, Form, Input, PageHeader, Row } from 'antd';
-import myData from '../../newData.json';
+import data from '../../newData';
 import NewLayout from '../NewLayout';
 import { RouteComponentProps } from 'react-router-dom';
 import './SchoolDetail.css';
@@ -44,12 +44,13 @@ class SchoolDetailAdmin extends React.Component<RouteComponentProps> {
       description: 'unset_description',
       student_satisfaction: 0,
       parent_satisfaction: 0,
-      img_src: 'no_src'
+      img_src: 'no_src',
+      tags: new Set<number>()
     }
   };
 
   componentDidMount () {
-    const correctSchool = myData[0];
+    const correctSchool = data[0];
 
     this.setState({
       school: correctSchool

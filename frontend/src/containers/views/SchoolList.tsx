@@ -1,21 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 
 import Schools from '../../components/Schools';
-import { School } from '../../types';
+import {School, Tag} from '../../types';
 import NewLayout from '../NewLayout';
-import { useLocation } from 'react-router-dom';
-import { getSearchResult } from '../../utils/utils';
+import {useLocation} from 'react-router-dom';
+import {getSearchResult} from '../../utils/utils';
 
 const SchoolList = () => {
   const [schools, setSchools] = useState<School[]>();
-
+  const [displayedSchools, setDisplayedSchools] = useState<School[]>();
+  const [tags, setTags] = useState<Tag[]>([]); // Set would be better but no custom equality for now
   const location = useLocation();
 
   useEffect(() => {
     reloadResults(getSearchResult(location));
   }, []);
 
-  const reloadResults = (value: string) => {
+  const reloadResults = (value: string): void => {
     console.log('data requested');
 
     const axios = require('axios');
@@ -24,21 +25,48 @@ const SchoolList = () => {
       params: {
         search: value
       }
-    }).then((resp: { data: School[], }) => {
-      const newData = resp.data.map(school => (
+    }).then((resp: { data: { schools: School[], tags: Tag[] } }) => {
+      const newSchoolData = resp.data.schools.map(school => (
         {
           ...school,
-          img_src: `/static/media/${school.img_src}`
+          tags: new Set<number>(school.tags),
+          img_src: `/static/media/${school.img_src}`,
         })
       );
-      console.log(newData);
-      setSchools(newData);
+      console.log(newSchoolData);
+      console.log(resp.data.tags);
+      setSchools(newSchoolData);
+      const uniqueTags: Tag[] = [];
+      resp.data.tags.forEach(tag => {
+        if (!containsTagWithId(tag.id, uniqueTags)) {
+          uniqueTags.push(tag);
+        }
+      })
+      setTags(uniqueTags);
+      console.log(uniqueTags);
+      setDisplayedSchools(newSchoolData);
     });
   };
 
+  const containsTagWithId = (id: number, tags: Tag[]): boolean => {
+    for (const tag of tags) {
+      if (tag.id === id) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  const changeDisplay = (selectedTags: number[]): void => {
+    const newlySelectedSchools = schools?.filter(school =>
+      selectedTags.map(tag => school.tags.has(tag)).reduce((a, b) => a && b, true)
+    );
+    setDisplayedSchools(newlySelectedSchools);
+  }
+
   return (
-    <NewLayout searchClick={reloadResults}>
-      <Schools data={schools}/>
+    <NewLayout updateDisplayedSchool={changeDisplay} tags={tags} searchClick={reloadResults}>
+      <Schools data={displayedSchools}/>
     </NewLayout>
   );
 };

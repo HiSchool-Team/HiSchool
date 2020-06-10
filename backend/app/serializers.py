@@ -1,8 +1,15 @@
 from rest_framework import serializers
-from rest_framework.decorators import action
 from rest_framework.exceptions import ValidationError
 
 from .models import School, QA, UserAccount
+from .models import QA, School, Tag
+
+
+
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+        fields = '__all__'
 
 
 class QASerializer(serializers.ModelSerializer):

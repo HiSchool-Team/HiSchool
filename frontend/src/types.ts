@@ -27,4 +27,11 @@ export type School = {
   student_satisfaction: number,
   parent_satisfaction: number,
   img_src: string,
+  tags: Set<number>,
 };
+
+export type Tag = {
+  id: number,
+  name: string,
+  type: string,
+}

@@ -2,10 +2,13 @@ from django.http import HttpResponse
 import django_filters
 from rest_framework import generics, status, permissions
 from rest_framework import viewsets, renderers
+import json
 from rest_framework.decorators import action, api_view, authentication_classes, permission_classes
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 
+from .models import School, QA, Tag
+from .serializers import QASerializer, SchoolSerializer, TagSerializer
 from .models import School, QA, UserAccount
 from .serializers import QASerializer, SchoolSerializer
 
@@ -24,19 +27,14 @@ def return_json(request):
     if search_result:
         schools = schools.filter(name=search_result)
 
-    ser = SchoolSerializer(schools, many=True)
-    return HttpResponse(renderers.JSONRenderer().render(ser.data), content_type='application/json')
+    tags = Tag.objects.none()
+    for school in schools:
+        tags = tags | school.tags.all()
 
-
-class SchoolList(generics.ListAPIView):
-    serializer_class = SchoolSerializer
-
-    def get_queryset(self):
-        queryset = School.objects.all()
-        search = self.request.query_params.get('search', None)
-        if search is not None:
-            queryset = queryset.filter(name=search)
-        return queryset
+    schools_json = renderers.JSONRenderer().render(SchoolSerializer(schools, many=True).data)
+    tags_json = renderers.JSONRenderer().render(TagSerializer(tags, many=True).data)
+    tags_school = b'{ "schools": ' + schools_json + b', "tags": ' + tags_json + b' }'
+    return HttpResponse(tags_school, content_type='application/json')
 
 
 # FIXME there might be some unnecassy repetition with school list, which can probably be merged into this

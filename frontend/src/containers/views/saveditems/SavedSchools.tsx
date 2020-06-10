@@ -4,7 +4,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import NewLayout from '../../NewLayout';
 import Schools from '../../../components/Schools';
 import { Button, Card } from 'antd';
-import user from '../../../api/user';
+import userAPI from '../../../api/UserAPI';
 
 type State = {
   schools: School[],
@@ -17,7 +17,8 @@ const testSavedSchools: School[] = [
     description: 'description',
     student_satisfaction: 1,
     parent_satisfaction: 1,
-    img_src: 'N/A'
+    img_src: 'N/A',
+    tags: new Set<number>()
   }
 ];
 
@@ -25,7 +26,7 @@ const SavedSchools: React.FC = () => {
   const [schools, setSchools] = useState(new Array<School>());
 
   useEffect(() => {
-    user.getSavedSchools().then(schools => setSchools(schools));
+    userAPI.getSavedSchools().then(schools => setSchools(schools));
   }, []);
 
   return (

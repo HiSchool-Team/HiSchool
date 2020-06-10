@@ -3,7 +3,7 @@ import { Button, Form, Input, Collapse } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { CaretRightOutlined } from '@ant-design/icons/lib';
 import { Store } from 'antd/lib/form/interface';
-import { postQA } from '../../api/qa';
+import { postQA } from '../../api/QA';
 import { QA } from '../../types';
 
 const { Panel } = Collapse;

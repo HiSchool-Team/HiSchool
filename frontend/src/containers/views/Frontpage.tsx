@@ -2,12 +2,10 @@ import React, { SyntheticEvent } from 'react';
 
 import '../NewLayout.css';
 import './Frontpage.css';
-import Background from '../../images/background_image.jpg';
 
 import { Layout } from 'antd';
 import SearchBar from '../../components/SearchBar';
 import history from '../../utils/history';
-import { url } from 'inspector';
 
 // TODO check if this import is needed
 
@@ -35,8 +33,8 @@ const Frontpage = (props: { children: React.ReactNode, }) => {
           <a style={{ margin: '8px' }} href={'/'}>Home</a>
           <a style={{ margin: '8px' }} href={'/savedSchools'}>MySchools</a>
           <a style={{ margin: '8px' }} href={'#MyProfile'}>MyProfile</a>
-          <a style={{ margin: '8px' }} href={'/7/qa/'}>Questions&Answers</a>
-          <a style={{ margin: '8px' }} href={'/7/qa/admin/'}>Teacher View</a>
+          <a style={{ margin: '8px' }} href={'/1/qa/'}>Questions&Answers</a>
+          <a style={{ margin: '8px' }} href={'/1/qa/admin/'}>Teacher View</a>
         </div>
       </Header>
       <Layout className="site-layout" style={{ marginLeft: 200 }}>
