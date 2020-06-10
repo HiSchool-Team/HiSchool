@@ -7,9 +7,8 @@ import { RouteComponentProps } from 'react-router-dom';
 import './SchoolDetail.css';
 import Paragraph from 'antd/es/typography/Paragraph';
 import { StarOutlined } from '@ant-design/icons';
-import { School } from '../../types';
+import { School, Tag } from '../../types';
 import Tooltip from 'antd/es/tooltip';
-import { doNothing } from '../../utils/utils';
 
 // TODO will go in as props in the future
 const types = ['Public School', 'Boarding School'];
@@ -46,7 +45,8 @@ class SchoolDetail extends React.Component<RouteComponentProps> {
       description: 'unset_description',
       student_satisfaction: 0,
       parent_satisfaction: 0,
-      img_src: 'no_src'
+      img_src: 'no_src',
+      tags: new Set<Tag>(),
     }
   };
 

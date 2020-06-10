@@ -1,4 +1,4 @@
-import { School } from '../../../types';
+import { School, Tag } from '../../../types';
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import NewLayout from '../../NewLayout';
@@ -16,7 +16,8 @@ const savedSchools: School[] = [
     description: 'description',
     student_satisfaction: 1,
     parent_satisfaction: 1,
-    img_src: 'N/A'
+    img_src: 'N/A',
+    tags: new Set<Tag>(),
   }
 ];
 

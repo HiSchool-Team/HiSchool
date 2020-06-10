@@ -16,4 +16,3 @@ export const goToNewUrl = (basePath: string,
   });
 }
 
-export const doNothing = () => {}

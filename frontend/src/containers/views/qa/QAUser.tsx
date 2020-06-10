@@ -6,7 +6,6 @@ import { QAList } from '../../../components/qa/QAList';
 import NewLayout from '../../NewLayout';
 import { RouteComponentProps } from 'react-router-dom';
 import { fetchQAs } from '../../../api';
-import {doNothing} from "../../../utils/utils";
 
 type State = {
   qas: QA[],
