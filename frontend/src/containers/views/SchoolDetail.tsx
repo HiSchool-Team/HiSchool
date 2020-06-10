@@ -6,12 +6,13 @@ import NewLayout from '../NewLayout';
 import { useParams } from 'react-router-dom';
 import './SchoolDetail.css';
 import Paragraph from 'antd/es/typography/Paragraph';
-import { StarOutlined } from '@ant-design/icons';
-import { School, Tag } from '../../types';
+import { School } from '../../types';
 import Tooltip from 'antd/es/tooltip';
 import { SavedIcon } from '../../components/SavedIcon';
 import userAPI from '../../api/UserAPI';
 import schoolAPI from '../../api/SchoolAPI';
+import { goToNewUrl } from '../../utils/utils';
+import { schoolListBasePath } from './SchoolList';
 
 // TODO will go in as props in the future
 const types = ['Public School', 'Boarding School'];
@@ -130,8 +131,11 @@ const SchoolDetail: React.FC = () => {
                     <tr>
                       {elem.value.map(pill => {
                         // The search results go to tooltip
-                        return <Tooltip title={pill}>
-                          <th style={{ flexShrink: 2 }} className={'pill'}>{pill}</th>
+                        return <Tooltip title={'Click to find all schools with this tag'}>
+                          <th style={{ flexShrink: 2 }} className={'pill'}
+                            onClick={() => goToNewUrl(schoolListBasePath, { tags: pill })}>
+                            {pill}
+                          </th>
                         </Tooltip>;
                       })}
                     </tr>

@@ -21,15 +21,22 @@ def index(request):
 
 def return_json(request):
     search_result = request.GET.get('search')  # contains parameter passed to search bar
+    tags_result = request.GET.get('tags')
 
-    schools = School.objects.all()
-
-    if search_result:
-        schools = schools.filter(name=search_result)
-
+    schools = School.objects.none()
     tags = Tag.objects.none()
-    for school in schools:
-        tags = tags | school.tags.all()
+
+    if search_result is not None:
+        if search_result:
+            schools = School.objects.filter(name=search_result)
+        else:
+            schools = School.objects.all()
+        tags = get_all_tags(schools)
+    elif tags_result is not None:
+        tags = Tag.objects.filter(name=tags_result)
+        for tag in tags:
+            schools = schools | tag.school_set.all()
+        tags = get_all_tags(schools)
 
     schools_json = renderers.JSONRenderer().render(SchoolSerializer(schools, many=True).data)
     tags_json = renderers.JSONRenderer().render(TagSerializer(tags, many=True).data)
@@ -44,6 +51,13 @@ class SchoolViewSet(viewsets.ModelViewSet):
 
     queryset = School.objects.all()
     serializer_class = SchoolSerializer
+
+
+def get_all_tags(schools):
+    tags = Tag.objects.none()
+    for school in schools:
+        tags = tags.union(school.tags.all())
+    return tags
 
 
 class QAViewSet(viewsets.ModelViewSet):
