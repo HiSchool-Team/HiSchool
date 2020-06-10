@@ -68,7 +68,9 @@ def current_user_account_or_default(request) -> UserAccount:
 @api_view(['GET'])
 def list_saved_schools(request):
     account = current_user_account_or_default(request)
-    return Response(account.saved_schools.all())
+    saved_schools = account.saved_schools.all()
+    serializer = SchoolSerializer(saved_schools, many=True)
+    return Response(serializer.data)
 
 
 @api_view(['POST', 'DELETE'])
@@ -89,21 +91,23 @@ def saved_school(request, school_id):
 
 
 @api_view(['GET'])
-def list_useful_qas(request):
+def list_saved_qas(request):
     account = current_user_account_or_default(request)
-    return Response(account.useful_qas.all())
+    saved_qas = account.saved_qas.all()
+    serializer = QASerializer(saved_qas, many=True)
+    return Response(serializer.data)
 
 
 @api_view(['POST', 'DELETE'])
-def useful_qa(request, qa_id):
+def saved_qa(request, qa_id):
     account = current_user_account_or_default(request)
     qa = get_object_or_404(QA, id=qa_id)
 
     if request.method == 'POST':
-        account.useful_qas.add(qa)
+        account.saved_qas.add(qa)
         res_status = status.HTTP_201_CREATED
     elif request.method == 'DELETE':
-        account.useful_qas.remove(qa)
+        account.saved_qas.remove(qa)
         res_status = status.HTTP_204_NO_CONTENT
     else:
         raise RuntimeError("This code should never run")

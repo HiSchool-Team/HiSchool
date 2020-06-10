@@ -1,4 +1,4 @@
-import { QA } from './types';
+import { QA } from '../types';
 import axios from 'axios';
 
 export const fetchAllQAs = (): Promise<QA[]> => {

@@ -5,22 +5,21 @@ import { Card } from 'antd';
 import { QAList } from '../../components/qa/QAList';
 import NewLayout from '../NewLayout';
 import { RouteComponentProps, useParams } from 'react-router-dom';
-import { fetchAllQAs, fetchQAs } from '../../api';
+import { fetchAllQAs, fetchQAs } from '../../api/qa';
 
 type Props = {
   isAdmin: boolean,
 };
 
 const QAView: React.FC<Props> = ({ isAdmin }) => {
-  const emptyQas: QA[] = [];
-  const [qas, setQas] = useState(emptyQas);
+  const [qas, setQas] = useState(new Array<QA>());
   const { schoolID } = useParams();
   const schoolId: number = parseInt(schoolID);
   console.log(`schoolID: ${schoolID}, parsed schoolId: ${schoolId}`);
 
   useEffect(() => {
     fetchQAs(schoolId).then(fetchedQas => fetchedQas && setQas(fetchedQas));
-  });
+  }, [schoolId]);
 
   console.log('Rerendering QAView with qas');
   console.log(qas);

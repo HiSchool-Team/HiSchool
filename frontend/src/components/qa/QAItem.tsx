@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Answer, QA } from '../../types';
 import { StarRating } from '../Rating';
-import { Button, Col, Row, Input, Form } from 'antd';
+import { Button, Col, Form, Input, Row } from 'antd';
 import styles from './QA.module.css';
-import { QuestionCircleTwoTone, StarOutlined } from '@ant-design/icons/lib';
+import { QuestionCircleTwoTone } from '@ant-design/icons/lib';
 import { Store } from 'antd/lib/form/interface';
-import { putQA } from '../../api';
+import { putQA } from '../../api/qa';
+import user from '../../api/user';
+import { SavedIcon } from '../SavedIcon';
 
 const { TextArea } = Input;
 
@@ -13,18 +15,6 @@ type AnswerProps = {
   answer: Answer,
   answerable: boolean,
   onEdit: () => void,
-};
-
-// FIXME remove duplication with equivalent in SchoolDetails
-// TODO work out if the admin view should have this!
-const savedIcon = () => {
-  // TODO add retrieval of information based on user account
-  // and add <StarFilled /> return
-  return <StarOutlined style={{ fontSize: '1.9vw' }} onClick={e => changeSavedIcon()}/>;
-};
-
-const changeSavedIcon = () => {
-  // TODO cause change of saved status for user account
 };
 
 const AnswerComponent = ({ answer, answerable, onEdit }: AnswerProps) => {
@@ -120,6 +110,16 @@ type Props = {
 const QAItem = ({ qa, answerable }: Props) => {
   const [currentQA, setCurrentQA] = React.useState(qa);
   const [editing, setEditing] = React.useState(!currentQA.answer && answerable);
+  const [saved, setSaved] = React.useState(false);
+
+  // Configures initial value of saved state
+  useEffect(() => {
+    user.hasSavedQA(qa).then(isSaved => {
+      console.log(`setting saved to ${isSaved}`);
+      setSaved(isSaved);
+    });
+  }, [qa.id]);
+
   const updateAnswer = (a: Answer) => {
     setCurrentQA(qa => {
       const updatedQA: QA = {
@@ -131,7 +131,18 @@ const QAItem = ({ qa, answerable }: Props) => {
       return updatedQA;
     });
   };
+
   const toggleEditing = () => setEditing(e => !e);
+
+  const userSave = () => {
+    user.saveQA(qa);
+    setSaved(true);
+  };
+
+  const userUnsave = () => {
+    user.unsaveQA(qa);
+    setSaved(false);
+  };
 
   const green = '#01d71b';
   const red = 'red';
@@ -166,7 +177,7 @@ const QAItem = ({ qa, answerable }: Props) => {
           </Col>
           <Col span={1}/>
           <Col span={6}>
-            {savedIcon()}
+            <SavedIcon isSaved={saved} onSave={userSave} onUnsave={userUnsave}/>
           </Col>
         </Row>
       </div>

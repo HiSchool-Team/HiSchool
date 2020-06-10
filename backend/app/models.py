@@ -51,6 +51,6 @@ class QA(models.Model):
 class UserAccount(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     saved_schools = models.ManyToManyField(School, blank=True)
-    useful_qas = models.ManyToManyField(QA, blank=True)
+    saved_qas = models.ManyToManyField(QA, blank=True)
 
 
