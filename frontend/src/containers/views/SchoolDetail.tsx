@@ -10,6 +10,7 @@ import { StarOutlined } from '@ant-design/icons';
 import { School } from '../../types';
 import Tooltip from 'antd/es/tooltip';
 import {goToNewUrl} from "../../utils/utils";
+import {schoolListBasePath} from "./SchoolList";
 
 // TODO will go in as props in the future
 const types = ['Public School', 'Boarding School'];
@@ -143,7 +144,7 @@ class SchoolDetail extends React.Component<RouteComponentProps> {
                           // The search results go to tooltip
                           return <Tooltip title={"Click to find all schools with this tag"}>
                             <th style={{ flexShrink: 2 }} className={'pill'}
-                                onClick={() => goToNewUrl('/schools/', {tags: pill})}>
+                                onClick={() => goToNewUrl(schoolListBasePath, {tags: pill})}>
                               {pill}
                             </th>
                           </Tooltip>;

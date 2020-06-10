@@ -12,6 +12,9 @@ interface ServerData {
   schools: School[],
   tags: Tag[],
 }
+
+export const schoolListBasePath = '/schools/';
+
 const SchoolList = () => {
   const [schools, setSchools] = useState<School[]>();
   const [displayedSchools, setDisplayedSchools] = useState<School[]>();

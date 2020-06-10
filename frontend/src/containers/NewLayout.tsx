@@ -5,6 +5,7 @@ import SearchBar from '../components/SearchBar';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import {goToNewUrl} from '../utils/utils';
 import {Tag} from '../types';
+import {schoolListBasePath} from "./views/SchoolList";
 
 const {Header, Content, Sider} = Layout;
 
@@ -76,7 +77,7 @@ const NewLayout = (props: {
           <div className={'logo-title'}>HiSchool</div>
           <div className={'search-bar'}>
             <SearchBar handleSearch={(value: string) => {
-              goToNewUrl('/schools/', {search: value});
+              goToNewUrl(schoolListBasePath, {search: value});
               props.searchClick?.(value); // optional call
             }}/>
           </div>
