@@ -28,6 +28,7 @@ const SchoolList = () => {
 
   const getSchoolData = (query: Record<string, string>): void => {
     console.log('data requested');
+    console.log(query);
 
     function alterReceivedData(schools: School[]) {
       return schools.map(school => (
@@ -50,7 +51,7 @@ const SchoolList = () => {
     }
 
     axios.get<ServerData>(searchEndpoint, {
-      params: { query }
+      params: { ...query }
     }).then((resp: AxiosResponse<ServerData>) => {
         const newSchoolData = alterReceivedData(resp.data.schools);
         console.log(newSchoolData);
