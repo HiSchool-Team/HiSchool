@@ -8,6 +8,7 @@ import QAUser from './containers/views/qa/QAUser';
 import QAAdmin from './containers/views/qa/QAAdmin';
 import SavedSchools from './containers/views/saved_items/SavedSchools'
 import SavedQuestions from './containers/views/saved_items/SavedQuestions'
+import SchoolDetailAdmin from './containers/views/SchoolDetailAdmin'
 
 const BaseRouter = () => (
   <Switch>
@@ -18,6 +19,7 @@ const BaseRouter = () => (
     <Route exact path={'/:schoolID/qa'} component={QAUser}/>
     <Route exact path={'/:schoolID/qa/admin'} component={QAAdmin}/>
     <Route exact path={'/:schoolID'} component={SchoolDetail}/>
+    <Route exact path={'/:schoolID/admin'} component={SchoolDetailAdmin}/>
   </Switch>
 );
 

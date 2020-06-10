@@ -1,5 +1,5 @@
 import React from 'react';
-import { Answer, QA} from '../../types';
+import { Answer, QA } from '../../types';
 import { StarRating } from '../Rating';
 import { Button, Col, Row, Input, Form } from 'antd';
 import styles from './QA.module.css';
