@@ -7,7 +7,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import './SchoolDetail.css';
 import Paragraph from 'antd/es/typography/Paragraph';
 import { StarOutlined } from '@ant-design/icons';
-import { School, Tag } from '../../types';
+import { School } from '../../types';
 import Tooltip from 'antd/es/tooltip';
 
 // TODO will go in as props in the future
@@ -47,7 +47,7 @@ class SchoolDetail extends React.Component<RouteComponentProps> {
       parent_satisfaction: 0,
       img_src: 'no_src',
       tags: new Set<number>(),
-    }
+    },
   };
 
   savedIcon () {
@@ -58,6 +58,10 @@ class SchoolDetail extends React.Component<RouteComponentProps> {
 
   changeSavedIcon () {
     // TODO cause change of saved status for user account
+  }
+
+  loadData() {
+
   }
 
   componentDidMount () {
@@ -136,8 +140,8 @@ class SchoolDetail extends React.Component<RouteComponentProps> {
                       <tr>
                         {elem.value.map(pill => {
                           // The search results go to tooltip
-                          return <Tooltip title={pill}>
-                            <th style={{ flexShrink: 2 }} className={'pill'}>{pill}</th>
+                          return <Tooltip title={"Click to find all schools with this tag"}>
+                            <th onClick={() => console.log("clicked")} style={{ flexShrink: 2 }} className={'pill'}>{pill}</th>
                           </Tooltip>;
                         })}
                       </tr>
