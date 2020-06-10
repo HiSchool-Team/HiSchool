@@ -66,7 +66,7 @@ const SchoolDetail: React.FC = () => {
 
   return (
     <NewLayout>
-      <Card title={school.name}>
+      <Card title={<div>{school.name} <SavedIcon isSaved={userSaved} onSave={userSave} onUnsave={userUnsave} /></div>} >
         <Row>
           <Col span={16}>
             <Paragraph>
@@ -103,7 +103,6 @@ const SchoolDetail: React.FC = () => {
           </Col>
           <Col span={1}/>
           <Col span={20}>
-            <SavedIcon isSaved={userSaved} onSave={userSave} onUnsave={userUnsave} />
           </Col>
         </Row>
       </Card>

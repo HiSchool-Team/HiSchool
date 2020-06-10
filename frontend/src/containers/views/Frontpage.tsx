@@ -6,6 +6,7 @@ import './Frontpage.css';
 import { Layout } from 'antd';
 import SearchBar from '../../components/SearchBar';
 import history from '../../utils/history';
+import HeaderMenu from '../../components/HeaderMenu';
 
 // TODO check if this import is needed
 
@@ -29,13 +30,7 @@ const Frontpage = (props: { children: React.ReactNode, }) => {
         zIndex: 4
       }}>
         <div className={'logo-title'}>HiSchool</div>
-        <div style={{ textAlign: 'right' }}>
-          <a style={{ margin: '8px' }} href={'/'}>Home</a>
-          <a style={{ margin: '8px' }} href={'/savedSchools'}>MySchools</a>
-          <a style={{ margin: '8px' }} href={'#MyProfile'}>MyProfile</a>
-          <a style={{ margin: '8px' }} href={'/1/qa/'}>Questions&Answers</a>
-          <a style={{ margin: '8px' }} href={'/1/qa/admin/'}>Teacher View</a>
-        </div>
+        <HeaderMenu />
       </Header>
       <Layout className="site-layout" style={{ marginLeft: 200 }}>
         <Content style={{

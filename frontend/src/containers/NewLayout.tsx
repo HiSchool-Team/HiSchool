@@ -1,13 +1,14 @@
-import React, {useEffect, useState} from 'react';
-import {Layout, Menu} from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Layout, Menu } from 'antd';
 import './NewLayout.css';
 import SearchBar from '../components/SearchBar';
 import SubMenu from 'antd/lib/menu/SubMenu';
-import {goToNewUrl} from '../utils/utils';
-import {Tag} from '../types';
-import {schoolListBasePath} from "./views/SchoolList";
+import { goToNewUrl } from '../utils/utils';
+import { Tag } from '../types';
+import { schoolListBasePath } from './views/SchoolList';
+import HeaderMenu from '../components/HeaderMenu';
 
-const {Header, Content, Sider} = Layout;
+const { Header, Content, Sider } = Layout;
 
 // const tags = ['football', 'rugby', 'cricket', 'swimming'];
 
@@ -24,14 +25,14 @@ const NewLayout = (props: {
     const newTypes = new Set<string>(tagTypes);
     props.tags?.forEach(tag => {
       newTypes.add(tag.type);
-    })
+    });
     setTagTypes(newTypes);
-  }, [props.tags])
+  }, [props.tags]);
 
   const updateDisplayedSchools = (newSelectedTags: string[]): void => {
     setSelectedTags(newSelectedTags);
     props.updateDisplayedSchool?.(newSelectedTags.map(tag => parseInt(tag)));
-  }
+  };
 
   return (
     <div>
@@ -50,22 +51,22 @@ const NewLayout = (props: {
 
           <div className="logo"/>
           <Menu theme="dark" mode="inline" className="menu" multiple={true}
-                onSelect={(x) => {
-                  updateDisplayedSchools([...selectedTags, x.key]);
-                }}
-                onDeselect={(x) => {
-                  updateDisplayedSchools(selectedTags.filter(key => key !== x.key));
-                }}
-                selectedKeys={selectedTags}>
+            onSelect={(x) => {
+              updateDisplayedSchools([...selectedTags, x.key]);
+            }}
+            onDeselect={(x) => {
+              updateDisplayedSchools(selectedTags.filter(key => key !== x.key));
+            }}
+            selectedKeys={selectedTags}>
 
             {Array.from(tagTypes).map(type => {
               return <SubMenu title={type}>
                 {props.tags?.map(tag => {
                   if (type === tag.type) {
-                    return <Menu.Item key={tag.id}>{tag.name}</Menu.Item>
+                    return <Menu.Item key={tag.id}>{tag.name}</Menu.Item>;
                   }
                 })}
-              </SubMenu>
+              </SubMenu>;
             })}
           </Menu>
         </Sider>
@@ -77,19 +78,13 @@ const NewLayout = (props: {
           <div className={'logo-title'}>HiSchool</div>
           <div className={'search-bar'}>
             <SearchBar handleSearch={(value: string) => {
-              goToNewUrl(schoolListBasePath, {search: value});
+              goToNewUrl(schoolListBasePath, { search: value });
               props.searchClick?.(value); // optional call
             }}/>
           </div>
-          <div style={{textAlign: 'right'}}>
-            <a style={{margin: '8px'}} href={'/'}>Home</a>
-            <a style={{margin: '8px'}} href={'/savedSchools'}>My Schools</a>
-            <a style={{margin: '8px'}} href={'#My Profile'}>My Profile</a>
-            <a style={{margin: '8px'}} href={'/7/qa/'}>Questions&Answers</a>
-            <a style={{margin: '8px'}} href={'/7/qa/admin/'}>Teacher View</a>
-          </div>
+          <HeaderMenu />
         </Header>
-        <Layout className="site-layout" style={{marginLeft: 200}}>
+        <Layout className="site-layout" style={{ marginLeft: 200 }}>
           <Content style={{
             margin: '64px 30px 24px 30px',
             overflow: 'initial'

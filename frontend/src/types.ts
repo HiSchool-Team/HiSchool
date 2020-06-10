@@ -5,6 +5,7 @@ export type Rating = {
 
 export type QA = {
   id: number,
+  recipient_school_id: number,
   question: Question,
   answer?: Answer,
 };
@@ -34,4 +35,4 @@ export type Tag = {
   id: number,
   name: string,
   type: string,
-}
+};

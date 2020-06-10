@@ -177,7 +177,7 @@ const QAItem = ({ qa, answerable }: Props) => {
           </Col>
           <Col span={1}/>
           <Col span={6}>
-            <SavedIcon isSaved={saved} onSave={userSave} onUnsave={userUnsave}/>
+            <div style={{ fontSize: '26px' }}><SavedIcon isSaved={saved} onSave={userSave} onUnsave={userUnsave}/></div>
           </Col>
         </Row>
       </div>
