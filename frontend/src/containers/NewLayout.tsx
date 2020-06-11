@@ -22,12 +22,14 @@ const NewLayout = (props: {
   const [tagTypes, setTagTypes] = useState<Set<string>>(new Set());
 
   useEffect(() => {
-    const newTypes = new Set<string>(tagTypes);
-    props.tags?.forEach(tag => {
-      newTypes.add(tag.type);
+    setTagTypes(prevTagTypes => {
+      const newTypes = new Set<string>(prevTagTypes);
+      props.tags?.forEach(tag => {
+        newTypes.add(tag.type);
+      })
+      return newTypes;
     });
-    setTagTypes(newTypes);
-  }, [props.tags]);
+  }, [props.tags])
 
   const updateDisplayedSchools = (newSelectedTags: string[]): void => {
     setSelectedTags(newSelectedTags);
@@ -37,58 +39,63 @@ const NewLayout = (props: {
   return (
     <div>
       <Layout>
-        <Sider
-          style={{
-            marginTop: '64px',
-            overflow: 'auto',
-            height: '100vh',
-            position: 'fixed',
-            left: 0
-          }}
-
-          width={'220px'}
-        >
-
-          <div className="logo"/>
-          <Menu theme="dark" mode="inline" className="menu" multiple={true}
-            onSelect={(x) => {
-              updateDisplayedSchools([...selectedTags, x.key]);
-            }}
-            onDeselect={(x) => {
-              updateDisplayedSchools(selectedTags.filter(key => key !== x.key));
-            }}
-            selectedKeys={selectedTags}>
-
-            {Array.from(tagTypes).map(type => {
-              return <SubMenu title={type}>
-                {props.tags?.map(tag => {
-                  if (type === tag.type) {
-                    return <Menu.Item key={tag.id}>{tag.name}</Menu.Item>;
-                  }
-                })}
-              </SubMenu>;
-            })}
-          </Menu>
-        </Sider>
         <Header style={{
-          position: 'fixed',
-          width: '100%',
-          zIndex: 4
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "space-between",
+          alignItems: "center",
         }}>
-          <div className={'logo-title'}>HiSchool</div>
-          <div className={'search-bar'}>
-            <SearchBar handleSearch={(value: string) => {
-              goToNewUrl(schoolListBasePath, { search: value });
-              props.searchClick?.(value); // optional call
-            }}/>
+          <div style={{
+            display: "flex",
+            flexWrap: "wrap",
+            alignContent: "center",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}>
+            <div style={{
+              textAlign: "center",
+              color: "white",
+              fontSize: "22pt",
+            }}>HiSchool
+            </div>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              marginLeft: "30px",
+            }}>
+              <SearchBar handleSearch={(value: string) => {
+                goToNewUrl(schoolListBasePath, {search: value});
+                props.searchClick?.(value); // optional call
+              }}/>
+            </div>
           </div>
           <HeaderMenu />
         </Header>
-        <Layout className="site-layout" style={{ marginLeft: 200 }}>
-          <Content style={{
-            margin: '64px 30px 24px 30px',
-            overflow: 'initial'
-          }}>
+
+        <Layout>
+          <Sider width={"10%"}>
+            <div className="logo"/>
+            <Menu theme="dark" mode="inline" className="menu" multiple={true}
+                  onSelect={(x) => {
+                    updateDisplayedSchools([...selectedTags, x.key]);
+                  }}
+                  onDeselect={(x) => {
+                    updateDisplayedSchools(selectedTags.filter(key => key !== x.key));
+                  }}
+                  selectedKeys={selectedTags}>
+
+              {Array.from(tagTypes).map(type => {
+                return <SubMenu title={type}>
+                  {props.tags?.map(tag => {
+                    if (type === tag.type) {
+                      return <Menu.Item key={tag.id}>{tag.name}</Menu.Item>
+                    }
+                  })}
+                </SubMenu>
+              })}
+            </Menu>
+          </Sider>
+          <Content>
             {props.children}
           </Content>
         </Layout>
