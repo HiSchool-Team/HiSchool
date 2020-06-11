@@ -31,11 +31,11 @@ const QAView: React.FC<Props> = ({ isAdmin }) => {
     <NewLayout>
       <div>
         <Card>
-          {!isAdmin && <AskBar recipientSchoolId={schoolId}/>}
-          <QAList qas={qas} isAnswerable={isAdmin}/>
           {isAdmin
             ? <Button><a href={`/${schoolId}/qa/`}>User View</a></Button>
             : <Button><a href={`/${schoolId}/qa/admin/`}>School View</a></Button>}
+          {!isAdmin && <AskBar recipientSchoolId={schoolId}/>}
+          <QAList qas={qas} isAnswerable={isAdmin}/>
         </Card>
       </div>
     </NewLayout>

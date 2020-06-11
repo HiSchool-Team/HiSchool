@@ -46,12 +46,13 @@ const AnswerComponent = ({ answer, answerable, onEdit }: AnswerProps) => {
           <p>{answer.body}</p>
         </Col>
         <Col span={6}>
-          {answerRating}
+          {/* {answerRating} */}
         </Col>
       </Row>
       <Row>
         <Col span={24}>
           {answer.author && <p>{answer.author}</p>}
+          {answer.created_at && <p><i>Answered at {answer.created_at}</i></p>}
         </Col>
       </Row>
       {answerable &&
@@ -181,6 +182,7 @@ const QAItem = ({ qa, isAnswerable }: Props) => {
         </Row>
       </div>
       <p>{question.body}</p>
+      {question.created_at && <p><i>Asked at {question.created_at}</i></p>}
       <br/>
       {(currentQA.answer || editing) && answerComponent}
     </div>

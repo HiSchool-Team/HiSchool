@@ -67,11 +67,13 @@ class QA(models.Model):
     question_title = models.TextField()
     question_body = models.TextField()
     question_author = models.CharField(max_length=255)
+    question_created_at = models.DateTimeField(auto_now_add=True)
 
     answer_body = models.TextField(null=True, default=None)
     answer_author = models.CharField(max_length=255, null=True, default=None)
     answer_rating = models.IntegerField(null=True,
                                         default=None)  # FIXME the avg rating should be calculated across multiple ratings
+    answer_created_at = models.DateTimeField(auto_now=True)
 
 
 class UserAccount(models.Model):

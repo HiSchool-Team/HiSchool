@@ -26,6 +26,7 @@ class QASerializer(serializers.ModelSerializer):
                 'title': data['question_title'],
                 'body': data['question_body'],
                 'author': data['question_author'],
+                'created_at': data['question_created_at']
             }
         }
 
@@ -37,6 +38,7 @@ class QASerializer(serializers.ModelSerializer):
                     'body': data['answer_body'],
                     'author': data['answer_author'],
                     'rating': data['answer_rating'],
+                    'created_at': data['answer_created_at']
                 }})
 
         return nested_data
