@@ -76,7 +76,7 @@ const PreferenceChoices = (props: {
           <AutoComplete
             options={options}
             style={{
-              width: 200,
+              width: 300,
             }}
             onSelect={onSelect}
             placeholder="input here"
@@ -108,14 +108,14 @@ const PreferenceChoices = (props: {
           </Tabs>
         </div>
 
-        <div>
-          <div className={"preference-search"}>
-            <a href={`${window.parent.location}list`} className="btn btn-primary">Find me a School</a>
-          </div>
-        </div>
-      </div>
-    </NewLayout>
-  );
+                <div>
+                    <div className={"preference-search"}>
+                        <a href={`${window.parent.location}list`} className="button">Find me a School</a>
+                    </div>
+                </div>
+            </div>
+        </NewLayout>
+    );
 }
 
 export default PreferenceChoices;

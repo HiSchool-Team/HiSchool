@@ -1,36 +1,49 @@
-.spacer {
-    height: 100%;
-    width: 100%;
-}
-
-
 .hi-school {
-    text-align: center;
-    font-size: calc((60vw - 3rem) / 11);
+    align-self: center;
     margin-top: 10vh;
-}
-
-.centered-body {
-    background-image: url("https://lh3.googleusercontent.com/proxy/HwAbKhnWVu9u85RK9De1GFsIsCeFpHQGvYZUNTIbzTsoAlhKAboGKR8PRD4e2s0IklulDECT4D9FvoSFQ0Nk-TyKbr7_tc-zMNg_Vq0VdAbSvIFgWr2_Lip-JDB7H-Gczal4cA");
-    background-repeat: no-repeat;
-    background-size: 100%;
+    margin-left: 35vw;
+    width: 30vw;
 }
 
 .search {
     text-align: center;
-    margin-left: 25vw;
-    width: 50vw;
+    margin-left: 30vw;
+    width: 40vw;
+    overflow: hidden;
 }
 
 .search-title {
-    font-size: calc((60vw - 3rem) / 50);
+    font-size: xx-large;
+    color: #00008b;
+    font-weight: bold;
+
+    -moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;
 }
 
 .preference-search {
-    margin-top: 10vw;
+    margin-top: 7vh;
     text-align: center;
 }
 
-.help-button {
-    text-decoration-color: black;
+.preference-title {
+    font-weight: bold;
+
+    -moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;
+    color: darkblue;
+}
+
+.centered-body {
+    height: 100vh;
+    width: 100vw;
+    background-image: url("https://hariraqlaq.com/wp-content/uploads/2019/04/hero.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+}
+
+a.button {
+    background-color: #0003c6;
+    color: white;
+    padding: 1em 1.5em;
+    float: top;
 }

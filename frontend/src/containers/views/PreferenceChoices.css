@@ -4,22 +4,21 @@
   grid-template-rows: 0.2fr 1.5fr 0.4fr;
   gap: 1px 1px;
   grid-template-areas: "." "." ".";
-    height: 80vh;
+    height: 90vh;
 }
 
 .head-search {
   text-align: center;
+    font-size: large;
 }
 
-.button {
-  background-color: #ddd;
-  border: none;
-  color: black;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 16px;
+.tag-search {
+    size: auto;
+}
+
+a.button {
+    background-color: #0003c6;
+    color: white;
+    padding: 1em 1.5em;
+    float: top;
 }
