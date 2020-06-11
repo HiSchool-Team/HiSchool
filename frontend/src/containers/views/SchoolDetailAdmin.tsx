@@ -337,7 +337,7 @@ const SchoolDetailAdmin: React.FC = () => {
       motto: schoolMotto,
       student_satisfaction: 4.2,
       img_link: imgLink,
-      tags: new Set<number>(selectedTags.map(t => t.id)),
+      tags: selectedTags.map(t => t.id),
       website: websiteLink,
       facebook: facebookLink,
       twitter: twitterLink,

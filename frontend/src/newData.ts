@@ -8,7 +8,7 @@ const data: School[] = [
     student_satisfaction: 4.2,
     parent_satisfaction: 4.2,
     img_src: '/static/media/photos/2020/06/05/harry-potter-hogwarts-italy-milano.jpg',
-    tags: new Set<number>()
+    tags: []
   },
   {
     id: 1,
@@ -17,7 +17,7 @@ const data: School[] = [
     student_satisfaction: 4.2,
     parent_satisfaction: 4.2,
     img_src: '/media/photos/2020/06/04/mioc.jpg',
-    tags: new Set<number>()
+    tags: []
   }
 ];
 

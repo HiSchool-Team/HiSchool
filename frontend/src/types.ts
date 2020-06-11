@@ -29,7 +29,7 @@ export type School = {
   student_satisfaction: number,
   img_src?: string,
   img_link?: string,
-  tags: Set<number>,
+  tags: number[],
   website?: string,
   facebook?: string,
   twitter?: string,
