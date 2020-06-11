@@ -6,6 +6,8 @@ import './Frontpage.css';
 import { Layout } from 'antd';
 import SearchBar from '../../components/SearchBar';
 import history from '../../utils/history';
+import ActionButton from "antd/es/modal/ActionButton";
+import TransButton from "antd/es/_util/transButton";
 import HeaderMenu from '../../components/HeaderMenu';
 
 // TODO check if this import is needed
@@ -22,8 +24,9 @@ const handleEvent = (value: string, event?: SyntheticEvent) => {
 };
 
 const Frontpage = (props: { children: React.ReactNode, }) => {
-  return (
-    <div>
+
+    return (
+    <div className={"full-view"}>
       <Header style={{
         position: 'fixed',
         width: '100%',
@@ -40,12 +43,20 @@ const Frontpage = (props: { children: React.ReactNode, }) => {
           {props.children}
         </Content>
       </Layout>
+        <div className={"spacer"}/>
 
-      <body>
-        <p className="hi-school"> HiSchool</p>
-        <p className="search-title"> Type the name of the school you wish to search
+        <body id={"centered-body"} className={"centered-body"}>
+        <h1 className="hi-school"> HiSchool</h1>
+        <div className={"search"}>
+        <p className="search-title"> Search for a specific school
           <SearchBar handleSearch={handleEvent}/>
         </p>
+        </div>
+
+        <div className={"preference-search"}>
+            <h1>Help me find a school</h1>
+            <a href={`${window.location.href}pref`} className="help-button">Help me find a School</a>
+        </div>
       </body>
     </div>
   );

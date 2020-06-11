@@ -1,22 +1,36 @@
+.spacer {
+    height: 100%;
+    width: 100%;
+}
+
+
 .hi-school {
-    float: left;
-    margin-left: 5%;
-    color: white;
-    padding-top: 30vh;
+    text-align: center;
     font-size: calc((60vw - 3rem) / 11);
+    margin-top: 10vh;
+}
+
+.centered-body {
+    background-image: url("https://lh3.googleusercontent.com/proxy/HwAbKhnWVu9u85RK9De1GFsIsCeFpHQGvYZUNTIbzTsoAlhKAboGKR8PRD4e2s0IklulDECT4D9FvoSFQ0Nk-TyKbr7_tc-zMNg_Vq0VdAbSvIFgWr2_Lip-JDB7H-Gczal4cA");
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.search {
+    text-align: center;
+    margin-left: 25vw;
+    width: 50vw;
 }
 
 .search-title {
-    float: right;
-    margin-right: 5%;
-    color: white;
-    padding-top: 31.8vh;
     font-size: calc((60vw - 3rem) / 50);
 }
 
-body {
-    background-image: url("../../images/background-image-school.jpg");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 100% 100%;
+.preference-search {
+    margin-top: 10vw;
+    text-align: center;
+}
+
+.help-button {
+    text-decoration-color: black;
 }
