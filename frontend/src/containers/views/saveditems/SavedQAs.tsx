@@ -9,6 +9,7 @@ import userAPI from '../../../api/UserAPI';
 const testQuestions: QA[] = [
   {
     id: 0,
+    recipient_school_id: 1,
     question: {
       title: 'qa title',
       body: 'qa body'

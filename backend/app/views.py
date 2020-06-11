@@ -7,7 +7,7 @@ from rest_framework.decorators import action, api_view, authentication_classes, 
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 
-from .models import School, QA, Tag
+from .models import School, QA, Tag, User
 from .serializers import QASerializer, SchoolSerializer, TagSerializer
 from .models import School, QA, UserAccount
 from .serializers import QASerializer, SchoolSerializer
@@ -74,7 +74,7 @@ class QAViewSet(viewsets.ModelViewSet):
 def current_user_account_or_default(request) -> UserAccount:
     if (request.user is not None) and request.user.is_authenticated:
         return request.user.useraccount
-    return UserAccount.objects.get(user_id=2)
+    return UserAccount.default()
 
 
 @api_view(['GET'])

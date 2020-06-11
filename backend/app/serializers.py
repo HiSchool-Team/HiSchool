@@ -46,7 +46,7 @@ class QASerializer(serializers.ModelSerializer):
 
         try:
             flattened_data = {
-                'recipient_school_id': data['recipient_school_id'],
+                'recipient_school': data['recipient_school_id'],
                 'question_title': data['question']['title'],
                 'question_body': data['question']['body'],
                 'question_author': data['question']['author']}

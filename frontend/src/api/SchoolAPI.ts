@@ -26,6 +26,23 @@ class SchoolAPI implements ISchoolAPI {
         console.warn(`error when fetching QAs for school with id ${id}`, err);
       });
   }
+
+  post (school: School): Promise<void> {
+    return axios.post(
+      '/app/api/school/',
+      school,
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .catch((err) => {
+        const msg = `error when posting school: ${JSON.stringify(school)}`;
+        alert(msg);
+        console.warn(msg, err);
+      })
+      .then();
+  }
 }
 
 const schoolAPI = new SchoolAPI();

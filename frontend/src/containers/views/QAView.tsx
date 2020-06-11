@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { QA, Question, School } from '../../types';
 import AskBar from '../../components/qa/AskBar';
-import { Card } from 'antd';
+import { Button, Card } from 'antd';
 import { QAList } from '../../components/qa/QAList';
 import NewLayout from '../NewLayout';
 import { RouteComponentProps, useParams } from 'react-router-dom';
@@ -29,8 +29,11 @@ const QAView: React.FC<Props> = ({ isAdmin }) => {
     <NewLayout>
       <div>
         <Card>
-          {!isAdmin && <AskBar />}
+          {!isAdmin && <AskBar recipientSchoolId={schoolId}/>}
           <QAList qas={qas} answerable={isAdmin}/>
+          {isAdmin
+            ? <Button><a href={`/${schoolId}/qa/`}>User View</a></Button>
+            : <Button><a href={`/${schoolId}/qa/admin/`}>School View</a></Button>}
         </Card>
       </div>
     </NewLayout>

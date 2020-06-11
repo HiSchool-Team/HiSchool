@@ -10,6 +10,10 @@ class User(AbstractUser):
     is_user = models.BooleanField(default=True)
     is_school = models.BooleanField(default=True)
 
+    @classmethod
+    def default(cls):
+        return User.objects.get(id=2)
+
 
 class Tag(models.Model):
     name = models.CharField(max_length=50)
@@ -25,9 +29,17 @@ class Tag(models.Model):
 
 class School(models.Model):
     id = models.AutoField(primary_key=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=User.default().id)
     name = models.CharField(max_length=200)
     description = models.CharField(max_length=1000, default='')
+    motto = models.CharField(max_length=200, null=True)
+    website = models.URLField(null=True)
+    facebook = models.URLField(null=True)
+    twitter = models.URLField(null=True)
+    video = models.URLField(null=True)
+    calendar = models.URLField(null=True)
+    map = models.URLField(null=True)
+
     student_satisfaction = models.DecimalField(
         default=0,
         max_digits=2,
@@ -41,7 +53,8 @@ class School(models.Model):
         validators=[MinValueValidator(0), MaxValueValidator(5)]
     )
     img_src = models.ImageField(upload_to=strftime('photos/%Y/%m/%d'), null=True)
-    tags = models.ManyToManyField(Tag)
+    img_link = models.URLField(null=True, max_length=400)
+    tags = models.ManyToManyField(Tag, blank=True)
 
     def __str__(self):
         return self.name
@@ -66,4 +79,6 @@ class UserAccount(models.Model):
     saved_schools = models.ManyToManyField(School, blank=True)
     saved_qas = models.ManyToManyField(QA, blank=True)
 
-
+    @classmethod
+    def default(cls):
+        return UserAccount.objects.get(user_id=2)
