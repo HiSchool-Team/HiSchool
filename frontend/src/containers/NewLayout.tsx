@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, InputNumber } from 'antd';
 import './NewLayout.css';
 import SearchBar from '../components/SearchBar';
 import SubMenu from 'antd/lib/menu/SubMenu';
@@ -18,8 +18,10 @@ const NewLayout = (props: {
   children: React.ReactNode,
   searchClick?: (value: string) => void,
 }) => {
+  const defaultDistance = 20;
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [tagTypes, setTagTypes] = useState<Set<string>>(new Set());
+  const [distance, setDistance] = useState<number>(defaultDistance);
 
   useEffect(() => {
     setTagTypes(prevTagTypes => {
@@ -75,6 +77,12 @@ const NewLayout = (props: {
         <Layout>
           <Sider width={"10%"}>
             <div className="logo"/>
+            <div style={{color: "white",
+              marginLeft: "10px",
+              display: "flex",
+              alignItems: "center"}}>
+              General Fields:
+            </div>
             <Menu theme="dark" mode="inline" className="menu" multiple={true}
                   onSelect={(x) => {
                     updateDisplayedSchools([...selectedTags, x.key]);
@@ -94,6 +102,32 @@ const NewLayout = (props: {
                 </SubMenu>
               })}
             </Menu>
+            <div style={{
+              display: "flex",
+              flexFlow: "row nowrap",
+              justifyContent: "space-between",
+            }}>
+              <div style={{color: "white",
+                           marginLeft: "10px",
+                           display: "flex",
+                           alignItems: "center"}}>
+                Distance:
+              </div>
+              <InputNumber style={{marginRight: "10px"}}
+                           defaultValue={defaultDistance}
+                           formatter={value => `${value} km`}
+                           parser={value => {
+                             if (value) {
+                               return parseInt(value.replace(' ', '').replace('km', ''))
+                             }
+                             return defaultDistance;
+                           }}
+                           onChange={(value => {
+                             if (typeof value === "number") {
+                               setDistance(value);
+                             }
+                           })}/>
+            </div>
           </Sider>
           <Content>
             {props.children}
