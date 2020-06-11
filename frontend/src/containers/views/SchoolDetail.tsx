@@ -84,11 +84,12 @@ class SchoolDetail extends React.Component<RouteComponentProps> {
             alignItems: "center",
             justifyContent: "space-between",
           }}>
-            <div style={{alignSelf: "flex-start", width: "75%"}}>
+            <div style={{alignSelf: "flex-start",
+                         width: "75%"}}>
               {this.state.school.description}
             </div>
             <div style={{
-              padding: "2px 15px 2px 15px"
+              padding: "2px 5px 2px 5px"
             }}>
               <a href="https://www.wizardingworld.com/">Website</a><br/>
               <a href="https://www.google.com">Twitter</a><br/>
