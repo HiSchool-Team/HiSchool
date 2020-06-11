@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Button, Card, Col, Form, Input, PageHeader, Row, Select } from 'antd';
 import data from '../../newData';
@@ -9,6 +9,7 @@ import { School, Tag } from '../../types';
 import TextArea from 'antd/es/input/TextArea';
 import { Store } from 'antd/lib/form/interface';
 import schoolAPI from '../../api/SchoolAPI';
+import tagAPI from '../../api/Tag';
 
 // TODO will go in as props in the future
 const types = ['Public School', 'Boarding School'];
@@ -38,70 +39,15 @@ interface State {
   selectedTags: string[],
 }
 
-class SchoolDetailAdmin extends React.Component<RouteComponentProps> {
-  state: Readonly<State> = {
-    school: {
-      id: 0,
-      name: 'unset_name',
-      description: 'unset_description',
-      student_satisfaction: 0,
-      parent_satisfaction: 0,
-      img_src: 'no_src',
-      tags: new Set<number>()
-    },
-    selectedTags: []
-  };
-
-  componentDidMount () {
-    const correctSchool = data[0];
-
-    this.setState({
-      school: correctSchool
-    });
-  }
-
-  render () {
-    const onFinish = ({
-      schoolName,
-      schoolDescription,
-      schoolMotto,
-      imgLink,
-      websiteLink,
-      facebookLink,
-      twitterLink,
-      videoLink,
-      calendarLink,
-      mapLink,
-      tagSelect
-    }: Store) => {
-      const school: School = {
-        id: 0,
-        name: schoolName,
-        description: schoolDescription,
-        motto: schoolMotto,
-        student_satisfaction: 4.2,
-        img_link: imgLink,
-        tags: new Set<number>(),
-        website: websiteLink,
-        facebook: facebookLink,
-        twitter: twitterLink,
-        video: videoLink,
-        calendar: calendarLink,
-        map: mapLink,
-        parent_satisfaction: 4.2
-      };
-
-      schoolAPI.post(school);
-    };
-
-    const pageTitleObject =
+const SchoolDetailAdmin: React.FC = () => {
+  const pageTitleObject =
       <Row>
         <Col span={10}>
           <PageHeader title='School Page Editor'/>
         </Col>
       </Row>;
 
-    const titleEditorFormItem =
+  const titleEditorFormItem =
       <Form.Item
         name='schoolName'
         rules={[{
@@ -111,7 +57,7 @@ class SchoolDetailAdmin extends React.Component<RouteComponentProps> {
         <Input placeholder='Input School Name'/>
       </Form.Item>;
 
-    const titleEditorSection =
+  const titleEditorSection =
       <div>
         <Row>
           <Col span={10} offset={5}>
@@ -126,7 +72,7 @@ class SchoolDetailAdmin extends React.Component<RouteComponentProps> {
         </Row>
       </div>;
 
-    const descriptionEditorFormItem =
+  const descriptionEditorFormItem =
       <Form.Item
         name='schoolDescription'
         rules={[{
@@ -139,7 +85,7 @@ class SchoolDetailAdmin extends React.Component<RouteComponentProps> {
         />
       </Form.Item>;
 
-    const descriptionEditorSection =
+  const descriptionEditorSection =
       <div>
         <Row>
           <Col span={10} offset={5}>
@@ -154,7 +100,7 @@ class SchoolDetailAdmin extends React.Component<RouteComponentProps> {
         </Row>
       </div>;
 
-    const mottoEditorFormItem =
+  const mottoEditorFormItem =
       <Form.Item
         name='schoolMotto'>
         <Input
@@ -162,7 +108,7 @@ class SchoolDetailAdmin extends React.Component<RouteComponentProps> {
         />
       </Form.Item>;
 
-    const mottoEditorSection =
+  const mottoEditorSection =
       <div>
         <Row>
           <Col span={10} offset={5}>
@@ -177,7 +123,7 @@ class SchoolDetailAdmin extends React.Component<RouteComponentProps> {
         </Row>
       </div>;
 
-    const imgLinkFormItem =
+  const imgLinkFormItem =
       <Form.Item
         name='imgLink'>
         <Input
@@ -185,7 +131,7 @@ class SchoolDetailAdmin extends React.Component<RouteComponentProps> {
         />
       </Form.Item>;
 
-    const websiteLinkFormItem =
+  const websiteLinkFormItem =
       <Form.Item
         name='websiteLink'>
         <Input
@@ -193,7 +139,7 @@ class SchoolDetailAdmin extends React.Component<RouteComponentProps> {
         />
       </Form.Item>;
 
-    const facebookLinkFormItem =
+  const facebookLinkFormItem =
       <Form.Item
         name='facebookLink'>
         <Input
@@ -201,7 +147,7 @@ class SchoolDetailAdmin extends React.Component<RouteComponentProps> {
         />
       </Form.Item>;
 
-    const twitterLinkFormItem =
+  const twitterLinkFormItem =
       <Form.Item
         name='twitterLink'>
         <Input
@@ -209,7 +155,7 @@ class SchoolDetailAdmin extends React.Component<RouteComponentProps> {
         />
       </Form.Item>;
 
-    const linkEditorSection =
+  const linkEditorSection =
       <div>
         <Row>
           <Col span={10} offset={5}>
@@ -242,7 +188,7 @@ class SchoolDetailAdmin extends React.Component<RouteComponentProps> {
         </Row>
       </div>;
 
-    const videoLinkFormItem =
+  const videoLinkFormItem =
       <Form.Item
         name='videoLink'>
         <Input
@@ -250,7 +196,7 @@ class SchoolDetailAdmin extends React.Component<RouteComponentProps> {
         />
       </Form.Item>;
 
-    const videoLinkFormSection =
+  const videoLinkFormSection =
       <div>
         <Row>
           <Col span={10} offset={5}>
@@ -265,7 +211,7 @@ class SchoolDetailAdmin extends React.Component<RouteComponentProps> {
         </Row>
       </div>;
 
-    const calendarLinkFormItem =
+  const calendarLinkFormItem =
       <Form.Item
         name='calendarLink'>
         <Input
@@ -273,7 +219,7 @@ class SchoolDetailAdmin extends React.Component<RouteComponentProps> {
         />
       </Form.Item>;
 
-    const calendarLinkSection =
+  const calendarLinkSection =
       <div>
         <Row>
           <Col span={10} offset={5}>
@@ -288,7 +234,7 @@ class SchoolDetailAdmin extends React.Component<RouteComponentProps> {
         </Row>
       </div>;
 
-    const mapLinkFormItem =
+  const mapLinkFormItem =
       <Form.Item
         name='mapLink'>
         <Input
@@ -296,7 +242,7 @@ class SchoolDetailAdmin extends React.Component<RouteComponentProps> {
         />
       </Form.Item>;
 
-    const mapLinkSection =
+  const mapLinkSection =
       <div>
         <Row>
           <Col span={10} offset={5}>
@@ -311,32 +257,41 @@ class SchoolDetailAdmin extends React.Component<RouteComponentProps> {
         </Row>
       </div>;
 
-    // TODO create proper backend connection instead of frontend mockup
-    // TODO figure out how to do this with tag ids (there is weirdness where the select wants to display the same type as its values) (do we want to do this? as this is just the front end)
-    const allTags: string[] = ['Public School', 'Boarding School', 'Private School'];
+  const [allTags, setAllTags] = useState(new Array<Tag>());
+  const [selectedTags, setSelectedTags] = useState(new Array<Tag>());
 
-    const filteredTags: string[] = allTags.filter(t => !this.state.selectedTags.includes(t));
+  useEffect(() => {
+    tagAPI.getAll().then(tags => setAllTags(tags));
+  }, []);
 
-    const handleSelection = (tags: string[]) => {
-      this.setState({ selectedTags: tags });
-    };
+  // TODO create proper backend connection instead of frontend mockup
+  // TODO figure out how to do this with tag ids (there is weirdness where the select wants to display the same type as its values) (do we want to do this? as this is just the front end)
+  const unselectedTags: Tag[] = allTags.filter(t => !selectedTags.includes(t));
 
-    const tagSelectFormItem =
+  const handleSelection = (selectedTagsNames: string[]) => {
+    setSelectedTags(allTags.filter(t => selectedTagsNames.includes(t.name)));
+  };
+
+  const tagSelectFormItem =
+    <Form.Item name={'selectTags'}>
       <Select
         mode='multiple'
         placeholder='Select school tags'
-        value={this.state.selectedTags}
+        value={selectedTags.map(t => t.name)}
         onChange={handleSelection}
         style={{ width: '100%' }}
       >
-        {filteredTags.map(item => {
-          return <Select.Option key={item} value={item}>
-            {item}
-          </Select.Option>;
+        {unselectedTags.map(t => {
+          return (
+            <Select.Option key={t.name} value={t.name}>
+              {t.name}
+            </Select.Option>
+          );
         })}
       </Select>;
+    </Form.Item>;
 
-    const tagSelectSection =
+  const tagSelectSection =
       <div>
         <Row>
           <Col span={10} offset={5}>
@@ -351,7 +306,7 @@ class SchoolDetailAdmin extends React.Component<RouteComponentProps> {
         </Row>
       </div>;
 
-    const saveButton =
+  const saveButton =
       <Row>
         <Col span={10} offset={5}>
           <Form.Item>
@@ -363,24 +318,56 @@ class SchoolDetailAdmin extends React.Component<RouteComponentProps> {
         </Col>
       </Row>;
 
-    // TODO add default values based on account (existing entries)
-    return (
-      <NewLayout>
-        <Form onFinish={onFinish}>
-          {pageTitleObject}
-          {titleEditorSection}
-          {descriptionEditorSection}
-          {mottoEditorSection}
-          {linkEditorSection}
-          {videoLinkFormSection}
-          {calendarLinkSection}
-          {mapLinkSection}
-          {tagSelectSection}
-          {saveButton}
-        </Form>
-      </NewLayout>
-    );
-  }
-}
+  const onFinish = ({
+    schoolName,
+    schoolDescription,
+    schoolMotto,
+    imgLink,
+    websiteLink,
+    facebookLink,
+    twitterLink,
+    videoLink,
+    calendarLink,
+    mapLink
+  }: Store) => {
+    const school: School = {
+      id: 0,
+      name: schoolName,
+      description: schoolDescription,
+      motto: schoolMotto,
+      student_satisfaction: 4.2,
+      img_link: imgLink,
+      tags: new Set<number>(selectedTags.map(t => t.id)),
+      website: websiteLink,
+      facebook: facebookLink,
+      twitter: twitterLink,
+      video: videoLink,
+      calendar: calendarLink,
+      map: mapLink,
+      parent_satisfaction: 4.2
+    };
+
+    console.log('selected tags are:');
+    console.log(selectedTags);
+    schoolAPI.post(school);
+  };
+  // TODO add default values based on account (existing entries)
+  return (
+    <NewLayout>
+      <Form onFinish={onFinish}>
+        {pageTitleObject}
+        {titleEditorSection}
+        {descriptionEditorSection}
+        {mottoEditorSection}
+        {linkEditorSection}
+        {videoLinkFormSection}
+        {calendarLinkSection}
+        {mapLinkSection}
+        {tagSelectSection}
+        {saveButton}
+      </Form>
+    </NewLayout>
+  );
+};
 
 export default SchoolDetailAdmin;

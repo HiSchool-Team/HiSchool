@@ -6,6 +6,7 @@ from rest_framework import routers
 router = routers.DefaultRouter()
 router.register(r'qa', views.QAViewSet)
 router.register(r'school', views.SchoolViewSet)
+router.register(r'tag', views.TagsViewSet)
 
 urlpatterns = [
     path('api/search/', views.return_json),

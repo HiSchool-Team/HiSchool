@@ -5,7 +5,6 @@ from .models import School, QA, UserAccount
 from .models import QA, School, Tag
 
 
-
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag

@@ -44,6 +44,14 @@ def return_json(request):
     return HttpResponse(tags_school, content_type='application/json')
 
 
+class TagsViewSet(viewsets.ModelViewSet):
+    renderers = [renderers.JSONRenderer]
+    authentication_classes = []
+
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer
+
+
 # FIXME there might be some unnecassy repetition with school list, which can probably be merged into this
 class SchoolViewSet(viewsets.ModelViewSet):
     renderers = [renderers.JSONRenderer]
