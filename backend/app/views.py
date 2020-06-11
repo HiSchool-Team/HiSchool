@@ -1,9 +1,16 @@
 from django.http import HttpResponse
+import django_filters
+from rest_framework import generics, status, permissions
 from rest_framework import viewsets, renderers
 import json
+from rest_framework.decorators import action, api_view, authentication_classes, permission_classes
+from rest_framework.generics import get_object_or_404
+from rest_framework.response import Response
 
-from .models import School, QA, Tag
+from .models import School, QA, Tag, User
 from .serializers import QASerializer, SchoolSerializer, TagSerializer
+from .models import School, QA, UserAccount
+from .serializers import QASerializer, SchoolSerializer
 
 
 # Create your views here.
@@ -37,6 +44,15 @@ def return_json(request):
     return HttpResponse(tags_school, content_type='application/json')
 
 
+# FIXME there might be some unnecassy repetition with school list, which can probably be merged into this
+class SchoolViewSet(viewsets.ModelViewSet):
+    renderers = [renderers.JSONRenderer]
+    authentication_classes = []
+
+    queryset = School.objects.all()
+    serializer_class = SchoolSerializer
+
+
 def get_all_tags(schools):
     tags = Tag.objects.none()
     for school in schools:
@@ -50,3 +66,62 @@ class QAViewSet(viewsets.ModelViewSet):
 
     queryset = QA.objects.all()
     serializer_class = QASerializer
+
+    filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
+    filterset_fields = ['recipient_school']
+
+
+def current_user_account_or_default(request) -> UserAccount:
+    if (request.user is not None) and request.user.is_authenticated:
+        return request.user.useraccount
+    return UserAccount.default()
+
+
+@api_view(['GET'])
+def list_saved_schools(request):
+    account = current_user_account_or_default(request)
+    saved_schools = account.saved_schools.all()
+    serializer = SchoolSerializer(saved_schools, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['POST', 'DELETE'])
+def saved_school(request, school_id):
+    account = current_user_account_or_default(request)
+    school = get_object_or_404(School, id=school_id)
+
+    if request.method == 'POST':
+        account.saved_schools.add(school)
+        res_status = status.HTTP_201_CREATED
+    elif request.method == 'DELETE':
+        account.saved_schools.remove(school)
+        res_status = status.HTTP_204_NO_CONTENT
+    else:
+        raise RuntimeError("This code should never run")
+
+    return Response(status=res_status)
+
+
+@api_view(['GET'])
+def list_saved_qas(request):
+    account = current_user_account_or_default(request)
+    saved_qas = account.saved_qas.all()
+    serializer = QASerializer(saved_qas, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['POST', 'DELETE'])
+def saved_qa(request, qa_id):
+    account = current_user_account_or_default(request)
+    qa = get_object_or_404(QA, id=qa_id)
+
+    if request.method == 'POST':
+        account.saved_qas.add(qa)
+        res_status = status.HTTP_201_CREATED
+    elif request.method == 'DELETE':
+        account.saved_qas.remove(qa)
+        res_status = status.HTTP_204_NO_CONTENT
+    else:
+        raise RuntimeError("This code should never run")
+
+    return Response(status=res_status)

@@ -1,12 +1,14 @@
-import React, {useEffect, useState} from 'react';
-import {Layout, Menu} from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Layout, Menu } from 'antd';
+import './NewLayout.css';
 import SearchBar from '../components/SearchBar';
 import SubMenu from 'antd/lib/menu/SubMenu';
-import {goToNewUrl} from '../utils/utils';
-import {Tag} from '../types';
-import {schoolListBasePath} from "./views/SchoolList";
+import { goToNewUrl } from '../utils/utils';
+import { Tag } from '../types';
+import { schoolListBasePath } from './views/SchoolList';
+import HeaderMenu from '../components/HeaderMenu';
 
-const {Header, Content, Sider} = Layout;
+const { Header, Content, Sider } = Layout;
 
 // const tags = ['football', 'rugby', 'cricket', 'swimming'];
 
@@ -32,7 +34,7 @@ const NewLayout = (props: {
   const updateDisplayedSchools = (newSelectedTags: string[]): void => {
     setSelectedTags(newSelectedTags);
     props.updateDisplayedSchool?.(newSelectedTags.map(tag => parseInt(tag)));
-  }
+  };
 
   return (
     <div>
@@ -51,7 +53,6 @@ const NewLayout = (props: {
             alignItems: "center",
           }}>
             <div style={{
-              width: "10%",
               textAlign: "center",
               color: "white",
               fontSize: "22pt",
@@ -68,15 +69,7 @@ const NewLayout = (props: {
               }}/>
             </div>
           </div>
-          <div style={{
-            display: "inline-block",
-          }}>
-            <a style={{paddingInline: "5px"}} href={'/'}>Home</a>
-            <a style={{paddingInline: "5px"}} href={'/savedSchools'}>My Schools</a>
-            <a style={{paddingInline: "5px"}} href={'#My Profile'}>My Profile</a>
-            <a style={{paddingInline: "5px"}} href={'/7/qa/'}>Questions&Answers</a>
-            <a style={{paddingInline: "5px"}} href={'/7/qa/admin/'}>Teacher View</a>
-          </div>
+          <HeaderMenu />
         </Header>
 
         <Layout>

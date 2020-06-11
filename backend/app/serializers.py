@@ -1,13 +1,9 @@
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
+from .models import School, QA, UserAccount
 from .models import QA, School, Tag
 
-
-class SchoolSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = School
-        fields = '__all__'
 
 
 class TagSerializer(serializers.ModelSerializer):
@@ -26,6 +22,7 @@ class QASerializer(serializers.ModelSerializer):
         data = super().to_representation(instance)
         nested_data = {
             'id': data['id'],
+            'recipient_school_id': data['recipient_school'],
             'question': {
                 'title': data['question_title'],
                 'body': data['question_body'],
@@ -49,6 +46,7 @@ class QASerializer(serializers.ModelSerializer):
 
         try:
             flattened_data = {
+                'recipient_school': data['recipient_school_id'],
                 'question_title': data['question']['title'],
                 'question_body': data['question']['body'],
                 'question_author': data['question']['author']}
@@ -71,3 +69,15 @@ class QASerializer(serializers.ModelSerializer):
             raise ValidationError("Unable to flatten QA structure")
 
         return super().to_internal_value(flattened_data)
+
+
+class SchoolSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = School
+        fields = '__all__'
+
+
+class UserAccountSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserAccount
+        fields = '__all__'

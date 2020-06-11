@@ -3,29 +3,16 @@ import { Button, Form, Input, Collapse } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { CaretRightOutlined } from '@ant-design/icons/lib';
 import { Store } from 'antd/lib/form/interface';
-import { postQA } from '../../api';
+import { postQA } from '../../api/QA';
 import { QA } from '../../types';
 
 const { Panel } = Collapse;
 
-const onFinish = ({ title, description }: Store) => {
-  console.log('Calling postQA');
-  const qa: QA = {
-    id: 0,
-    question: {
-      title: title,
-      body: description
-    },
-    answer: undefined
-  };
-  console.log('Calling postQA with');
-  console.log(qa);
-  postQA(qa);
-
-  window.location.reload(true); // FIXME This is bad practice
+type Props = {
+  recipientSchoolId: number,
 };
 
-const AskBar = () => {
+const AskBar: React.FC<Props> = ({ recipientSchoolId }) => {
   const questionTitleInput =
     <Form.Item name="title" label="Ask a question" style={{ margin: 'auto' }}>
       <Input placeholder="The title of your question"/>
@@ -43,6 +30,23 @@ const AskBar = () => {
     <Form.Item>
       <Button type="primary" htmlType="submit">Submit</Button>
     </Form.Item>;
+
+  const onFinish = ({ title, description }: Store) => {
+    const qa: QA = {
+      id: 0,
+      recipient_school_id: recipientSchoolId,
+      question: {
+        title: title,
+        body: description
+      },
+      answer: undefined
+    };
+    console.log('Calling postQA with QA:');
+    console.log(qa);
+    postQA(qa);
+
+    window.location.reload(true); // FIXME This is bad practice
+  };
 
   return (
     <Form onFinish={onFinish}>
