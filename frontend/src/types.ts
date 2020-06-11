@@ -30,12 +30,12 @@ export type School = {
   img_src?: string,
   img_link?: string,
   tags: Set<number>,
-  website_link?: string,
-  facebook_link?: string,
-  twitter_link?: string,
-  video_link?: string,
-  calendar_link?: string,
-  map_link?: URL,
+  website?: string,
+  facebook?: string,
+  twitter?: string,
+  video?: string,
+  calendar?: string,
+  map?: string,
   parent_satisfaction: number,
 };
 

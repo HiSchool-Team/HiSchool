@@ -82,12 +82,12 @@ class SchoolDetailAdmin extends React.Component<RouteComponentProps> {
         student_satisfaction: 4.2,
         img_link: imgLink,
         tags: new Set<number>(),
-        website_link: websiteLink,
-        facebook_link: facebookLink,
-        twitter_link: twitterLink,
-        video_link: videoLink,
-        calendar_link: calendarLink,
-        map_link: mapLink,
+        website: websiteLink,
+        facebook: facebookLink,
+        twitter: twitterLink,
+        video: videoLink,
+        calendar: calendarLink,
+        map: mapLink,
         parent_satisfaction: 4.2
       };
 

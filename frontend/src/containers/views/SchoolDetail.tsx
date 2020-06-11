@@ -75,9 +75,9 @@ const SchoolDetail: React.FC = () => {
           </Col>
           <Col span={1}/>
           <Col span={2}>
-            <a href="https://www.wizardingworld.com/">Website</a><br/>
-            <a href="https://www.google.com">Twitter</a><br/>
-            <a href="https://www.facebook.com/wizardingworld/">Facebook</a><br/>
+            <a href={school.website}>Website</a><br/>
+            <a href={school.twitter}>Twitter</a><br/>
+            <a href={school.facebook}>Facebook</a><br/>
           </Col>
           <Col span={5}>
             <img className={'school-picture'} alt="" src={school.img_src != null ? school.img_src : school.img_link}/>
@@ -92,7 +92,7 @@ const SchoolDetail: React.FC = () => {
               fontSize: 'large',
               fontStyle: 'italic'
             }}>
-                Draco Dormiens Numquam Titillandus
+              {school.motto}
             </Paragraph>
           </Col>
         </Row>
@@ -112,7 +112,7 @@ const SchoolDetail: React.FC = () => {
           <th className={'school-tour'}>
             <h1>School tour</h1>
             <iframe width="420" height="315"
-              src="https://www.youtube.com/embed/TtNWXCwDs7o">
+              src={school.video}>
             </iframe>
           </th>
           <th className={'tag-fields'}>
@@ -145,11 +145,11 @@ const SchoolDetail: React.FC = () => {
           </th>
           <th className={'misc'}>
             <iframe
-              src="https://calendar.google.com/calendar/embed?src=0dmsr8gecd94i4sjrdq18j96j4%40group.calendar.google.com&ctz=Europe%2FLondon"
+              src={school.calendar}
               width="300" height="200" frameBorder="0" scrolling="no"/>
             <br/>
 
-            <iframe src="http://maps.google.com/maps?q=56.207862,-2.803599&z=15&output=embed"/>
+            <iframe src={school.map}/>
           </th>
         </tr>
       </table>
