@@ -8,6 +8,7 @@ import history from '../../utils/history';
 import ActionButton from "antd/es/modal/ActionButton";
 import NewLayout from "../NewLayout";
 import Search from "antd/es/input/Search";
+import {Tag as TagType} from '../../types';
 import {Tag} from '../../components/Tag';
 
 // TODO check if this import is needed
@@ -21,6 +22,16 @@ const PreferenceChoices = (props: {
 }) => {
 
   const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set<string>());
+  const [selectedTypeTags, setSelectedTypeTags] = useState<string[]>([]);
+
+  const tempTags: TagType[] =[
+    {
+      id: 0, name: "Public School", type: "Type"
+    },
+    {
+      id: 1, name: "Boarding School", type: "Type"
+    },
+  ]
 
   const toggleTagState = (selectedTag: string) => {
     const newSelected = new Set<string>(selectedTags);
@@ -28,6 +39,17 @@ const PreferenceChoices = (props: {
       newSelected.add(selectedTag);
     }
     setSelectedTags(newSelected);
+  }
+
+  const addSelectedTypeTags = (selectedTags: number[]) => {
+    const newTypeTags = [];
+    for (const id of selectedTags) {
+      const toAdd = tempTags.find(x => x.id === id);
+      if (toAdd) {
+        newTypeTags.push(toAdd.name);
+      }
+    }
+    setSelectedTypeTags(newTypeTags);
   }
 
   let options = [
@@ -47,7 +69,7 @@ const PreferenceChoices = (props: {
   };
 
   return (
-    <NewLayout>
+    <NewLayout tags={tempTags} updateDisplayedSchool={addSelectedTypeTags}>
       <div className="grid-container">
         <div className={"head-search"}>
           Search here for extracurricular/pastoral you would prefer the School contains<br/>
