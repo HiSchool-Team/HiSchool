@@ -8,6 +8,7 @@ import './SchoolDetail.css';
 import { School } from '../../types';
 import TextArea from 'antd/es/input/TextArea';
 import { Store } from 'antd/lib/form/interface';
+import schoolAPI from '../../api/SchoolAPI';
 
 // TODO will go in as props in the future
 const types = ['Public School', 'Boarding School'];
@@ -62,6 +63,7 @@ class SchoolDetailAdmin extends React.Component<RouteComponentProps> {
       schoolName,
       schoolDescription,
       schoolMotto,
+      imgLink,
       websiteLink,
       facebookLink,
       twitterLink,
@@ -69,7 +71,24 @@ class SchoolDetailAdmin extends React.Component<RouteComponentProps> {
       calendarLink,
       mapLink
     }: Store) => {
-      // TODO connect to backend
+      const school: School = {
+        id: 0,
+        name: schoolName,
+        description: schoolDescription,
+        motto: schoolMotto,
+        student_satisfaction: 4.2,
+        img_link: imgLink,
+        tags: new Set<number>(),
+        website_link: websiteLink,
+        facebook_link: facebookLink,
+        twitter_link: twitterLink,
+        video_link: videoLink,
+        calendar_link: calendarLink,
+        map_link: mapLink,
+        parent_satisfaction: 4.2
+      };
+
+      schoolAPI.post(school);
     };
 
     const pageTitleObject =
@@ -158,6 +177,14 @@ class SchoolDetailAdmin extends React.Component<RouteComponentProps> {
         </Row>
       </div>;
 
+    const imgLinkFormItem =
+      <Form.Item
+        name='imgLink'>
+        <Input
+          placeholder="Input a link to a school's picture"
+        />
+      </Form.Item>;
+
     const websiteLinkFormItem =
       <Form.Item
         name='websiteLink'>
@@ -187,6 +214,12 @@ class SchoolDetailAdmin extends React.Component<RouteComponentProps> {
         <Row>
           <Col span={24}>
             <h2>Links (Optional)</h2>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col span={15}>
+            {imgLinkFormItem}
           </Col>
         </Row>
 

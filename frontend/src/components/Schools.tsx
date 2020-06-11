@@ -24,7 +24,7 @@ const RepeatIcon = ({ label, icon, times }) => {
   );
 };
 
-const Schools = (props: { data: School[] | undefined }) => {
+const Schools = (props: { data: School[] | undefined, }) => {
   return (
     <List
       itemLayout="vertical"
@@ -36,13 +36,13 @@ const Schools = (props: { data: School[] | undefined }) => {
             <List.Item.Meta title={<a href={`/${item.id}`}><b>{item.name}</b></a>}/>
 
             <div>
-              <div className={'school-picture'}><img alt="logo" src={item.img_src}/></div>
+              <div className={'school-picture'}><img alt="logo" src={item.img_src != null ? item.img_src : item.img_link}/></div>
               <div className={'school-description'}><p>{item.description}</p></div>
-              <div className={'satisfaction-levels'}>
+              {/* <div className={'satisfaction-levels'}>
                 <RepeatIcon label={'Student satisfaction'} icon={StarOutlined} times={5}/>
                 <RepeatIcon label={'Parent satisfaction'} icon={StarOutlined} times={5}/>
                 <RepeatIcon label={'Extracurriculars'} icon={StarOutlined} times={5}/>
-              </div>
+              </div> */}
             </div>
           </List.Item>
         </Card>

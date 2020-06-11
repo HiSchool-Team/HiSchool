@@ -25,10 +25,18 @@ export type School = {
   id: number,
   name: string,
   description: string,
+  motto?: string,
   student_satisfaction: number,
-  parent_satisfaction: number,
-  img_src: string,
+  img_src?: string,
+  img_link?: string,
   tags: Set<number>,
+  website_link?: string,
+  facebook_link?: string,
+  twitter_link?: string,
+  video_link?: string,
+  calendar_link?: string,
+  map_link?: URL,
+  parent_satisfaction: number,
 };
 
 export type Tag = {

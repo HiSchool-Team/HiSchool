@@ -80,7 +80,7 @@ const SchoolDetail: React.FC = () => {
             <a href="https://www.facebook.com/wizardingworld/">Facebook</a><br/>
           </Col>
           <Col span={5}>
-            <img className={'school-picture'} alt="" src={school.img_src}/>
+            <img className={'school-picture'} alt="" src={school.img_src != null ? school.img_src : school.img_link}/>
           </Col>
         </Row>
         <Row>
