@@ -13,6 +13,7 @@ import userAPI from '../../api/UserAPI';
 import schoolAPI from '../../api/SchoolAPI';
 import {goToNewUrl} from '../../utils/utils';
 import {schoolListBasePath} from './SchoolList';
+import {Tag} from "../../components/Tag";
 
 // TODO will go in as props in the future
 const types = ['Public School', 'Boarding School'];
@@ -23,7 +24,7 @@ const others = ['Triwizard Tournament'];
 const categories = [{
   name: 'Type',
   value: types
-},
+  },
   {
     name: 'Extracurricular',
     value: extracurriculars
@@ -86,7 +87,7 @@ const SchoolDetail: React.FC = () => {
             <a href="https://www.google.com">Twitter</a><br/>
             <a href="https://www.facebook.com/wizardingworld/">Facebook</a><br/>
           </div>
-          <img style={{width: "20%"}} src={school.img_src}/>
+          <img className={'school-picture'} alt="" src={school.img_src != null ? school.img_src : school.img_link}/>
         </div>
         <div style={{
           display: "flex",
@@ -133,10 +134,9 @@ const SchoolDetail: React.FC = () => {
                 <div>
                   {elem.value.map(pill => {
                     return <Tooltip title={"Click to find all schools with this tag"}>
-                      <div style={{flexShrink: 2}} className={'pill'}
-                           onClick={() => goToNewUrl(schoolListBasePath, {tags: pill})}>
-                        {pill}
-                      </div>
+                      <Tag style={{flexShrink: 2}}
+                           onClick={() => goToNewUrl(schoolListBasePath, {tags: pill})}
+                           name={pill}/>
                     </Tooltip>;
                   })}
                 </div>
