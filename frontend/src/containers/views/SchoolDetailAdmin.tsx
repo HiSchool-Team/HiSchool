@@ -280,7 +280,7 @@ class SchoolDetailAdmin extends React.Component<RouteComponentProps> {
 
     // TODO create proper backend connection instead of frontend mockup
     // TODO figure out how to do this with tag ids (there is weirdness where the select wants to display the same type as its values) (do we want to do this? as this is just the front end)
-    const allTags: string[] = ['Public School', 'Boarding School'];
+    const allTags: string[] = ['Public School', 'Boarding School', 'Private School'];
 
     const filteredTags: string[] = allTags.filter(t => !this.state.selectedTags.includes(t));
 
