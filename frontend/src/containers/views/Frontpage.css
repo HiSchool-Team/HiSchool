@@ -14,22 +14,29 @@
 
 .search-title {
     font-size: xx-large;
-    color: #00008b;
+    color: #001529;
     font-weight: bold;
 
     -moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;
+    -webkit-text-stroke-color: white;
+    -webkit-text-stroke-width: 0.5px;
 }
 
 .preference-search {
     margin-top: 7vh;
     text-align: center;
+
+    -webkit-text-stroke-color: white;
+    -webkit-text-stroke-width: 0.5px;
 }
 
 .preference-title {
     font-weight: bold;
 
     -moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;
-    color: darkblue;
+    -webkit-text-stroke-color: white;
+    -webkit-text-stroke-width: 0.5px;
+    color: #001529;
 }
 
 .centered-body {
@@ -42,7 +49,7 @@
 }
 
 a.button {
-    background-color: #0003c6;
+    background-color: #001529;
     color: white;
     padding: 1em 1.5em;
     float: top;

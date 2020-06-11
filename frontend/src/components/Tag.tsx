@@ -20,7 +20,7 @@ export const Tag = (props: {
   }
 
   const selected: CSSProperties = {
-    backgroundColor: props.selected ? "#999898" : "#c7c6c6",
+    backgroundColor: props.selected ? "#001529" : "#c7c6c6",
     color: props.selected ? "#ece9e9" : "#242424",
   }
 
