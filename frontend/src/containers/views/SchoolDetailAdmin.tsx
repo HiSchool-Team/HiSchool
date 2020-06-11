@@ -218,7 +218,7 @@ class SchoolDetailAdmin extends React.Component<RouteComponentProps> {
         </Row>
 
         <Row>
-          <Col span={15}>
+          <Col span={15} offset={5}>
             {imgLinkFormItem}
           </Col>
         </Row>
