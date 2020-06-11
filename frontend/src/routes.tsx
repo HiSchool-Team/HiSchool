@@ -7,7 +7,8 @@ import SchoolDetail from './containers/views/SchoolDetail';
 import SavedSchools from './containers/views/saveditems/SavedSchools';
 import SavedQAs from './containers/views/saveditems/SavedQAs';
 import SchoolDetailAdmin from './containers/views/SchoolDetailAdmin';
-import QAView from './containers/views/QAView';
+import QAView from './containers/views/qa/QAView';
+import QAUnanswered from './containers/views/qa/QAUnanswered';
 
 const BaseRouter = () => (
   <Switch>
@@ -19,6 +20,7 @@ const BaseRouter = () => (
     <Route exact path={'/:schoolID/qa/admin'}><QAView isAdmin={true}/></Route>
     <Route exact path={'/:schoolID'} component={SchoolDetail}/>
     <Route exact path={'/:schoolID/admin'} component={SchoolDetailAdmin}/>
+    <Route exact path={'/qa/unanswered'} component={QAUnanswered} />
   </Switch>
 );
 

@@ -32,7 +32,6 @@ const SavedSchools: React.FC = () => {
   return (
     <NewLayout>
       <Card>
-        <Button href='savedQAs'>My Questions</Button>
         <Schools data={schools}/>
       </Card>
     </NewLayout>

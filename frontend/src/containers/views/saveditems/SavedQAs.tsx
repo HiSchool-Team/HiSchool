@@ -27,8 +27,7 @@ const SavedQAs = () => {
   return (
     <NewLayout>
       <Card>
-        <Button href='savedSchools'>My Schools</Button>
-        <QAList qas={qas} answerable={false}/>
+        <QAList qas={qas} isAnswerable={false}/>
       </Card>
     </NewLayout>
   );

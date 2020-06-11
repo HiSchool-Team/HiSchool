@@ -5,16 +5,16 @@ import { QA, Question } from '../../types';
 
 type Props = {
   qas: QA[],
-  answerable: boolean,
+  isAnswerable: boolean,
 };
 
-export const QAList = ({ qas, answerable }: Props) => {
+export const QAList = ({ qas, isAnswerable }: Props) => {
   return (
     <List
       itemLayout="vertical"
       size="large"
       dataSource={qas}
-      renderItem={(qa: QA) => <Card><QAItem qa={qa} answerable={answerable}/></Card>
+      renderItem={(qa: QA) => <Card><QAItem qa={qa} isAnswerable={isAnswerable}/></Card>
       }
     />
   );
