@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Card, Col, Row } from 'antd';
+import { Card } from 'antd';
 import data from '../../newData';
 import NewLayout from '../NewLayout';
 import { useParams } from 'react-router-dom';
@@ -11,8 +11,9 @@ import Tooltip from 'antd/es/tooltip';
 import { SavedIcon } from '../../components/SavedIcon';
 import userAPI from '../../api/UserAPI';
 import schoolAPI from '../../api/SchoolAPI';
-import { goToNewUrl } from '../../utils/utils';
-import { schoolListBasePath } from './SchoolList';
+import {goToNewUrl} from '../../utils/utils';
+import {schoolListBasePath} from './SchoolList';
+import {Tag} from "../../components/Tag";
 
 // TODO will go in as props in the future
 const types = ['Public School', 'Boarding School'];
@@ -23,19 +24,19 @@ const others = ['Triwizard Tournament'];
 const categories = [{
   name: 'Type',
   value: types
-},
-{
-  name: 'Extracurricular',
-  value: extracurriculars
-},
-{
-  name: 'Amenities',
-  value: amenities
-},
-{
-  name: 'Other',
-  value: others
-}];
+  },
+  {
+    name: 'Extracurricular',
+    value: extracurriculars
+  },
+  {
+    name: 'Amenities',
+    value: amenities
+  },
+  {
+    name: 'Other',
+    value: others
+  }];
 
 const hogwarts: School = data[0] as School;
 
@@ -133,11 +134,10 @@ const SchoolDetail: React.FC = () => {
                 </div>
                 <div>
                   {elem.value.map(pill => {
-                    return <Tooltip title={'Click to find all schools with this tag'}>
-                      <div style={{ flexShrink: 2 }} className={'pill'}
-                        onClick={() => goToNewUrl(schoolListBasePath, { tags: pill })}>
-                        {pill}
-                      </div>
+                    return <Tooltip title={"Click to find all schools with this tag"}>
+                      <Tag style={{flexShrink: 2}}
+                           onClick={() => goToNewUrl(schoolListBasePath, {tags: pill})}
+                           name={pill}/>
                     </Tooltip>;
                   })}
                 </div>
