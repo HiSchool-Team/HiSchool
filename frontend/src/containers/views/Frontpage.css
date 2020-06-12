@@ -1,22 +1,56 @@
 .hi-school {
-    float: left;
-    margin-left: 5%;
-    color: white;
-    padding-top: 30vh;
-    font-size: calc((60vw - 3rem) / 11);
+    align-self: center;
+    margin-top: 10vh;
+    margin-left: 35vw;
+    width: 30vw;
+}
+
+.search {
+    text-align: center;
+    margin-left: 30vw;
+    width: 40vw;
+    overflow: hidden;
 }
 
 .search-title {
-    float: right;
-    margin-right: 5%;
-    color: white;
-    padding-top: 31.8vh;
-    font-size: calc((60vw - 3rem) / 50);
+    font-size: xx-large;
+    color: #001529;
+    font-weight: bold;
+
+    -moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;
+    -webkit-text-stroke-color: white;
+    -webkit-text-stroke-width: 0.5px;
 }
 
-body {
-    background-image: url("../../images/background-image-school.jpg");
+.preference-search {
+    margin-top: 7vh;
+    text-align: center;
+
+    -webkit-text-stroke-color: white;
+    -webkit-text-stroke-width: 0.5px;
+}
+
+.preference-title {
+    font-weight: bold;
+
+    -moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;
+    -webkit-text-stroke-color: white;
+    -webkit-text-stroke-width: 0.5px;
+    color: #001529;
+}
+
+.centered-body {
+    height: 100vh;
+    width: 100vw;
+    background-image: url("https://hariraqlaq.com/wp-content/uploads/2019/04/hero.jpg");
     background-repeat: no-repeat;
-    background-position: center;
-    background-size: 100% 100%;
+    background-size: cover;
+    overflow: hidden;
+}
+
+a.button {
+    background-color: #001529;
+    color: white;
+    padding: 1em 1.5em;
+    float: top;
 }
