@@ -34,7 +34,7 @@ const SchoolList = () => {
       return schools.map(school => (
         {
           ...school,
-          tags: new Set<number>(school.tags)
+          tags: Array.from(new Set<number>(school.tags))
         })
       );
     }
@@ -74,7 +74,7 @@ const SchoolList = () => {
 
   const changeDisplay = (selectedTags: number[]): void => {
     const newlySelectedSchools = schools?.filter(school =>
-      selectedTags.map(tag => school.tags.has(tag)).reduce((a, b) => a && b, true)
+      selectedTags.map(tag => school.tags.includes(tag)).reduce((a, b) => a && b, true)
     );
     setDisplayedSchools(newlySelectedSchools);
   };

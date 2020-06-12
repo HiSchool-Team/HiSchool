@@ -5,7 +5,7 @@ import { Button, Col, Form, Input, Row } from 'antd';
 import styles from './QA.module.css';
 import { QuestionCircleTwoTone } from '@ant-design/icons/lib';
 import { Store } from 'antd/lib/form/interface';
-import { putQA } from '../../api/QA';
+import qaAPI from '../../api/QA';
 import userAPI from '../../api/UserAPI';
 import { SavedIcon } from '../SavedIcon';
 
@@ -46,12 +46,13 @@ const AnswerComponent = ({ answer, answerable, onEdit }: AnswerProps) => {
           <p>{answer.body}</p>
         </Col>
         <Col span={6}>
-          {answerRating}
+          {/* {answerRating} */}
         </Col>
       </Row>
       <Row>
         <Col span={24}>
           {answer.author && <p>{answer.author}</p>}
+          {answer.created_at && <p><i>Answered at {answer.created_at}</i></p>}
         </Col>
       </Row>
       {answerable &&
@@ -104,12 +105,12 @@ const AnswerInputComponent = ({ defaultValue, onSubmit }: AnswerInputProps) => {
 
 type Props = {
   qa: QA,
-  answerable: boolean,
+  isAnswerable: boolean,
 };
 
-const QAItem = ({ qa, answerable }: Props) => {
+const QAItem = ({ qa, isAnswerable }: Props) => {
   const [currentQA, setCurrentQA] = React.useState(qa);
-  const [editing, setEditing] = React.useState(!currentQA.answer && answerable);
+  const [editing, setEditing] = React.useState(!currentQA.answer && isAnswerable);
   const [saved, setSaved] = React.useState(false);
 
   // Configures initial value of saved state
@@ -126,8 +127,7 @@ const QAItem = ({ qa, answerable }: Props) => {
         ...qa,
         answer: a
       };
-      putQA(updatedQA);
-
+      qaAPI.put(updatedQA);
       return updatedQA;
     });
   };
@@ -163,7 +163,7 @@ const QAItem = ({ qa, answerable }: Props) => {
     />;
   } else {
     answerComponent =
-      <AnswerComponent answer={currentQA.answer as Answer} answerable={answerable} onEdit={toggleEditing}/>;
+      <AnswerComponent answer={currentQA.answer as Answer} answerable={isAnswerable} onEdit={toggleEditing}/>;
   }
 
   const question = currentQA.question;
@@ -182,6 +182,7 @@ const QAItem = ({ qa, answerable }: Props) => {
         </Row>
       </div>
       <p>{question.body}</p>
+      {question.created_at && <p><i>Asked at {question.created_at}</i></p>}
       <br/>
       {(currentQA.answer || editing) && answerComponent}
     </div>

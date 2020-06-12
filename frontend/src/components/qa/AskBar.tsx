@@ -3,7 +3,7 @@ import { Button, Form, Input, Collapse } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { CaretRightOutlined } from '@ant-design/icons/lib';
 import { Store } from 'antd/lib/form/interface';
-import { postQA } from '../../api/QA';
+import qaAPI from '../../api/QA';
 import { QA } from '../../types';
 
 const { Panel } = Collapse;
@@ -41,9 +41,7 @@ const AskBar: React.FC<Props> = ({ recipientSchoolId }) => {
       },
       answer: undefined
     };
-    console.log('Calling postQA with QA:');
-    console.log(qa);
-    postQA(qa);
+    qaAPI.post(qa);
 
     window.location.reload(true); // FIXME This is bad practice
   };

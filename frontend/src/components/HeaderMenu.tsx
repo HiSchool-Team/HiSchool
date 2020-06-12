@@ -9,6 +9,7 @@ const HeaderMenu = () => {
       <a style={{ margin: '8px' }} href={'/user/savedQAs/'}>Saved Questions</a>
       <a style={{ margin: '8px' }} href={'/qa/admin/'}>Register School</a>
       <a style={{ margin: '8px' }} href={'/schools/?search='}>All Schools</a>
+      <a style={{ margin: '8px' }} href={'/qa/unanswered'}>Unanswered Inbox</a>
       {/* <a style={{ margin: '8px' }} href={'/1/qa/admin/'}>Teacher View</a> */}
     </div>
   );

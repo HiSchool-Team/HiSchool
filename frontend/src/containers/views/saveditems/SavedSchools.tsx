@@ -18,7 +18,7 @@ const testSavedSchools: School[] = [
     student_satisfaction: 1,
     parent_satisfaction: 1,
     img_src: 'N/A',
-    tags: new Set<number>()
+    tags: []
   }
 ];
 
@@ -32,7 +32,6 @@ const SavedSchools: React.FC = () => {
   return (
     <NewLayout>
       <Card>
-        <Button href='savedQAs'>My Questions</Button>
         <Schools data={schools}/>
       </Card>
     </NewLayout>
