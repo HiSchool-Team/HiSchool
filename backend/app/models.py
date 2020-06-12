@@ -22,6 +22,11 @@ class Tag(models.Model):
                                      ('Extracurricular', 'Extracurricular'),
                                      ('Amenities', 'Amenities'),
                                      ('Other', 'Other')])
+    sub_type = models.CharField(max_length=50,
+                                choices=[('General', 'General'),
+                                         ('Sports', 'Sports'),
+                                         ('Science', 'Science'),
+                                         ('Art', 'Art')])
 
     def __str__(self):
         return self.name

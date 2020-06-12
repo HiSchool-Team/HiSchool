@@ -1,0 +1,38 @@
+.grid-container {
+  display: grid;
+    height: 80vh;
+  grid-template-columns: 1.4fr 0.6fr;
+  gap: 1px 1px;
+  grid-template-areas: ". .";
+}
+
+.tab-display {
+    border-color: black;
+    border-width: 1px;
+    border-right-style: solid;
+    border-bottom-style: solid;
+}
+
+.tabs {
+    margin-left: 1vw;
+    margin-top: 1vh;
+}
+
+.head-search {
+    margin-top: 3vh;
+  text-align: center;
+    font-size: large;
+}
+
+.tag-search {
+    border-top-width: 1px;
+    border-top-color: black;
+    size: auto;
+}
+
+a.button {
+    background-color: #001529;
+    color: white;
+    padding: 1em 1.5em;
+    float: top;
+}
