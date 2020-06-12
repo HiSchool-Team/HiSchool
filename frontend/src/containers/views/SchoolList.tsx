@@ -14,13 +14,13 @@ interface ServerData {
 }
 
 export const schoolListBasePath = '/schools/';
+export const serverSearchEndpoint = '/app/api/search/';
 
 const SchoolList = () => {
   const [schools, setSchools] = useState<School[]>();
   const [displayedSchools, setDisplayedSchools] = useState<School[]>();
   const [tags, setTags] = useState<Tag[]>([]); // Set would be better but no custom equality for now
   const location = useLocation();
-  const searchEndpoint = '/app/api/search/';
 
   useEffect(() => {
     getSchoolData(getSearchResult(location));
@@ -49,7 +49,7 @@ const SchoolList = () => {
       return uniqueTags;
     }
 
-    axios.get<ServerData>(searchEndpoint, {
+    axios.get<ServerData>(serverSearchEndpoint, {
       params: { ...query }
     }).then((resp: AxiosResponse<ServerData>) => {
       const newSchoolData = alterReceivedData(resp.data.schools);

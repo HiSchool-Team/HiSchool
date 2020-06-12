@@ -26,9 +26,11 @@ const NewLayout = (props: {
   useEffect(() => {
     setTagTypes(prevTagTypes => {
       const newTypes = new Set<string>(prevTagTypes);
-      props.tags?.forEach(tag => {
-        newTypes.add(tag.type);
-      })
+      if (props.tags) {
+        for (const tag of props.tags) {
+          newTypes.add(tag.type);
+        }
+      }
       return newTypes;
     });
   }, [props.tags])

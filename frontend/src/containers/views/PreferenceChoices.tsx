@@ -1,37 +1,46 @@
-import React, { SyntheticEvent, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 
 import './PreferenceChoices.css';
 
 import {AutoComplete, Layout, Tabs} from 'antd';
-import SearchBar from '../../components/SearchBar';
-import history from '../../utils/history';
-import ActionButton from "antd/es/modal/ActionButton";
 import NewLayout from "../NewLayout";
-import Search from "antd/es/input/Search";
-import {Tag as TagType} from '../../types';
-import {Tag} from '../../components/Tag';
+import {School, Tag} from '../../types';
+import {Tag as TagComponent} from '../../components/Tag';
+import axios, {AxiosResponse} from 'axios';
+import {serverSearchEndpoint} from "./SchoolList";
 
 // TODO check if this import is needed
 
 const {Header, Content, Sider} = Layout;
 const {TabPane} = Tabs;
 
+interface ServerResponse {
+  schools: School[],
+  tags: Tag[],
+}
+
 const PreferenceChoices = (props: {
   children: React.ReactNode,
   handleSearch(): any;
 }) => {
 
+  const [availableTags, setAvailableTags] = useState<Tag[]>([]);
+  const [availableCategories, setAvailableCategories] = useState<string[]>([]);
   const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set<string>());
   const [selectedTypeTags, setSelectedTypeTags] = useState<string[]>([]);
 
-  const tempTags: TagType[] =[
-    {
-      id: 0, name: "Public School", type: "Type"
-    },
-    {
-      id: 1, name: "Boarding School", type: "Type"
-    },
-  ]
+  useEffect(() => {
+    axios.get<ServerResponse>(serverSearchEndpoint, {
+      params: {tags: ""}
+    }).then((resp: AxiosResponse<ServerResponse>) => {
+      setAvailableTags(resp.data.tags);
+      setAvailableCategories(
+        resp.data.tags.filter(tag => tag.sub_type !== 'General')
+                      .map(tag => tag.sub_type)
+                      .filter((tag, i, self) => self.indexOf(tag) === i)
+      );
+    })
+  }, [])
 
   const toggleTagState = (selectedTag: string) => {
     const newSelected = new Set<string>(selectedTags);
@@ -44,7 +53,7 @@ const PreferenceChoices = (props: {
   const addSelectedTypeTags = (selectedTags: number[]) => {
     const newTypeTags = [];
     for (const id of selectedTags) {
-      const toAdd = tempTags.find(x => x.id === id);
+      const toAdd = availableTags.find(x => x.id === id);
       if (toAdd) {
         newTypeTags.push(toAdd.name);
       }
@@ -69,7 +78,8 @@ const PreferenceChoices = (props: {
   };
 
   return (
-    <NewLayout tags={tempTags} updateDisplayedSchool={addSelectedTypeTags}>
+    <NewLayout tags={availableTags.filter(tag => tag.sub_type === 'General')}
+               updateDisplayedSchool={addSelectedTypeTags}>
       <div className="grid-container">
         <div className={"head-search"}>
           Search here for extracurricular/pastoral you would prefer the School contains<br/>
@@ -85,37 +95,26 @@ const PreferenceChoices = (props: {
 
         <div>
           <Tabs type="card">
-            <TabPane tab="Sports" key="1">
-              <Tag name={"Football club"} onClick={() => toggleTagState("Football club")}
-                   selected={selectedTags.has("Football club")}/>
-              <Tag name={"Chess club"} onClick={() => toggleTagState("Chess club")}
-                   selected={selectedTags.has("Chess club")}/>
-              <Tag name={"Cricket club"} onClick={() => toggleTagState("Cricket club")}
-                   selected={selectedTags.has("Cricket club")}/>
-            </TabPane>
-            <TabPane tab="Science" key="2">
-              <Tag name={"Astronomy Club"} onClick={() => toggleTagState("Astronomy Club")}
-                   selected={selectedTags.has("Astronomy Club")}/>
-              <Tag name={"Arduino Society"} onClick={() => toggleTagState("Arduino Society")}
-                   selected={selectedTags.has("Arduino Society")}/>
-              <Tag name={"SAT Preparation"} onClick={() => toggleTagState("SAT Preparation")}
-                   selected={selectedTags.has("SAT Preparation")}/>
-            </TabPane>
-            <TabPane tab="Art" key="3">
-              <Tag name={"Sculpt"} onClick={() => toggleTagState("Sculpt")}
-                   selected={selectedTags.has("Sculpt")}/>
-            </TabPane>
+            {availableCategories.map(category => {
+              return <TabPane tab={category} key={category}>
+                {availableTags.filter(tag => tag.sub_type === category)
+                  .map(tag => {
+                    return <TagComponent name={tag.name} onClick={() => toggleTagState(tag.name)}
+                                         selected={selectedTags.has(tag.name)}/>
+                  })}
+              </TabPane>
+            })}
           </Tabs>
         </div>
 
-                <div>
-                    <div className={"preference-search"}>
-                        <a href={`${window.parent.location}list`} className="button">Find me a School</a>
-                    </div>
-                </div>
-            </div>
-        </NewLayout>
-    );
+        <div>
+          <div className={"preference-search"}>
+            <a href={`${window.parent.location}list`} className="button">Find me a School</a>
+          </div>
+        </div>
+      </div>
+    </NewLayout>
+  );
 }
 
 export default PreferenceChoices;
