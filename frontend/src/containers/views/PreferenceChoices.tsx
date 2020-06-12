@@ -81,20 +81,8 @@ const PreferenceChoices = (props: {
     <NewLayout tags={availableTags.filter(tag => tag.sub_type === 'General')}
                updateDisplayedSchool={addSelectedTypeTags}>
       <div className="grid-container">
-        <div className={"head-search"}>
-          Search here for extracurricular/pastoral you would prefer the School contains<br/>
-          <AutoComplete
-            options={options}
-            style={{
-              width: 300,
-            }}
-            onSelect={onSelect}
-            placeholder="input here"
-          />
-        </div>
-
-        <div>
-          <Tabs type="card">
+          <div className={"tab-display"}>
+          <Tabs type="card" className={"tabs"}>
             {availableCategories.map(category => {
               return <TabPane tab={category} key={category}>
                 {availableTags.filter(tag => tag.sub_type === category)
@@ -107,7 +95,21 @@ const PreferenceChoices = (props: {
           </Tabs>
         </div>
 
-        <div>
+        <div className={"head-search"}>
+          Search here for your School extracurricular preference<br/>
+          <AutoComplete
+            options={options}
+            style={{
+              width: 300,
+            }}
+            onSelect={onSelect}
+            placeholder="input here"
+          /><br/><br/>
+          Click on the tags which you wish to select on the left
+          <br/>
+          <img src="/static/help.png" alt={"help"}/>
+          <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+          After selecting the tags you prefer search for a suitable school by clicking on the button bellow
           <div className={"preference-search"}>
             <a href={`${window.parent.location}list`} className="button">Find me a School</a>
           </div>

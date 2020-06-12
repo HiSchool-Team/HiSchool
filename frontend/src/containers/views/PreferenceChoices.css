@@ -1,18 +1,32 @@
 .grid-container {
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 0.2fr 1.5fr 0.4fr;
+    height: 80vh;
+  grid-template-columns: 1.4fr 0.6fr;
   gap: 1px 1px;
-  grid-template-areas: "." "." ".";
-    height: 90vh;
+  grid-template-areas: ". .";
+}
+
+.tab-display {
+    border-color: black;
+    border-width: 1px;
+    border-right-style: solid;
+    border-bottom-style: solid;
+}
+
+.tabs {
+    margin-left: 1vw;
+    margin-top: 1vh;
 }
 
 .head-search {
+    margin-top: 3vh;
   text-align: center;
     font-size: large;
 }
 
 .tag-search {
+    border-top-width: 1px;
+    border-top-color: black;
     size: auto;
 }
 
