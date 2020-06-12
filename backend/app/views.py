@@ -33,10 +33,13 @@ def return_json(request):
             schools = School.objects.all()
         tags = get_all_tags(schools)
     elif tags_result is not None:
-        tags = Tag.objects.filter(name=tags_result)
-        for tag in tags:
-            schools = schools | tag.school_set.all()
-        tags = get_all_tags(schools)
+        if tags_result:
+            tags = Tag.objects.filter(name=tags_result)
+            for tag in tags:
+                schools = schools | tag.school_set.all()
+            tags = get_all_tags(schools)
+        else:
+            tags = Tag.objects.all()
 
     schools_json = renderers.JSONRenderer().render(SchoolSerializer(schools, many=True).data)
     tags_json = renderers.JSONRenderer().render(TagSerializer(tags, many=True).data)
