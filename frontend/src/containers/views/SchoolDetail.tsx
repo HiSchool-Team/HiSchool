@@ -11,9 +11,9 @@ import Tooltip from 'antd/es/tooltip';
 import { SavedIcon } from '../../components/SavedIcon';
 import userAPI from '../../api/UserAPI';
 import schoolAPI from '../../api/SchoolAPI';
-import {goToNewUrl} from '../../utils/utils';
-import {schoolListBasePath} from './SchoolList';
-import {Tag} from "../../components/Tag";
+import { getSchoolId, goToNewUrl, userIsApplicant, userIsSchool } from '../../utils/utils';
+import { schoolListBasePath } from './SchoolList';
+import { Tag } from '../../components/Tag';
 
 // TODO will go in as props in the future
 const types = ['Public School', 'Boarding School'];
@@ -24,19 +24,19 @@ const others = ['Triwizard Tournament'];
 const categories = [{
   name: 'Type',
   value: types
-  },
-  {
-    name: 'Extracurricular',
-    value: extracurriculars
-  },
-  {
-    name: 'Amenities',
-    value: amenities
-  },
-  {
-    name: 'Other',
-    value: others
-  }];
+},
+{
+  name: 'Extracurricular',
+  value: extracurriculars
+},
+{
+  name: 'Amenities',
+  value: amenities
+},
+{
+  name: 'Other',
+  value: others
+}];
 
 const hogwarts: School = data[0] as School;
 
@@ -46,6 +46,9 @@ const SchoolDetail: React.FC = () => {
 
   const [school, setSchool] = useState(hogwarts);
   const [userSaved, setUserSaved] = useState(false);
+
+  const addition = (getSchoolId() === parseInt(schoolID)) ? '/admin' : '';
+  const qaLink = `${window.location.href}/qa` + addition;
 
   // configure initial value of school and userSaved
   useEffect(() => {
@@ -67,7 +70,9 @@ const SchoolDetail: React.FC = () => {
 
   return (
     <NewLayout>
-      <Card title={<div>{school.name} <SavedIcon isSaved={userSaved} onSave={userSave} onUnsave={userUnsave}/></div>}>
+      <Card title={
+        <div>{school.name} {userIsApplicant() &&
+        <SavedIcon isSaved={userSaved} onSave={userSave} onUnsave={userUnsave}/>}</div>}>
         <div style={{
           display: 'flex',
           flexFlow: 'row nowrap',
@@ -102,7 +107,7 @@ const SchoolDetail: React.FC = () => {
           </Paragraph>
         </div>
         <a className={'qa-link'} style={{ float: 'left' }}
-          href={`${window.location.href}/qa`}>Questions & Answers </a>
+          href={qaLink}>Questions & Answers </a>
       </Card>
 
       <div style={{
@@ -134,10 +139,10 @@ const SchoolDetail: React.FC = () => {
                 </div>
                 <div>
                   {elem.value.map(pill => {
-                    return <Tooltip title={"Click to find all schools with this tag"}>
-                      <Tag style={{flexShrink: 2}}
-                           onClick={() => goToNewUrl(schoolListBasePath, {tags: pill})}
-                           name={pill}/>
+                    return <Tooltip title={'Click to find all schools with this tag'}>
+                      <Tag style={{ flexShrink: 2 }}
+                        onClick={() => goToNewUrl(schoolListBasePath, { tags: pill })}
+                        name={pill}/>
                     </Tooltip>;
                   })}
                 </div>

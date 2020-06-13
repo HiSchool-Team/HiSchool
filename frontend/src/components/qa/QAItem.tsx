@@ -8,6 +8,7 @@ import { Store } from 'antd/lib/form/interface';
 import qaAPI from '../../api/QA';
 import userAPI from '../../api/UserAPI';
 import { SavedIcon } from '../SavedIcon';
+import { userIsApplicant } from '../../utils/utils';
 
 const { TextArea } = Input;
 
@@ -176,9 +177,10 @@ const QAItem = ({ qa, isAnswerable }: Props) => {
             <p><h2>{questionMarkIcon} {question.title}</h2></p>
           </Col>
           <Col span={1}/>
+          {userIsApplicant() &&
           <Col span={6}>
             <div style={{ fontSize: '26px' }}><SavedIcon isSaved={saved} onSave={userSave} onUnsave={userUnsave}/></div>
-          </Col>
+          </Col>}
         </Row>
       </div>
       <p>{question.body}</p>
