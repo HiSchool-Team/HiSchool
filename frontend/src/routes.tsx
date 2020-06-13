@@ -11,6 +11,7 @@ import SchoolDetailAdmin from './containers/views/SchoolDetailAdmin';
 import QAView from './containers/views/qa/QAView';
 import QAUnanswered from './containers/views/qa/QAUnanswered';
 import LogIn from './containers/views/LogIn'
+import SignUp from './containers/views/SignUp'
 
 
 
@@ -19,7 +20,8 @@ const BaseRouter = () => (
     <Route exact path={'/'} component={Frontpage}/>
     <Route exact path={'/pref'} component={PreferenceChoices}/>
     <Route exact path={'/schools'} component={SchoolList}/>
-    <Route exact path={'/login'} component={LogIn}/>
+    <Route exact path={'/logIn'} component={LogIn}/>
+    <Route exact path={'/signUp'} component={SignUp}/>
     <Route exact path={'/user/savedQAs'} component={SavedQAs}/>
     <Route exact path={'/user/savedSchools'} component={SavedSchools}/>
     <Route exact path={'/:schoolID/qa'}><QAView isAdmin={false}/></Route>
