@@ -41,221 +41,221 @@ interface State {
 
 const SchoolDetailAdmin: React.FC = () => {
   const pageTitleObject =
-      <Row>
-        <Col span={10}>
-          <PageHeader title='School Page Editor'/>
-        </Col>
-      </Row>;
+    <Row>
+      <Col span={10}>
+        <PageHeader title='School Page Editor'/>
+      </Col>
+    </Row>;
 
   const titleEditorFormItem =
-      <Form.Item
-        name='schoolName'
-        rules={[{
-          required: true,
-          message: 'Please input a school name!'
-        }]}>
-        <Input placeholder='Input School Name'/>
-      </Form.Item>;
+    <Form.Item
+      name='schoolName'
+      rules={[{
+        required: true,
+        message: 'Please input a school name!'
+      }]}>
+      <Input placeholder='Input School Name'/>
+    </Form.Item>;
 
   const titleEditorSection =
-      <div>
-        <Row>
-          <Col span={10} offset={5}>
-            <h2>School Name</h2>
-          </Col>
-        </Row>
+    <div>
+      <Row>
+        <Col span={10} offset={5}>
+          <h2>School Name</h2>
+        </Col>
+      </Row>
 
-        <Row>
-          <Col span={9} offset={5}>
-            {titleEditorFormItem}
-          </Col>
-        </Row>
-      </div>;
+      <Row>
+        <Col span={9} offset={5}>
+          {titleEditorFormItem}
+        </Col>
+      </Row>
+    </div>;
 
   const descriptionEditorFormItem =
-      <Form.Item
-        name='schoolDescription'
-        rules={[{
-          required: true,
-          message: 'Please input a school description!'
-        }]}>
-        <TextArea
-          placeholder="Input school description"
-          autoSize={{ minRows: 5 }}
-        />
-      </Form.Item>;
+    <Form.Item
+      name='schoolDescription'
+      rules={[{
+        required: true,
+        message: 'Please input a school description!'
+      }]}>
+      <TextArea
+        placeholder="Input school description"
+        autoSize={{ minRows: 5 }}
+      />
+    </Form.Item>;
 
   const descriptionEditorSection =
-      <div>
-        <Row>
-          <Col span={10} offset={5}>
-            <h2>School Description</h2>
-          </Col>
-        </Row>
+    <div>
+      <Row>
+        <Col span={10} offset={5}>
+          <h2>School Description</h2>
+        </Col>
+      </Row>
 
-        <Row>
-          <Col span={15} offset={5}>
-            {descriptionEditorFormItem}
-          </Col>
-        </Row>
-      </div>;
+      <Row>
+        <Col span={15} offset={5}>
+          {descriptionEditorFormItem}
+        </Col>
+      </Row>
+    </div>;
 
   const mottoEditorFormItem =
-      <Form.Item
-        name='schoolMotto'>
-        <Input
-          placeholder="Input school motto"
-        />
-      </Form.Item>;
+    <Form.Item
+      name='schoolMotto'>
+      <Input
+        placeholder="Input school motto"
+      />
+    </Form.Item>;
 
   const mottoEditorSection =
-      <div>
-        <Row>
-          <Col span={10} offset={5}>
-            <h2>School Motto (Optional)</h2>
-          </Col>
-        </Row>
+    <div>
+      <Row>
+        <Col span={10} offset={5}>
+          <h2>School Motto (Optional)</h2>
+        </Col>
+      </Row>
 
-        <Row>
-          <Col span={15} offset={5}>
-            {mottoEditorFormItem}
-          </Col>
-        </Row>
-      </div>;
+      <Row>
+        <Col span={15} offset={5}>
+          {mottoEditorFormItem}
+        </Col>
+      </Row>
+    </div>;
 
   const imgLinkFormItem =
-      <Form.Item
-        name='imgLink'>
-        <Input
-          placeholder="Input a link to a school's picture"
-        />
-      </Form.Item>;
+    <Form.Item
+      name='imgLink'>
+      <Input
+        placeholder="Input a link to a school's picture"
+      />
+    </Form.Item>;
 
   const websiteLinkFormItem =
-      <Form.Item
-        name='websiteLink'>
-        <Input
-          placeholder="Input school website link"
-        />
-      </Form.Item>;
+    <Form.Item
+      name='websiteLink'>
+      <Input
+        placeholder="Input school website link"
+      />
+    </Form.Item>;
 
   const facebookLinkFormItem =
-      <Form.Item
-        name='facebookLink'>
-        <Input
-          placeholder="Input school facebook page link"
-        />
-      </Form.Item>;
+    <Form.Item
+      name='facebookLink'>
+      <Input
+        placeholder="Input school facebook page link"
+      />
+    </Form.Item>;
 
   const twitterLinkFormItem =
-      <Form.Item
-        name='twitterLink'>
-        <Input
-          placeholder="Input school twitter link"
-        />
-      </Form.Item>;
+    <Form.Item
+      name='twitterLink'>
+      <Input
+        placeholder="Input school twitter link"
+      />
+    </Form.Item>;
 
   const linkEditorSection =
-      <div>
-        <Row>
-          <Col span={10} offset={5}>
-            <h2>Links (Optional)</h2>
-          </Col>
-        </Row>
+    <div>
+      <Row>
+        <Col span={10} offset={5}>
+          <h2>Links (Optional)</h2>
+        </Col>
+      </Row>
 
-        <Row>
-          <Col span={15} offset={5}>
-            {imgLinkFormItem}
-          </Col>
-        </Row>
+      <Row>
+        <Col span={15} offset={5}>
+          {imgLinkFormItem}
+        </Col>
+      </Row>
 
-        <Row>
-          <Col span={15} offset={5}>
-            {websiteLinkFormItem}
-          </Col>
-        </Row>
+      <Row>
+        <Col span={15} offset={5}>
+          {websiteLinkFormItem}
+        </Col>
+      </Row>
 
-        <Row>
-          <Col span={15} offset={5}>
-            {facebookLinkFormItem}
-          </Col>
-        </Row>
+      <Row>
+        <Col span={15} offset={5}>
+          {facebookLinkFormItem}
+        </Col>
+      </Row>
 
-        <Row>
-          <Col span={15} offset={5}>
-            {twitterLinkFormItem}
-          </Col>
-        </Row>
-      </div>;
+      <Row>
+        <Col span={15} offset={5}>
+          {twitterLinkFormItem}
+        </Col>
+      </Row>
+    </div>;
 
   const videoLinkFormItem =
-      <Form.Item
-        name='videoLink'>
-        <Input
-          placeholder="Input school video youtube link"
-        />
-      </Form.Item>;
+    <Form.Item
+      name='videoLink'>
+      <Input
+        placeholder="Input school video youtube link"
+      />
+    </Form.Item>;
 
   const videoLinkFormSection =
-      <div>
-        <Row>
-          <Col span={10} offset={5}>
-            <h2>School Video Youtube Link (Optional)</h2>
-          </Col>
-        </Row>
+    <div>
+      <Row>
+        <Col span={10} offset={5}>
+          <h2>School Video Youtube Link (Optional)</h2>
+        </Col>
+      </Row>
 
-        <Row>
-          <Col span={15} offset={5}>
-            {videoLinkFormItem}
-          </Col>
-        </Row>
-      </div>;
+      <Row>
+        <Col span={15} offset={5}>
+          {videoLinkFormItem}
+        </Col>
+      </Row>
+    </div>;
 
   const calendarLinkFormItem =
-      <Form.Item
-        name='calendarLink'>
-        <Input
-          placeholder="Input school google calendar link"
-        />
-      </Form.Item>;
+    <Form.Item
+      name='calendarLink'>
+      <Input
+        placeholder="Input school google calendar link"
+      />
+    </Form.Item>;
 
   const calendarLinkSection =
-      <div>
-        <Row>
-          <Col span={10} offset={5}>
-            <h2>School Google Calendar Link (Optional)</h2>
-          </Col>
-        </Row>
+    <div>
+      <Row>
+        <Col span={10} offset={5}>
+          <h2>School Google Calendar Link (Optional)</h2>
+        </Col>
+      </Row>
 
-        <Row>
-          <Col span={15} offset={5}>
-            {calendarLinkFormItem}
-          </Col>
-        </Row>
-      </div>;
+      <Row>
+        <Col span={15} offset={5}>
+          {calendarLinkFormItem}
+        </Col>
+      </Row>
+    </div>;
 
   const mapLinkFormItem =
-      <Form.Item
-        name='mapLink'>
-        <Input
-          placeholder="Input school google maps link"
-        />
-      </Form.Item>;
+    <Form.Item
+      name='mapLink'>
+      <Input
+        placeholder="Input school google maps link"
+      />
+    </Form.Item>;
 
   const mapLinkSection =
-      <div>
-        <Row>
-          <Col span={10} offset={5}>
-            <h2>School Google Maps Link (Optional)</h2>
-          </Col>
-        </Row>
+    <div>
+      <Row>
+        <Col span={10} offset={5}>
+          <h2>School Google Maps Link (Optional)</h2>
+        </Col>
+      </Row>
 
-        <Row>
-          <Col span={15} offset={5}>
-            {mapLinkFormItem}
-          </Col>
-        </Row>
-      </div>;
+      <Row>
+        <Col span={15} offset={5}>
+          {mapLinkFormItem}
+        </Col>
+      </Row>
+    </div>;
 
   const [allTags, setAllTags] = useState(new Array<Tag>());
   const [selectedTags, setSelectedTags] = useState(new Array<Tag>());
@@ -292,31 +292,31 @@ const SchoolDetailAdmin: React.FC = () => {
     </Form.Item>;
 
   const tagSelectSection =
-      <div>
-        <Row>
-          <Col span={10} offset={5}>
-            <h2>School Tags (Optional)</h2>
-          </Col>
-        </Row>
-
-        <Row>
-          <Col span={15} offset={5}>
-            {tagSelectFormItem}
-          </Col>
-        </Row>
-      </div>;
-
-  const saveButton =
+    <div>
       <Row>
         <Col span={10} offset={5}>
-          <Form.Item>
-            <Button type="primary"
-              htmlType="submit">
-              Save
-            </Button>
-          </Form.Item>
+          <h2>School Tags (Optional)</h2>
         </Col>
-      </Row>;
+      </Row>
+
+      <Row>
+        <Col span={15} offset={5}>
+          {tagSelectFormItem}
+        </Col>
+      </Row>
+    </div>;
+
+  const saveButton =
+    <Row>
+      <Col span={10} offset={5}>
+        <Form.Item>
+          <Button type="primary"
+            htmlType="submit">
+            Save
+          </Button>
+        </Form.Item>
+      </Col>
+    </Row>;
 
   const onFinish = ({
     schoolName,

@@ -11,9 +11,9 @@ import Tooltip from 'antd/es/tooltip';
 import { SavedIcon } from '../../components/SavedIcon';
 import userAPI from '../../api/UserAPI';
 import schoolAPI from '../../api/SchoolAPI';
-import {goToNewUrl} from '../../utils/utils';
-import {schoolListBasePath} from './SchoolList';
-import {Tag} from "../../components/Tag";
+import { goToNewUrl } from '../../utils/utils';
+import { schoolListBasePath } from './SchoolList';
+import { Tag } from '../../components/Tag';
 
 // TODO will go in as props in the future
 const types = ['Public School', 'Boarding School'];
@@ -24,19 +24,19 @@ const others = ['Triwizard Tournament'];
 const categories = [{
   name: 'Type',
   value: types
-  },
-  {
-    name: 'Extracurricular',
-    value: extracurriculars
-  },
-  {
-    name: 'Amenities',
-    value: amenities
-  },
-  {
-    name: 'Other',
-    value: others
-  }];
+},
+{
+  name: 'Extracurricular',
+  value: extracurriculars
+},
+{
+  name: 'Amenities',
+  value: amenities
+},
+{
+  name: 'Other',
+  value: others
+}];
 
 const hogwarts: School = data[0] as School;
 
@@ -134,10 +134,10 @@ const SchoolDetail: React.FC = () => {
                 </div>
                 <div>
                   {elem.value.map(pill => {
-                    return <Tooltip title={"Click to find all schools with this tag"}>
-                      <Tag style={{flexShrink: 2}}
-                           onClick={() => goToNewUrl(schoolListBasePath, {tags: pill})}
-                           name={pill}/>
+                    return <Tooltip title={'Click to find all schools with this tag'}>
+                      <Tag style={{ flexShrink: 2 }}
+                        onClick={() => goToNewUrl(schoolListBasePath, { tags: pill })}
+                        name={pill}/>
                     </Tooltip>;
                   })}
                 </div>
