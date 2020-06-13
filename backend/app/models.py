@@ -1,8 +1,12 @@
 from time import strftime
 
+import django
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from rest_framework.authtoken.models import Token
 
 
 class User(AbstractUser):
@@ -89,3 +93,15 @@ class UserAccount(models.Model):
     @classmethod
     def default(cls):
         return UserAccount.objects.get(user_id=2)
+
+
+class SchoolAccount(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    school = models.OneToOneField(School, on_delete=models.DO_NOTHING, null=True)
+
+
+# Automatically generate user token upon user creation
+@receiver(post_save, sender=User)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        Token.objects.create(user=instance)

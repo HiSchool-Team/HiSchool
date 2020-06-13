@@ -3,8 +3,11 @@ import django_filters
 from rest_framework import generics, status, permissions
 from rest_framework import viewsets, renderers
 import json
+
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import action, api_view, authentication_classes, permission_classes
 from rest_framework.generics import get_object_or_404
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from .models import School, QA, Tag, User
@@ -89,6 +92,8 @@ def current_user_account_or_default(request) -> UserAccount:
 
 
 @api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def list_saved_schools(request):
     account = current_user_account_or_default(request)
     saved_schools = account.saved_schools.all()

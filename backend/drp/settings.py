@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_filters',
     'crispy_forms',
+    'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [
@@ -82,7 +83,6 @@ import sys
 
 if 'test' in sys.argv:
     DATABASES['default'] = DATABASES['testdb']
-
 
 # Use custom definition of user account
 AUTH_USER_MODEL = 'app.User'
