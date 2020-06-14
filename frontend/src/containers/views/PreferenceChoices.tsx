@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {FormEvent, useEffect, useState} from 'react';
 
 import './PreferenceChoices.css';
 
@@ -8,7 +8,8 @@ import {School, Tag} from '../../types';
 import {Tag as TagComponent} from '../../components/Tag';
 import axios, {AxiosResponse} from 'axios';
 import {serverSearchEndpoint} from "./SchoolList";
-import {calculatePreferences} from "../../logic/Search";
+import { calculatePreferences } from '../../logic/Search';
+import Search from "antd/lib/transfer/search";
 
 // TODO check if this import is needed
 
@@ -29,6 +30,7 @@ const PreferenceChoices = (props: {
   const [availableCategories, setAvailableCategories] = useState<string[]>([]);
   const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set<string>());
   const [selectedTypeTags, setSelectedTypeTags] = useState<string[]>([]);
+  const [searchValue, setSearchValue] = useState<string>("");
 
   useEffect(() => {
     axios.get<ServerResponse>(serverSearchEndpoint, {
@@ -75,9 +77,9 @@ const PreferenceChoices = (props: {
   ];
 
 
-  const getComponentsByRelevance = (category: string) => {
+  const getComponentsByRelevance = (category: string, givenString: string) => {
     const categoryTags = availableTags.filter(tag => tag.sub_type === category);
-    const tagsPreferences = calculatePreferences("test", categoryTags);
+    const tagsPreferences = calculatePreferences(givenString, categoryTags);
 
     return <>
       {tagsPreferences
@@ -100,7 +102,7 @@ const PreferenceChoices = (props: {
           <Tabs type="card" className={"tabs"}>
             {availableCategories.map(category => {
               return <TabPane tab={category} key={category}>
-                {getComponentsByRelevance(category)}
+                {getComponentsByRelevance(category, searchValue)}
               </TabPane>
             })}
           </Tabs>
@@ -108,14 +110,12 @@ const PreferenceChoices = (props: {
 
         <div className={"head-search"}>
           Search here for your School extracurricular preference<br/>
-          <AutoComplete
-            options={options}
-            style={{
-              width: 300,
-            }}
-            onSelect={onSelect}
-            placeholder="input here"
-          /><br/><br/>
+          <Search placeholder={'search tags'}
+                  onChange={(e: FormEvent<HTMLElement>) => {
+                    let elem: HTMLInputElement = e.currentTarget as HTMLInputElement;
+                    setSearchValue(elem.value);
+                  }}/>
+          <br/><br/>
           Click on the tags which you wish to select on the left
           <br/>
           <img src="/static/help.png" alt={"help"}/>
