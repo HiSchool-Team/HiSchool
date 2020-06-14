@@ -3,13 +3,13 @@ import {computeElementRelevance, Searchable} from "../Search";
 
 test('same strings have distance 0', () => {
   const expectedString = "string";
-  const givenObject = {name: "string"};
+  const givenObject: Searchable = {name: "string"};
   expect(computeElementRelevance(expectedString, givenObject)).toBe(0);
 });
 
 test('element relevance is symmetric', () => {
   let expectedString = "kitten";
-  let givenObject = {name: "sitting"};
+  let givenObject: Searchable = {name: "sitting"};
   const val1 = computeElementRelevance(expectedString, givenObject);
 
   expectedString = "sitting";
@@ -20,6 +20,6 @@ test('element relevance is symmetric', () => {
 
 test('rossettacode and raisehtysword have distance 8', () => {
   let expectedString = "rossettacode";
-  let givenObject = {name: "raisehtysword"};
+  let givenObject: Searchable = {name: "raisehtysword"};
   expect(computeElementRelevance(expectedString, givenObject)).toBe(8);
 });

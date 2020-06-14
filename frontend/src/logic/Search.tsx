@@ -4,9 +4,14 @@ export interface Searchable {
   name: string,
 }
 
+export const calculatePreferences = <T extends Searchable>(comparedWith: string, arr: T[]): [T, number][] => {
+  return arr.map(elem => {
+    return [elem, computeElementRelevance(comparedWith, elem)]
+  })
+}
 
 // computes element relevance using levenshtein distance algorithm
-export const computeElementRelevance = <T extends Searchable>(currInput: string, element: T) => {
+export const computeElementRelevance = <T extends Searchable>(currInput: string, element: T): number => {
   let dp: number[][] = initArray(currInput.length + 1, element.name.length + 1, -1);
 
   return levenshteinDistance(currInput, element, dp, currInput.length, element.name.length);
