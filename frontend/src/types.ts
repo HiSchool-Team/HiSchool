@@ -46,4 +46,5 @@ export type Tag = {
   name: string,
   type: string,
   sub_type: string,
+  n_of_schools_with_tag: number,
 };
