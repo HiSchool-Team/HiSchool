@@ -27,8 +27,6 @@ class Tag(models.Model):
                                          ('Sports', 'Sports'),
                                          ('Science', 'Science'),
                                          ('Art', 'Art')])
-    # TODO to be calculated automatically
-    n_of_schools_with_tag = models.IntegerField(validators=[MinValueValidator(0)])
 
     def __str__(self):
         return self.name

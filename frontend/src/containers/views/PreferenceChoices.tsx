@@ -75,14 +75,14 @@ const PreferenceChoices = (props: {
   ];
 
 
-  function getRelevantComponents(category: string) {
+  const getComponentsByRelevance = (category: string) => {
     const categoryTags = availableTags.filter(tag => tag.sub_type === category);
     const tagsPreferences = calculatePreferences("test", categoryTags);
-    
+
     return <>
-      {categoryTags
-        .map(tag => {
-          return <TagComponent name={tag.name} onClick={() => toggleTagState(tag.name)}
+      {tagsPreferences
+        .map(([tag, value]) => {
+          return <TagComponent name={tag.name + "(" + value + ")"} onClick={() => toggleTagState(tag.name)}
                                selected={selectedTags.has(tag.name)}/>
         })}
     </>;
@@ -100,7 +100,7 @@ const PreferenceChoices = (props: {
           <Tabs type="card" className={"tabs"}>
             {availableCategories.map(category => {
               return <TabPane tab={category} key={category}>
-                {getRelevantComponents(category)}
+                {getComponentsByRelevance(category)}
               </TabPane>
             })}
           </Tabs>
