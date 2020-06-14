@@ -4,10 +4,16 @@ export interface Searchable {
   name: string,
 }
 
+
+// returns searchable calculated and sorted descending by second argument
 export const calculatePreferences = <T extends Searchable>(comparedWith: string, arr: T[]): [T, number][] => {
-  return arr.map(elem => {
+  const tagsPrefs: [T, number][] = arr.map(elem => {
     return [elem, computeElementRelevance(comparedWith, elem)]
+  });
+  tagsPrefs.sort(([t1, v1], [t2, v2]) => {
+    return v1 - v2;
   })
+  return tagsPrefs;
 }
 
 // computes element relevance using levenshtein distance algorithm

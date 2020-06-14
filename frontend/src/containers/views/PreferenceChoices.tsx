@@ -8,6 +8,7 @@ import {School, Tag} from '../../types';
 import {Tag as TagComponent} from '../../components/Tag';
 import axios, {AxiosResponse} from 'axios';
 import {serverSearchEndpoint} from "./SchoolList";
+import {calculatePreferences} from "../../logic/Search";
 
 // TODO check if this import is needed
 
@@ -73,9 +74,23 @@ const PreferenceChoices = (props: {
     },
   ];
 
-  const onSelect = (value: string) => {
 
-  };
+  function getRelevantComponents(category: string) {
+    const categoryTags = availableTags.filter(tag => tag.sub_type === category);
+    const tagsPreferences = calculatePreferences("test", categoryTags);
+    
+    return <>
+      {categoryTags
+        .map(tag => {
+          return <TagComponent name={tag.name} onClick={() => toggleTagState(tag.name)}
+                               selected={selectedTags.has(tag.name)}/>
+        })}
+    </>;
+  }
+
+  const onSelect = () => {
+
+  }
 
   return (
     <NewLayout tags={availableTags.filter(tag => tag.sub_type === 'General')}
@@ -85,11 +100,7 @@ const PreferenceChoices = (props: {
           <Tabs type="card" className={"tabs"}>
             {availableCategories.map(category => {
               return <TabPane tab={category} key={category}>
-                {availableTags.filter(tag => tag.sub_type === category)
-                  .map(tag => {
-                    return <TagComponent name={tag.name} onClick={() => toggleTagState(tag.name)}
-                                         selected={selectedTags.has(tag.name)}/>
-                  })}
+                {getRelevantComponents(category)}
               </TabPane>
             })}
           </Tabs>

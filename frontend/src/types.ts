@@ -1,3 +1,5 @@
+import {Searchable} from "./logic/Search";
+
 export type Rating = {
   value: number,
   numRaters: number,
@@ -41,10 +43,10 @@ export type School = {
   parent_satisfaction: number,
 };
 
-export type Tag = {
+export interface Tag extends Searchable {
   id: number,
   name: string,
   type: string,
   sub_type: string,
   n_of_schools_with_tag: number,
-};
+}
