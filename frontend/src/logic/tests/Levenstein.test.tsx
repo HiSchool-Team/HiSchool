@@ -23,3 +23,9 @@ test('rossettacode and raisehtysword have distance 8', () => {
   let givenObject: Searchable = {name: "raisehtysword"};
   expect(computeElementRelevance(expectedString, givenObject)).toBe(8);
 });
+
+test('rosseta and Rosseta have distance 0', () => {
+  let expectedString = "rosseta";
+  let givenObject: Searchable = {name: "Rosseta"};
+  expect(computeElementRelevance(expectedString, givenObject)).toBe(0);
+})
