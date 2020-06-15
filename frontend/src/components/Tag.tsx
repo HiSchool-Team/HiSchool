@@ -15,6 +15,7 @@ export const Tag = (props: {
   onClick?: (e: MouseEvent<HTMLDivElement>) => void,
   onFocus?: (e: FocusEvent<HTMLDivElement>) => void,
   onDrop?: (id: number) => void,
+  onPullOut?: (id: number) => void,
 }) => {
   const pillStyle: CSSProperties = {
     border: 'none',
@@ -37,6 +38,8 @@ export const Tag = (props: {
       const dropResult = monitor.getDropResult()
       if (item && dropResult) {
         props.onDrop?.(props.id);
+      } else {
+        props.onPullOut?.(props.id);
       }
     },
     collect: (monitor) => ({

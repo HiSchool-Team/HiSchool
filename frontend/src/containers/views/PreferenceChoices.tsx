@@ -82,7 +82,8 @@ const PreferenceChoices = () => {
       {tagsPreferences
         .map(([tag, value]) => {
           return <TagComponent id={tag.id} name={tag.name + "(" + value + ")"}
-                               onDrop={(id: number) => setInsertedTags(prevState => [...prevState, id])} />
+                               onDrop={(id: number) => setInsertedTags(prevState => [...prevState, id])}
+                                />
         })}
     </>;
   }
@@ -124,7 +125,10 @@ const PreferenceChoices = () => {
 
           <div className={"head-search"}>
             Search here for your School extracurricular preference<br/>
-            <DragDropZone tags={droppedTags}/>
+            <DragDropZone tags={droppedTags}
+                          onPullOut={id =>
+                            setInsertedTags(prevState => prevState.filter(tag_id => tag_id !== id))
+                          }/>
             <Search placeholder={'search tags'}
                     onChange={(e) => {
                       let elem: HTMLInputElement = e.currentTarget as HTMLInputElement;

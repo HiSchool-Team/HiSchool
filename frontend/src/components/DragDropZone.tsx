@@ -8,7 +8,7 @@ const style: CSSProperties = {
   borderStyle: "dotted",
 }
 
-const DragDropZone = (props: { tags: Tag[] }) => {
+const DragDropZone = (props: { tags: Tag[], onPullOut: (id: number) => void }) => {
   const [{canDrop, isOver}, drop] = useDrop({
     accept: ItemTypes.TAG,
     drop: item => {
@@ -32,7 +32,7 @@ const DragDropZone = (props: { tags: Tag[] }) => {
     <div ref={drop} style={{ ...style, backgroundColor }}>
       {isActive ? 'Release to drop' : 'Drag a box here'}
       {props.tags.map(tag => {
-        return <TagComponent id={tag.id} name={tag.name}/>
+        return <TagComponent id={tag.id} name={tag.name} onPullOut={props.onPullOut}/>
       })}
     </div>
   )
