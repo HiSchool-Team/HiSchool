@@ -31,6 +31,10 @@ class UserContext {
     return this.get()?.is_school || false;
   }
 
+  hasRegisteredSchool (): boolean {
+    return this.get()?.is_school === true && this.get()?.school != undefined;
+  }
+
   getSchoolId (): number | undefined {
     return this.get()?.school?.id;
   }

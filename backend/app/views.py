@@ -2,7 +2,7 @@ from django.db import transaction
 from django.http import HttpResponse
 import django_filters
 from django.views.generic import CreateView
-from rest_framework import generics, status, permissions
+from rest_framework import generics, status, permissions, decorators
 from rest_framework import viewsets, renderers
 import json
 
@@ -67,6 +67,20 @@ class SchoolViewSet(viewsets.ModelViewSet):
 
     queryset = School.objects.all()
     serializer_class = SchoolSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+
+        (user, _) = TokenAuthentication().authenticate(request)
+
+        school = serializer.instance
+        user.schoolaccount.school = school
+        user.schoolaccount.save()
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
 def get_all_tags(schools):
@@ -160,7 +174,7 @@ def current_user(request):
     serializer = UserSerializer(user)
     data = serializer.data
 
-    if (user.is_school):
+    if user.is_school and user.schoolaccount.school is not None:
         school_serializer = SchoolSerializer(user.schoolaccount.school)
         data.update({
             'school': school_serializer.data

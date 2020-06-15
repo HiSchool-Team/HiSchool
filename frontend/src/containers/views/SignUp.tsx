@@ -4,6 +4,8 @@ import { Button, Card, Col, Form, Input, Row, Radio } from 'antd';
 import { Store } from 'antd/lib/form/interface';
 import authAPI from '../../api/Auth';
 import userContext from '../../context/User';
+import { goToNewUrl } from '../../utils/utils';
+import { loginPath } from '../../routes';
 
 const SignUp: React.FC = () => {
   const [isApplicantAccount, setIsApplicantAccount] = useState(true);
@@ -19,7 +21,9 @@ const SignUp: React.FC = () => {
       return;
     }
 
-    authAPI.register(username, email, password, reconfirmedPassword, isApplicantAccount);
+    authAPI
+      .register(username, email, password, reconfirmedPassword, isApplicantAccount)
+      .then(() => goToNewUrl(loginPath));
   };
 
   const usernameFormItem =

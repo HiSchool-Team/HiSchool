@@ -25,7 +25,7 @@ class ApplicantAccountAPI implements IApplicantAccountAPI {
   getSavedSchools (): Promise<School[]> {
     return axios.get('/app/api/account/applicant/saved_school/',
       {
-        headers: authAPI.getHeader()
+        headers: authAPI.getHeaders()
       })
       .then(res => res.data)
       .catch((err) => {
@@ -43,7 +43,7 @@ class ApplicantAccountAPI implements IApplicantAccountAPI {
       `/app/api/account/applicant/saved_school/${school.id}/`,
       {},
       {
-        headers: authAPI.getHeader()
+        headers: authAPI.getHeaders()
       })
       .catch((err) => {
         const msg = `error when saving user school:\n ${JSON.stringify(school)}`;
@@ -57,7 +57,7 @@ class ApplicantAccountAPI implements IApplicantAccountAPI {
     return axios.delete(
       `/app/api/account/applicant/saved_school/${school.id}/`,
       {
-        headers: authAPI.getHeader()
+        headers: authAPI.getHeaders()
       })
       .catch((err) => {
         const msg = `error when unsaving user school:\n ${JSON.stringify(school)}`;
@@ -70,7 +70,7 @@ class ApplicantAccountAPI implements IApplicantAccountAPI {
   getSavedQAs (): Promise<QA[]> {
     return axios.get('/app/api/account/applicant/saved_qa/',
       {
-        headers: authAPI.getHeader()
+        headers: authAPI.getHeaders()
       })
       .then(res => res.data)
       .catch((err) => {
@@ -89,7 +89,7 @@ class ApplicantAccountAPI implements IApplicantAccountAPI {
       `/app/api/account/applicant/saved_qa/${qa.id}/`,
       {},
       {
-        headers: authAPI.getHeader()
+        headers: authAPI.getHeaders()
       })
       .catch((err) => {
         const msg = `error when saving user qa:\n ${JSON.stringify(qa)}`;
@@ -103,7 +103,7 @@ class ApplicantAccountAPI implements IApplicantAccountAPI {
     return axios.delete(
       `/app/api/account/applicant/saved_qa/${qa.id}/`,
       {
-        headers: authAPI.getHeader()
+        headers: authAPI.getHeaders()
       })
       .catch((err) => {
         const msg = `error when unsaving user qa:\n ${JSON.stringify(qa)}`;

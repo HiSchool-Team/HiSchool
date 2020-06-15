@@ -1,5 +1,6 @@
 import { School } from '../types';
 import axios from 'axios';
+import authAPI from './Auth';
 
 interface ISchoolAPI {
   getAll (): Promise<School[]>,
@@ -27,21 +28,27 @@ class SchoolAPI implements ISchoolAPI {
       });
   }
 
-  post (school: School): Promise<void> {
+  post (school: School): Promise<School> {
+    const headers = {
+      ...authAPI.getHeaders(),
+      'Content-Type': 'application/json'
+    };
+
+    console.log('posting school with headers');
+    console.log(headers);
+
     return axios.post(
       '/app/api/school/',
       school,
       {
-        headers: {
-          'Content-Type': 'application/json'
-        }
+        headers: headers
       })
+      .then(res => res.data)
       .catch((err) => {
         const msg = `error when posting school: ${JSON.stringify(school)}`;
         alert(msg);
         console.warn(msg, err);
-      })
-      .then();
+      });
   }
 }
 

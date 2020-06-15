@@ -2,13 +2,15 @@ import React from 'react';
 import NewLayout from '../NewLayout';
 import { Button, Card, Col, Form, Input, Row } from 'antd';
 import { Store } from 'antd/lib/form/interface';
-import applicantAccountAPI from '../../api/ApplicantAccount';
 import authAPI from '../../api/Auth';
+import { goToNewUrl } from '../../utils/utils';
+import { homePath } from '../../routes';
 
 const LogIn: React.FC = () => {
   const onFinish = ({ username, password }: Store) => {
     authAPI
       .login(username, password)
+      .then(() => goToNewUrl(homePath))
       .catch(err => {
         const msg = 'login failed: check your credentials';
         alert(msg);

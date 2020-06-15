@@ -5,11 +5,15 @@ import data from '../../newData';
 import NewLayout from '../NewLayout';
 import { RouteComponentProps } from 'react-router-dom';
 import './SchoolDetail.css';
-import { School, Tag } from '../../types';
+import { School, Tag, User } from '../../types';
 import TextArea from 'antd/es/input/TextArea';
 import { Store } from 'antd/lib/form/interface';
 import schoolAPI from '../../api/School';
 import tagAPI from '../../api/Tag';
+import { goToNewUrl } from '../../utils/utils';
+import { homePath } from '../../routes';
+import userContext from '../../context/User';
+import authAPI from '../../api/Auth';
 
 // TODO will go in as props in the future
 const types = ['Public School', 'Boarding School'];
@@ -349,7 +353,15 @@ const SchoolDetailAdmin: React.FC = () => {
 
     console.log('selected tags are:');
     console.log(selectedTags);
-    schoolAPI.post(school);
+    schoolAPI
+      .post(school)
+      .then(registeredSchool => {
+        const userWithSchool: User = userContext.get() as User;
+        userWithSchool.school = registeredSchool;
+        userContext.set(userWithSchool);
+        goToNewUrl(homePath);
+        window.location.reload(true);
+      });
   };
   // TODO add default values based on account (existing entries)
   return (

@@ -54,7 +54,9 @@ const SchoolDetail: React.FC = () => {
   // configure initial value of school and userSaved
   useEffect(() => {
     schoolAPI.get(schoolIdParam).then(s => {
-      applicantAccountAPI.hasSavedSchool(s).then(isUserSaved => setUserSaved(isUserSaved));
+      if (userContext.isApplicantAccount()) {
+        applicantAccountAPI.hasSavedSchool(s).then(isUserSaved => setUserSaved(isUserSaved));
+      }
       setSchool(s);
     });
   }, [schoolIdParam]);
@@ -72,8 +74,11 @@ const SchoolDetail: React.FC = () => {
   return (
     <NewLayout>
       <Card title={
-        <div>{school.name} {userContext.isApplicantAccount() &&
-        <SavedIcon isSaved={userSaved} onSave={userSave} onUnsave={userUnsave}/>}</div>}>
+        <div>
+          {school.name}
+          {userContext.isApplicantAccount() && <SavedIcon isSaved={userSaved} onSave={userSave} onUnsave={userUnsave}/>}
+        </div>
+      }>
         <div style={{
           display: 'flex',
           flexFlow: 'row nowrap',

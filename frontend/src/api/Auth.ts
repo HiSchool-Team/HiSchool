@@ -9,7 +9,7 @@ type AuthHeader = {
 const token = '__token';
 
 class AuthAPI {
-  getHeader (): AuthHeader {
+  getHeaders (): AuthHeader {
     return {
       Authorization: `Token ${localStorage.getItem(token)}`
     };
@@ -63,7 +63,7 @@ class AuthAPI {
         axios.get(
           '/app/api/current_user/',
           {
-            headers: authAPI.getHeader()
+            headers: authAPI.getHeaders()
           }
         ).then(userRes => {
           const currentUser: User = userRes.data;

@@ -13,17 +13,22 @@ import QAUnanswered from './containers/views/qa/QAUnanswered';
 import LogIn from './containers/views/LogIn';
 import SignUp from './containers/views/SignUp';
 
-export const qaUnansweredPath = 'qa/unanswered';
+export const qaUnansweredPath = '/qa/unanswered';
+export const homePath = '/';
+export const loginPath = '/logIn';
+export const signupPath = '/signUp';
+export const savedSchoolsPath = '/user/savedSchools';
+export const savedQAsPath = '/user/savedQAs';
 
 const BaseRouter = () => (
   <Switch>
-    <Route exact path={'/'} component={Frontpage}/>
+    <Route exact path={homePath} component={Frontpage}/>
     <Route exact path={'/pref'} component={PreferenceChoices}/>
     <Route exact path={'/schools'} component={SchoolList}/>
-    <Route exact path={'/logIn'} component={LogIn}/>
-    <Route exact path={'/signUp'} component={SignUp}/>
-    <Route exact path={'/user/savedQAs'} component={SavedQAs}/>
-    <Route exact path={'/user/savedSchools'} component={SavedSchools}/>
+    <Route exact path={loginPath} component={LogIn}/>
+    <Route exact path={signupPath} component={SignUp}/>
+    <Route exact path={savedQAsPath} component={SavedQAs}/>
+    <Route exact path={savedSchoolsPath} component={SavedSchools}/>
     <Route exact path={'/:schoolID/qa'}><QAView isAdmin={false}/></Route>
     <Route exact path={'/:schoolID/qa/admin'}><QAView isAdmin={true}/></Route>
     <Route exact path={'/:schoolID'} component={SchoolDetail}/>
