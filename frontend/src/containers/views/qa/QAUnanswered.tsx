@@ -4,12 +4,13 @@ import qaAPI from '../../../api/QA';
 import NewLayout from '../../NewLayout';
 import { Card } from 'antd';
 import { QAList } from '../../../components/qa/QAList';
+import userContext from '../../../context/User';
 
 const QAUnanswered: React.FC = () => {
   const [qas, setQas] = useState(new Array<QA>());
 
   useEffect(() => {
-    qaAPI.getAllUnanswered().then(setQas);
+    qaAPI.getAllUnanswered().then(qas => setQas(qas.filter(qa => qa.recipient_school_id === userContext.getSchoolId())));
   }, []);
 
   return (

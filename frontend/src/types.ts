@@ -47,3 +47,11 @@ export type Tag = {
   type: string,
   sub_type: string,
 };
+
+export type User = {
+  id: number,
+  username: string,
+  is_school: boolean,
+  school?: School,
+  is_user: boolean, // This means is_applicant but since the database model is hard to change we have left it as is_user
+};

@@ -9,11 +9,12 @@ import Paragraph from 'antd/es/typography/Paragraph';
 import { School } from '../../types';
 import Tooltip from 'antd/es/tooltip';
 import { SavedIcon } from '../../components/SavedIcon';
-import userAPI from '../../api/UserAPI';
-import schoolAPI from '../../api/SchoolAPI';
-import { getSchoolId, goToNewUrl, userIsApplicant, userIsSchool } from '../../utils/utils';
+import applicantAccountAPI from '../../api/ApplicantAccount';
+import schoolAPI from '../../api/School';
+import { goToNewUrl } from '../../utils/utils';
 import { schoolListBasePath } from './SchoolList';
 import { Tag } from '../../components/Tag';
+import userContext from '../../context/User';
 
 // TODO will go in as props in the future
 const types = ['Public School', 'Boarding School'];
@@ -47,31 +48,31 @@ const SchoolDetail: React.FC = () => {
   const [school, setSchool] = useState(hogwarts);
   const [userSaved, setUserSaved] = useState(false);
 
-  const addition = (getSchoolId() === parseInt(schoolID)) ? '/admin' : '';
+  const addition = (userContext.getSchoolId() === parseInt(schoolID)) ? '/admin' : '';
   const qaLink = `${window.location.href}/qa` + addition;
 
   // configure initial value of school and userSaved
   useEffect(() => {
     schoolAPI.get(schoolIdParam).then(s => {
-      userAPI.hasSavedSchool(s).then(isUserSaved => setUserSaved(isUserSaved));
+      applicantAccountAPI.hasSavedSchool(s).then(isUserSaved => setUserSaved(isUserSaved));
       setSchool(s);
     });
   }, [schoolIdParam]);
 
   const userSave = () => {
-    userAPI.saveSchool(school);
+    applicantAccountAPI.saveSchool(school);
     setUserSaved(true);
   };
 
   const userUnsave = () => {
-    userAPI.unsaveSchool(school);
+    applicantAccountAPI.unsaveSchool(school);
     setUserSaved(false);
   };
 
   return (
     <NewLayout>
       <Card title={
-        <div>{school.name} {userIsApplicant() &&
+        <div>{school.name} {userContext.isApplicantAccount() &&
         <SavedIcon isSaved={userSaved} onSave={userSave} onUnsave={userUnsave}/>}</div>}>
         <div style={{
           display: 'flex',

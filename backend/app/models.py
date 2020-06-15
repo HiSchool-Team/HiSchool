@@ -11,8 +11,8 @@ from rest_framework.authtoken.models import Token
 
 class User(AbstractUser):
     # FIXME Default should be false in both but left true for development purposes
-    is_user = models.BooleanField(default=True)
-    is_school = models.BooleanField(default=True)
+    is_user = models.BooleanField(default=False)
+    is_school = models.BooleanField(default=False)
 
     @classmethod
     def default(cls):
@@ -85,14 +85,14 @@ class QA(models.Model):
     answer_created_at = models.DateTimeField(auto_now=True)
 
 
-class UserAccount(models.Model):
+class ApplicantAccount(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     saved_schools = models.ManyToManyField(School, blank=True)
     saved_qas = models.ManyToManyField(QA, blank=True)
 
     @classmethod
     def default(cls):
-        return UserAccount.objects.get(user_id=2)
+        return ApplicantAccount.objects.get(user_id=2)
 
 
 class SchoolAccount(models.Model):

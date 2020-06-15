@@ -8,7 +8,7 @@ import './SchoolDetail.css';
 import { School, Tag } from '../../types';
 import TextArea from 'antd/es/input/TextArea';
 import { Store } from 'antd/lib/form/interface';
-import schoolAPI from '../../api/SchoolAPI';
+import schoolAPI from '../../api/School';
 import tagAPI from '../../api/Tag';
 
 // TODO will go in as props in the future

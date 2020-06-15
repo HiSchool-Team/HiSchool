@@ -15,6 +15,7 @@ export const goToNewUrl = (basePath: string,
   });
 };
 
+/*
 enum accountType {
   Applicant = 0,
   School = 1,
@@ -55,4 +56,4 @@ export const getSchoolId = () => {
     return -1;
   }
   return userDetails.schoolId;
-}
+} */

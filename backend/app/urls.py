@@ -11,11 +11,13 @@ router.register(r'school', views.SchoolViewSet)
 router.register(r'tag', views.TagsViewSet)
 
 urlpatterns = [
+    url(r'^api/rest_auth/', include('rest_auth.urls')),
+    url(r'^api/rest_auth/registration/', include('rest_auth.registration.urls')),
+    path('api/current_user/', views.current_user),
     path('api/search/', views.return_json),
     path('api/', include(router.urls)),
-    path('api/user/saved_school/', views.list_saved_schools),
-    path('api/user/saved_school/<int:school_id>/', views.saved_school),
-    path('api/user/saved_qa/', views.list_saved_qas),
-    path('api/user/saved_qa/<int:qa_id>/', views.saved_qa),
-    path('api/token_auth/', auth_views.obtain_auth_token)
+    path('api/account/applicant/saved_school/', views.list_saved_schools),
+    path('api/account/applicant/saved_school/<int:school_id>/', views.saved_school),
+    path('api/account/applicant/saved_qa/', views.list_saved_qas),
+    path('api/account/applicant/saved_qa/<int:qa_id>/', views.saved_qa),
 ]

@@ -32,19 +32,26 @@ ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1', 'localhost']
 # Application definition
 
 INSTALLED_APPS = [
-    'app.apps.AppConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
     'corsheaders',
     'django_filters',
     'crispy_forms',
-    'rest_framework.authtoken'
+    'rest_framework',
+    'rest_framework.authtoken',
+    'django.contrib.sites',
+    'rest_auth',
+    'rest_auth.registration',
+    'allauth',
+    'allauth.account',
+    'app.apps.AppConfig',
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -158,6 +165,10 @@ REST_FRAMEWORK = {
     # 'DEFAULT_PERMISSION_CLASSES': [
     #     'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     # ]
+}
+
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': 'app.serializers.UserRegisterSerializer'
 }
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'frontend', 'public', 'media')

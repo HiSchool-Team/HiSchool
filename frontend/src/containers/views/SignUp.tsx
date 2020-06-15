@@ -1,11 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import NewLayout from '../NewLayout';
-import { Button, Card, Col, Form, Input, Row } from 'antd';
+import { Button, Card, Col, Form, Input, Row, Radio } from 'antd';
 import { Store } from 'antd/lib/form/interface';
+import authAPI from '../../api/Auth';
+import userContext from '../../context/User';
 
 const SignUp: React.FC = () => {
-  const onFinish = ({ email, username, password, reconfirmedPassword }: Store) => {
-    // TODO connect through API
+  const [isApplicantAccount, setIsApplicantAccount] = useState(true);
+
+  const onFinish = (values: Store) => {
+    console.log('submitting form with values');
+    console.log(values);
+
+    const { email, username, password, reconfirmedPassword } = values;
+    if (password !== reconfirmedPassword) {
+      const msg = 'passwords don\'t match';
+      alert(msg);
+      return;
+    }
+
+    authAPI.register(username, email, password, reconfirmedPassword, isApplicantAccount);
   };
 
   const usernameFormItem =
@@ -56,6 +70,16 @@ const SignUp: React.FC = () => {
       <Input/>
     </Form.Item>;
 
+  const accountTypeFormItem =
+    <Form.Item label="Account Type">
+      <Radio.Group
+        value={isApplicantAccount ? 'applicant' : 'school'}
+        onChange={e => setIsApplicantAccount(e.target.value === 'applicant')}>
+        <Radio.Button value={'applicant'}>Applicant</Radio.Button>
+        <Radio.Button value={'school'}>School</Radio.Button>
+      </Radio.Group>
+    </Form.Item>;
+
   const submitButtonFormItem =
     <Form.Item {...{
       wrapperCol: {
@@ -76,6 +100,7 @@ const SignUp: React.FC = () => {
           {usernameFormItem}
           {passwordFormItem}
           {reconfirmPasswordFormItem}
+          {accountTypeFormItem}
           {submitButtonFormItem}
         </Card>
       </Col>
@@ -84,7 +109,7 @@ const SignUp: React.FC = () => {
   const view = (
     <NewLayout>
       <div>
-        <Card style={{backgroundColor: 'rgba(180, 180, 180, 0.0)'}}>
+        <Card style={{ backgroundColor: 'rgba(180, 180, 180, 0.0)' }}>
           <Form {...{
             labelCol: { span: 8 },
             wrapperCol: { span: 16 }

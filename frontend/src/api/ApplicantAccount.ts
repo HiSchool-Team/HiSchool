@@ -1,7 +1,9 @@
 import axios from 'axios';
 import { QA, School } from '../types';
+import userContext from '../context/User';
+import authAPI from './Auth';
 
-interface IUserAPI {
+interface IApplicantAccountAPI {
   getSavedSchools (): Promise<School[]>,
 
   hasSavedSchool (school: School): Promise<boolean>,
@@ -19,9 +21,12 @@ interface IUserAPI {
   unsaveQA (qa: QA): Promise<void>,
 }
 
-class UserAPI implements IUserAPI {
+class ApplicantAccountAPI implements IApplicantAccountAPI {
   getSavedSchools (): Promise<School[]> {
-    return axios.get('/app/api/user/saved_school/')
+    return axios.get('/app/api/account/applicant/saved_school/',
+      {
+        headers: authAPI.getHeader()
+      })
       .then(res => res.data)
       .catch((err) => {
         alert('error when fetching saved Schools');
@@ -34,7 +39,12 @@ class UserAPI implements IUserAPI {
   }
 
   saveSchool (school: School): Promise<void> {
-    return axios.post(`/app/api/user/saved_school/${school.id}/`, {})
+    return axios.post(
+      `/app/api/account/applicant/saved_school/${school.id}/`,
+      {},
+      {
+        headers: authAPI.getHeader()
+      })
       .catch((err) => {
         const msg = `error when saving user school:\n ${JSON.stringify(school)}`;
         alert(msg);
@@ -44,7 +54,11 @@ class UserAPI implements IUserAPI {
   }
 
   unsaveSchool (school: School): Promise<void> {
-    return axios.delete(`/app/api/user/saved_school/${school.id}/`, {})
+    return axios.delete(
+      `/app/api/account/applicant/saved_school/${school.id}/`,
+      {
+        headers: authAPI.getHeader()
+      })
       .catch((err) => {
         const msg = `error when unsaving user school:\n ${JSON.stringify(school)}`;
         alert(msg);
@@ -54,7 +68,10 @@ class UserAPI implements IUserAPI {
   }
 
   getSavedQAs (): Promise<QA[]> {
-    return axios.get('/app/api/user/saved_qa/')
+    return axios.get('/app/api/account/applicant/saved_qa/',
+      {
+        headers: authAPI.getHeader()
+      })
       .then(res => res.data)
       .catch((err) => {
         alert('error when fetching saved QAs');
@@ -68,7 +85,12 @@ class UserAPI implements IUserAPI {
   }
 
   saveQA (qa: QA): Promise<void> {
-    return axios.post(`/app/api/user/saved_qa/${qa.id}/`, {})
+    return axios.post(
+      `/app/api/account/applicant/saved_qa/${qa.id}/`,
+      {},
+      {
+        headers: authAPI.getHeader()
+      })
       .catch((err) => {
         const msg = `error when saving user qa:\n ${JSON.stringify(qa)}`;
         alert(msg);
@@ -78,7 +100,11 @@ class UserAPI implements IUserAPI {
   }
 
   unsaveQA (qa: QA): Promise<void> {
-    return axios.delete(`/app/api/user/saved_qa/${qa.id}/`, {})
+    return axios.delete(
+      `/app/api/account/applicant/saved_qa/${qa.id}/`,
+      {
+        headers: authAPI.getHeader()
+      })
       .catch((err) => {
         const msg = `error when unsaving user qa:\n ${JSON.stringify(qa)}`;
         alert(msg);
@@ -88,5 +114,5 @@ class UserAPI implements IUserAPI {
   }
 }
 
-const userAPI: IUserAPI = new UserAPI();
-export default userAPI;
+const applicantAccountAPI: IApplicantAccountAPI = new ApplicantAccountAPI();
+export default applicantAccountAPI;

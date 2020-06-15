@@ -2,10 +2,18 @@ import React from 'react';
 import NewLayout from '../NewLayout';
 import { Button, Card, Col, Form, Input, Row } from 'antd';
 import { Store } from 'antd/lib/form/interface';
+import applicantAccountAPI from '../../api/ApplicantAccount';
+import authAPI from '../../api/Auth';
 
 const LogIn: React.FC = () => {
   const onFinish = ({ username, password }: Store) => {
-    // TODO connect through API
+    authAPI
+      .login(username, password)
+      .catch(err => {
+        const msg = 'login failed: check your credentials';
+        alert(msg);
+        console.warn(msg, err);
+      });
   };
 
   const usernameFormItem =
@@ -58,7 +66,7 @@ const LogIn: React.FC = () => {
   const view = (
     <NewLayout>
       <div>
-        <Card style={{backgroundColor: 'rgba(180, 180, 180, 0.0)'}}>
+        <Card style={{ backgroundColor: 'rgba(180, 180, 180, 0.0)' }}>
           <Form {...{
             labelCol: { span: 8 },
             wrapperCol: { span: 16 }

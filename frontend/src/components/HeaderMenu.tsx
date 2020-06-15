@@ -1,18 +1,23 @@
 import React from 'react';
-import { userIsApplicant, userIsLoggedIn, userIsSchool } from '../utils/utils'
+import userContext from '../context/User';
+import authAPI from '../api/Auth';
 
 const HeaderMenu = () => {
   return (
     <div style={{ textAlign: 'right' }}>
       <a style={{ margin: '8px' }} href={'/'}>Home</a>
-      {userIsApplicant() && <a style={{ margin: '8px' }} href={'/user/savedSchools'}>Saved Schools</a>}
-      {userIsApplicant() && <a style={{ margin: '8px' }} href={'/user/savedQAs/'}>Saved Questions</a>}
+      {userContext.isApplicantAccount() && [
+        <a style={{ margin: '8px' }} href={'/user/savedSchools'}>Saved Schools</a>,
+        <a style={{ margin: '8px' }} href={'/user/savedQAs/'}>Saved Questions</a>
+      ]}
       <a style={{ margin: '8px' }} href={'/qa/admin/'}>Register School</a>
       <a style={{ margin: '8px' }} href={'/schools/?search='}>All Schools</a>
-      {userIsSchool() && <a style={{ margin: '8px' }} href={'/qa/unanswered'}>Unanswered Inbox</a>}
-      {!userIsLoggedIn() && <a style={{ margin: '8px' }} href={'/logIn'}>Log In</a>}
-      {!userIsLoggedIn() && <a style={{ margin: '8px' }} href={'/signUp'}>Sign Up</a>}
-      {userIsLoggedIn() && <a style={{ margin: '8px' }} href={'/'}>Log Out</a>} {/* TODO add functionality */}
+      {userContext.isSchoolAccount() && <a style={{ margin: '8px' }} href={'/qa/unanswered'}>Unanswered Inbox</a>}
+      {!userContext.isLoggedIn() && [
+        <a style={{ margin: '8px' }} href={'/logIn'}>Log In</a>,
+        <a style={{ margin: '8px' }} href={'/signUp'}>Sign Up</a>
+      ]}
+      {userContext.isLoggedIn() && <a style={{ margin: '8px' }} href={'/'} onClick={authAPI.logout}>Log Out</a>}
     </div>
   );
 };

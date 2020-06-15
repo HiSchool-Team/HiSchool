@@ -1,18 +1,20 @@
+from django.db import transaction
 from django.http import HttpResponse
 import django_filters
+from django.views.generic import CreateView
 from rest_framework import generics, status, permissions
 from rest_framework import viewsets, renderers
 import json
 
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import action, api_view, authentication_classes, permission_classes
-from rest_framework.generics import get_object_or_404
+from rest_framework.generics import get_object_or_404, CreateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from .models import School, QA, Tag, User
-from .serializers import QASerializer, SchoolSerializer, TagSerializer
-from .models import School, QA, UserAccount
+from .serializers import QASerializer, SchoolSerializer, TagSerializer, UserSerializer
+from .models import School, QA, ApplicantAccount
 from .serializers import QASerializer, SchoolSerializer
 
 
@@ -85,25 +87,28 @@ class QAViewSet(viewsets.ModelViewSet):
     filterset_fields = ['recipient_school']
 
 
-def current_user_account_or_default(request) -> UserAccount:
+def current_user_account_or_default(request) -> ApplicantAccount:
     if (request.user is not None) and request.user.is_authenticated:
-        return request.user.useraccount
-    return UserAccount.default()
+        return request.user.applicantaccount
+    return ApplicantAccount.default()
 
 
+# TODO need to check that user is useraccount and not schoolaccount
 @api_view(['GET'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def list_saved_schools(request):
-    account = current_user_account_or_default(request)
+    account = request.user.applicantaccount
     saved_schools = account.saved_schools.all()
     serializer = SchoolSerializer(saved_schools, many=True)
     return Response(serializer.data)
 
 
 @api_view(['POST', 'DELETE'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def saved_school(request, school_id):
-    account = current_user_account_or_default(request)
+    account = request.user.applicantaccount
     school = get_object_or_404(School, id=school_id)
 
     if request.method == 'POST':
@@ -119,16 +124,20 @@ def saved_school(request, school_id):
 
 
 @api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def list_saved_qas(request):
-    account = current_user_account_or_default(request)
+    account = request.user.applicantaccount
     saved_qas = account.saved_qas.all()
     serializer = QASerializer(saved_qas, many=True)
     return Response(serializer.data)
 
 
 @api_view(['POST', 'DELETE'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def saved_qa(request, qa_id):
-    account = current_user_account_or_default(request)
+    account = request.user.applicantaccount
     qa = get_object_or_404(QA, id=qa_id)
 
     if request.method == 'POST':
@@ -141,3 +150,20 @@ def saved_qa(request, qa_id):
         raise RuntimeError("This code should never run")
 
     return Response(status=res_status)
+
+
+@api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def current_user(request):
+    user: User = request.user
+    serializer = UserSerializer(user)
+    data = serializer.data
+
+    if (user.is_school):
+        school_serializer = SchoolSerializer(user.schoolaccount.school)
+        data.update({
+            'school': school_serializer.data
+        })
+
+    return Response(data)

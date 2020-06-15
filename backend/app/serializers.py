@@ -1,7 +1,8 @@
+from rest_auth.registration.serializers import RegisterSerializer
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
-from .models import School, QA, UserAccount
+from .models import School, QA, ApplicantAccount, User, SchoolAccount
 from .models import QA, School, Tag
 
 
@@ -78,7 +79,32 @@ class SchoolSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class UserAccountSerializer(serializers.ModelSerializer):
+class ApplicantAccountSerializer(serializers.ModelSerializer):
     class Meta:
-        model = UserAccount
+        model = ApplicantAccount
         fields = '__all__'
+
+
+class UserRegisterSerializer(RegisterSerializer):
+
+    def custom_signup(self, request, user):
+        try:
+            if request.data['is_user']:
+                user.is_user = True
+                user.save()
+                ApplicantAccount.objects.create(user=user)
+            elif request.data['is_school']:
+                user.is_school = True
+                user.save()
+                SchoolAccount.objects.create(user=user)
+            else:
+                raise ValidationError("user account type is required but has not been specified")
+
+        except KeyError as err:
+            raise ValidationError(str(err))
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'is_school', 'is_user']
