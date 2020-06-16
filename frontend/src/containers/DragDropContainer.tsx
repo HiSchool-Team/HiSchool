@@ -8,7 +8,11 @@ interface DragDropState {
   index: number,
 }
 
-const DragDropContainer = (props: {tags: Tag[]}) => {
+const DragDropContainer = (props: {
+  tags: Tag[],
+  onDropAny: (id: number) => void,
+  onRemoveAll: (id: number) => void
+}) => {
   const [dragDrops, setDragDrops] = useState<DragDropState[]>([
     {
       droppedTags: [],
@@ -33,24 +37,35 @@ const DragDropContainer = (props: {tags: Tag[]}) => {
     return props.tags[0];
   }
 
-  // TODO duplication in type between tag this and dragdropzone
+  // This function is called on a drop to any container
   const handleDrop = (index: number, item: TagDragType) => {
     setDragDrops(prevState => {
       return prevState.map((dragDrop, arrIndex) => {
         return arrIndex !== index
-          ? dragDrop
+          ? {...dragDrop, droppedTags: dragDrop.droppedTags.filter(tag_id => tag_id !== item.id)}
           : {...dragDrop, droppedTags: [...dragDrop.droppedTags, item.id]};
       });
     });
+    props.onDropAny(item.id);
   };
 
-  console.log(dragDrops);
+  // This function is called when item is dropped outside any containers
+  const handlePullOut = (index: number, id: number) => {
+    setDragDrops(prevState => {
+      return prevState.map((dragDrop, arrIndex) => {
+        return arrIndex !== index
+          ? dragDrop
+          : {...dragDrop, droppedTags: dragDrop.droppedTags.filter(tag_id => tag_id !== id)};
+      });
+    });
+    props.onRemoveAll(id);
+  }
 
   return (
     <div>
       {dragDrops.map((dragDrop, index) => {
         return <DragDropZone tags={dragDrop.droppedTags.map(getTagById)}
-                             onPullOut={() => console.log(dragDrop.index)}
+                             onPullOut={(id: number) => handlePullOut(index, id)}
                              onDrop={(item) => handleDrop(index, item)}/>
       })}
     </div>

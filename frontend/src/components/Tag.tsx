@@ -1,6 +1,5 @@
-import React, {CSSProperties, MouseEvent, FocusEvent} from 'react';
-import {DragSourceMonitor, useDrag, DragObjectWithType} from "react-dnd";
-import {Tag as TagType} from "../types";
+import React, {CSSProperties, FocusEvent, MouseEvent} from 'react';
+import {DragObjectWithType, DragSourceMonitor, useDrag} from "react-dnd";
 
 export const ItemTypes = {
   TAG: 'tag',
@@ -29,7 +28,6 @@ export const Tag = (props: {
   onMouseLeave?: (e: MouseEvent<HTMLDivElement>) => void,
   onClick?: (e: MouseEvent<HTMLDivElement>) => void,
   onFocus?: (e: FocusEvent<HTMLDivElement>) => void,
-  onDrop?: (id: number) => void,
   onDragOutsideArea?: (id: number) => void,
 }) => {
 
@@ -39,11 +37,8 @@ export const Tag = (props: {
   };
   const [{ isDragging }, drag] = useDrag({
     item: { id: props.id, name: props.name, type: ItemTypes.TAG},
-    end: (item: { name: string } | undefined, monitor: DragSourceMonitor) => {
-      const dropResult = monitor.getDropResult()
-      if (item && dropResult) {
-        props.onDrop?.(props.id);
-      } else {
+    end: (item: { id: number, name: string } | undefined, monitor: DragSourceMonitor) => {
+      if (!monitor.getDropResult()) {
         props.onDragOutsideArea?.(props.id);
       }
     },

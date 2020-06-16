@@ -11,12 +11,7 @@ const SortedTagsByRelevance
   category: string,
   nonDroppedTags: Tag[],
   searchString: string,
-  addInsertedTag: (id: number) => void,
 }) => {
-
-  const onTagDrop = (id: number) => {
-    props.addInsertedTag(id);
-  }
 
   const categoryTags = props.nonDroppedTags.filter(tag => tag.sub_type === props.category);
   const tagsPreferences = calculatePreferences(props.searchString, categoryTags);
@@ -25,7 +20,6 @@ const SortedTagsByRelevance
     {tagsPreferences
       .map(([tag, value]) => {
         return <TagComponent id={tag.id} name={tag.name + "(" + value + ")"}
-                             onDrop={onTagDrop}
         />
       })
     }

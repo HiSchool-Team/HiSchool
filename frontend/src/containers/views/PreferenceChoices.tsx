@@ -39,7 +39,7 @@ type ReducerAction =
 
 const PreferenceChoices = () => {
 
-  const [availableTags, setAvailableTags] = useState<Tag[]>([]);
+  const [allTags, setAllTags] = useState<Tag[]>([]);
   const [availableCategories, setAvailableCategories] = useState<string[]>([]);
   const [searchValue, setSearchValue] = useState<string>("");
   const [insertedTags, setInsertedTags] = useState<number[]>([]);
@@ -67,7 +67,7 @@ const PreferenceChoices = () => {
     axios.get<ServerResponse>(serverSearchEndpoint, {
       params: {tags: ""}
     }).then((resp: AxiosResponse<ServerResponse>) => {
-      setAvailableTags(resp.data.tags);
+      setAllTags(resp.data.tags);
       setAvailableCategories(
         resp.data.tags.filter(tag => tag.sub_type !== 'General')
           .map(tag => tag.sub_type)
@@ -79,7 +79,7 @@ const PreferenceChoices = () => {
   const addSelectedTypeTags = (selectedTags: number[]) => {
     const newTypeTags = [];
     for (const id of selectedTags) {
-      const toAdd = availableTags.find(x => x.id === id);
+      const toAdd = allTags.find(x => x.id === id);
       if (toAdd) {
         newTypeTags.push(toAdd.name);
       }
@@ -87,24 +87,18 @@ const PreferenceChoices = () => {
     setSelectedTypeTags(newTypeTags);
   }
 
-  const onSelect = () => {
-
-  }
-
-  const droppedTags = availableTags.filter(tag => insertedTags.includes(tag.id));
-  const nonDroppedTags = availableTags.filter(tag => !insertedTags.includes(tag.id));
+  const nonDroppedTags = allTags.filter(tag => !insertedTags.includes(tag.id));
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <NewLayout tags={availableTags.filter(tag => tag.sub_type === 'General')}
+      <NewLayout tags={allTags.filter(tag => tag.sub_type === 'General')}
                  updateDisplayedSchool={addSelectedTypeTags}>
         <div className="grid-container">
           <div className={"tab-display"}>
             <Tabs type="card" className={"tabs"}>
               {availableCategories.map(category => {
                 return <TabPane tab={category} key={category}>
-                  <SortedTagsByRelevance category={category} nonDroppedTags={nonDroppedTags} searchString={searchValue}
-                                         addInsertedTag={(id => setInsertedTags(prevState => [...prevState, id]))} />
+                  <SortedTagsByRelevance category={category} nonDroppedTags={nonDroppedTags} searchString={searchValue} />
                 </TabPane>
               })}
             </Tabs>
@@ -112,11 +106,13 @@ const PreferenceChoices = () => {
 
           <div className={"head-search"}>
             Search here for your School extracurricular preference<br/>
-            <DragDropContainer tags={availableTags}/>
-            {/*<DragDropZone tags={droppedTags}*/}
-            {/*              onPullOut={id =>*/}
-            {/*                setInsertedTags(prevState => prevState.filter(tag_id => tag_id !== id))*/}
-            {/*              }/>*/}
+            <DragDropContainer tags={allTags}
+                               onDropAny={(id =>
+                                 setInsertedTags(prevState => [...prevState, id]))
+                               }
+                               onRemoveAll={(id =>
+                                 setInsertedTags(prevState => prevState.filter(tag_id => tag_id !== id)))
+                               }/>
             <Search placeholder={'search tags'}
                     onChange={(e) => {
                       let elem: HTMLInputElement = e.currentTarget as HTMLInputElement;
