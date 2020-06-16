@@ -6,6 +6,17 @@ export const ItemTypes = {
   TAG: 'tag',
 }
 
+const pillStyle: CSSProperties = {
+  border: 'none',
+  padding: '10px 20px',
+  textAlign: 'center',
+  textDecoration: 'none',
+  display: 'inline-block',
+  margin: '4px 2px',
+  cursor: 'pointer',
+  borderRadius: '16px',
+};
+
 export const Tag = (props: {
   id: number,
   style?: CSSProperties,
@@ -15,18 +26,8 @@ export const Tag = (props: {
   onClick?: (e: MouseEvent<HTMLDivElement>) => void,
   onFocus?: (e: FocusEvent<HTMLDivElement>) => void,
   onDrop?: (id: number) => void,
-  onPullOut?: (id: number) => void,
+  onDragOutsideArea?: (id: number) => void,
 }) => {
-  const pillStyle: CSSProperties = {
-    border: 'none',
-    padding: '10px 20px',
-    textAlign: 'center',
-    textDecoration: 'none',
-    display: 'inline-block',
-    margin: '4px 2px',
-    cursor: 'pointer',
-    borderRadius: '16px',
-  };
 
   const selected: CSSProperties = {
     backgroundColor: props.selected ? '#001529' : '#c7c6c6',
@@ -39,7 +40,7 @@ export const Tag = (props: {
       if (item && dropResult) {
         props.onDrop?.(props.id);
       } else {
-        props.onPullOut?.(props.id);
+        props.onDragOutsideArea?.(props.id);
       }
     },
     collect: (monitor) => ({

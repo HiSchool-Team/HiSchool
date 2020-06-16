@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 
 import './PreferenceChoices.css';
 
-import {AutoComplete, Layout, Tabs} from 'antd';
+import {Layout, Tabs} from 'antd';
 import NewLayout from "../NewLayout";
 import {School, Tag} from '../../types';
 import {Tag as TagComponent} from '../../components/Tag';
@@ -13,6 +13,7 @@ import DragDropZone from "../../components/DragDropZone";
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import Search from 'antd/lib/transfer/search';
+import SortedTagsByRelevance from '../../components/SortedTagsByRelevance';
 
 // TODO check if this import is needed
 
@@ -74,20 +75,6 @@ const PreferenceChoices = () => {
     })
   }, [])
 
-  const getComponentsByRelevance = (category: string, givenString: string) => {
-    const categoryTags = nonDroppedTags.filter(tag => tag.sub_type === category);
-    const tagsPreferences = calculatePreferences(givenString, categoryTags);
-
-    return <>
-      {tagsPreferences
-        .map(([tag, value]) => {
-          return <TagComponent id={tag.id} name={tag.name + "(" + value + ")"}
-                               onDrop={(id: number) => setInsertedTags(prevState => [...prevState, id])}
-                                />
-        })}
-    </>;
-  }
-
   const addSelectedTypeTags = (selectedTags: number[]) => {
     const newTypeTags = [];
     for (const id of selectedTags) {
@@ -117,7 +104,8 @@ const PreferenceChoices = () => {
             <Tabs type="card" className={"tabs"}>
               {availableCategories.map(category => {
                 return <TabPane tab={category} key={category}>
-                  {getComponentsByRelevance(category, searchValue)}
+                  <SortedTagsByRelevance category={category} nonDroppedTags={nonDroppedTags} searchString={searchValue}
+                                         addInsertedTag={(id => setInsertedTags(prevState => [...prevState, id]))} />
                 </TabPane>
               })}
             </Tabs>
