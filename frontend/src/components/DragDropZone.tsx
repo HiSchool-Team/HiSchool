@@ -3,15 +3,17 @@ import { useDrop, DragObjectWithType } from 'react-dnd';
 import {ItemTypes, Tag as TagComponent, TagDragType} from "./Tag";
 import {Tag} from "../types";
 
-const style: CSSProperties = {
-  borderRadius: "0.5rem",
+const dragDropBoxStyle: CSSProperties = {
+  borderRadius: "2rem",
   borderStyle: "dotted",
+  height: "200px"
 }
 
 
 // TODO onDrop type
 
 const DragDropZone = (props: { tags: Tag[],
+  boxName: string,
   onPullOut: (id: number) => void ,
   onDrop: (item: TagDragType) => void}
   ) => {
@@ -25,7 +27,7 @@ const DragDropZone = (props: { tags: Tag[],
   })
   const isActive = canDrop && isOver
 
-  let backgroundColor = '#222'
+  let backgroundColor = '#ffffff'
   if (isActive) {
     backgroundColor = 'darkgreen'
   } else if (canDrop) {
@@ -33,11 +35,15 @@ const DragDropZone = (props: { tags: Tag[],
   }
 
   return (
-    <div ref={drop} style={{ ...style, backgroundColor }}>
-      {isActive ? 'Release to drop' : 'Drag a box here'}
-      {props.tags.map(tag => {
-        return <TagComponent draggable={true} id={tag.id} name={tag.name} onDragOutsideArea={props.onPullOut}/>
-      })}
+    <div style={{width: "20%"}}>
+      <div style={{textAlign: "center", fontSize: "large"}}>
+        {isActive ? 'Release to drop' : props.boxName}
+      </div>
+      <div ref={drop} style={{ ...dragDropBoxStyle, backgroundColor }}>
+        {props.tags.map(tag => {
+          return <TagComponent draggable={true} id={tag.id} name={tag.name} onDragOutsideArea={props.onPullOut}/>
+        })}
+      </div>
     </div>
   )
 };

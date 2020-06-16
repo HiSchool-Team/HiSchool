@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {CSSProperties, useState} from "react";
 import DragDropZone from "../components/DragDropZone";
 import {TagDragType} from "../components/Tag";
 import {Tag} from "../types";
@@ -6,25 +6,30 @@ import {Tag} from "../types";
 interface DragDropState {
   droppedTags: number[],
   index: number,
+  name: string,
 }
 
 const DragDropContainer = (props: {
   tags: Tag[],
   onDropAny: (id: number) => void,
-  onRemoveAll: (id: number) => void
+  onRemoveAll: (id: number) => void,
+  style?: CSSProperties
 }) => {
   const [dragDrops, setDragDrops] = useState<DragDropState[]>([
     {
       droppedTags: [],
       index: 0,
+      name: "best one",
     },
     {
       droppedTags: [],
       index: 1,
+      name: "middle one",
     },
     {
       droppedTags: [],
       index: 2,
+      name: "ok one",
     }
   ]);
 
@@ -64,9 +69,10 @@ const DragDropContainer = (props: {
   }
 
   return (
-    <div>
+    <div style={{display: "flex", alignItems: "center", justifyContent: "space-evenly", ...props.style}}>
       {dragDrops.map((dragDrop, index) => {
-        return <DragDropZone tags={dragDrop.droppedTags.map(getTagById)}
+        return <DragDropZone boxName={dragDrop.name}
+                             tags={dragDrop.droppedTags.map(getTagById)}
                              onPullOut={(id: number) => handlePullOut(index, id)}
                              onDrop={(item) => handleDrop(index, item)}/>
       })}

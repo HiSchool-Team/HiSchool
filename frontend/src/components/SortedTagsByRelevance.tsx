@@ -1,10 +1,7 @@
 import React from "react";
-import {Tabs} from "antd";
 import {Tag} from "../types";
 import {calculatePreferences} from "../logic/Search";
 import {Tag as TagComponent} from '../components/Tag';
-
-const {TabPane} = Tabs;
 
 const SortedTagsByRelevance
   = (props: {
@@ -19,7 +16,7 @@ const SortedTagsByRelevance
   return (<div>
     {tagsPreferences
       .map(([tag, value]) => {
-        return <TagComponent draggable={true} id={tag.id} name={tag.name + "(" + value + ")"}
+        return <TagComponent draggable={true} id={tag.id} name={tag.name}
         />
       })
     }
