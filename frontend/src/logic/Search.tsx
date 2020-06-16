@@ -33,7 +33,7 @@ const levenshteinDistance = <T extends Searchable>(currInput: string, element: T
   if (j === 0) {
     return i;
   }
-  const diff = currInput[i - 1] !== element.name[j - 1] ? 1 : 0;
+  const diff = currInput[i - 1].toUpperCase() !== element.name[j - 1].toUpperCase() ? 1 : 0;
 
   dp[i][j] = Math.min(...([
     levenshteinDistance(currInput, element, dp, i - 1, j - 1) + diff,

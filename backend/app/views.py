@@ -121,7 +121,7 @@ class SchoolViewSet(viewsets.ModelViewSet):
 def get_all_tags(schools):
     tags = Tag.objects.none()
     for school in schools:
-        tags = tags.union(school.tags.all())
+        tags = tags.union(school.prioritized_tags.all())
     return tags
 
 

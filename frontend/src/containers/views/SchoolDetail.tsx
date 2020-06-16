@@ -145,10 +145,12 @@ const SchoolDetail: React.FC = () => {
                 </div>
                 <div>
                   {elem.value.map(pill => {
-                    return <Tooltip title={'Click to find all schools with this tag'}>
-                      <Tag style={{ flexShrink: 2 }}
-                        onClick={() => goToNewUrl(schoolListBasePath, { tags: pill })}
-                        name={pill}/>
+                    // TODO id in tag should be changed when tags come from backend
+                    return <Tooltip title={"Click to find all schools with this tag"}>
+                      <Tag id={0}
+                           style={{flexShrink: 2}}
+                           onClick={() => goToNewUrl(schoolListBasePath, {tags: pill})}
+                           name={pill}/>
                     </Tooltip>;
                   })}
                 </div>

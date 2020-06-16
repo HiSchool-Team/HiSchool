@@ -48,7 +48,7 @@ const Frontpage = (props: { children: React.ReactNode, }) => {
         <img className={"hi-school"} src="/static/Logo.png" alt={"Logo"}/>
         <div className={"search"}>
             <h1 className="search-title"> Search for a specific school</h1>
-                <SearchBar handleSearch={handleEvent}/>
+                <SearchBar handleSearch={handleEvent} />
         </div>
 
         <div className={"preference-search"}>
