@@ -7,7 +7,7 @@ class TagAPI {
       .then(res => res.data)
       .catch((err) => {
         const msg = 'error when getting Tags';
-        alert(msg);
+        // alert(msg);
         console.warn(msg, err);
       });
   }

@@ -14,7 +14,7 @@ class SchoolAPI implements ISchoolAPI {
       .then(res => res.data)
       .catch((err) => {
         const msg = 'error when getting Schools';
-        alert(msg);
+        // alert(msg);
         console.warn(msg, err);
       });
   }
@@ -23,7 +23,7 @@ class SchoolAPI implements ISchoolAPI {
     return axios.get(`/app/api/school/${id}/`)
       .then(res => res.data)
       .catch((err) => {
-        alert('error when fetching QAs');
+        // alert('error when fetching QAs');
         console.warn(`error when fetching QAs for school with id ${id}`, err);
       });
   }
@@ -46,7 +46,7 @@ class SchoolAPI implements ISchoolAPI {
       .then(res => res.data)
       .catch((err) => {
         const msg = `error when posting school: ${JSON.stringify(school)}`;
-        alert(msg);
+        // alert(msg);
         console.warn(msg, err);
       });
   }
@@ -63,7 +63,7 @@ class SchoolAPI implements ISchoolAPI {
       .then(res => res.data)
       .catch(err => {
         const msg = 'Failed to find matches';
-        alert(msg);
+        // alert(msg);
         console.warn(msg, err);
       });
   }

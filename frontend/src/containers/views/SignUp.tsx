@@ -17,7 +17,7 @@ const SignUp: React.FC = () => {
     const { email, username, password, reconfirmedPassword } = values;
     if (password !== reconfirmedPassword) {
       const msg = 'passwords don\'t match';
-      alert(msg);
+      // alert(msg);
       return;
     }
 

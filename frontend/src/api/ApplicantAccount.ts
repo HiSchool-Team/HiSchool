@@ -29,7 +29,7 @@ class ApplicantAccountAPI implements IApplicantAccountAPI {
       })
       .then(res => res.data)
       .catch((err) => {
-        alert('error when fetching saved Schools');
+        // alert('error when fetching saved Schools');
         console.warn('error when fetching saved Schools', err);
       });
   }
@@ -47,7 +47,7 @@ class ApplicantAccountAPI implements IApplicantAccountAPI {
       })
       .catch((err) => {
         const msg = `error when saving user school:\n ${JSON.stringify(school)}`;
-        alert(msg);
+        // alert(msg);
         console.warn(msg, err);
       })
       .then();
@@ -61,7 +61,7 @@ class ApplicantAccountAPI implements IApplicantAccountAPI {
       })
       .catch((err) => {
         const msg = `error when unsaving user school:\n ${JSON.stringify(school)}`;
-        alert(msg);
+        // alert(msg);
         console.warn(msg, err);
       })
       .then();
@@ -74,7 +74,7 @@ class ApplicantAccountAPI implements IApplicantAccountAPI {
       })
       .then(res => res.data)
       .catch((err) => {
-        alert('error when fetching saved QAs');
+        // alert('error when fetching saved QAs');
         console.warn('error when fetching saved QAs', err);
       });
   }
@@ -93,7 +93,7 @@ class ApplicantAccountAPI implements IApplicantAccountAPI {
       })
       .catch((err) => {
         const msg = `error when saving user qa:\n ${JSON.stringify(qa)}`;
-        alert(msg);
+        // alert(msg);
         console.warn(msg, err);
       })
       .then();
@@ -107,7 +107,7 @@ class ApplicantAccountAPI implements IApplicantAccountAPI {
       })
       .catch((err) => {
         const msg = `error when unsaving user qa:\n ${JSON.stringify(qa)}`;
-        alert(msg);
+        // alert(msg);
         console.warn(msg, err);
       })
       .then();

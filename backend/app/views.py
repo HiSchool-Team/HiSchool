@@ -148,7 +148,7 @@ class QAViewSet(viewsets.ModelViewSet):
     renderer_classes = [renderers.JSONRenderer]  # Disables web view
     authentication_classes = []  # FIXME this drops authentication
 
-    queryset = QA.objects.all()
+    queryset = QA.objects.order_by('-question_created_at')
     serializer_class = QASerializer
 
     filter_backends = [django_filters.rest_framework.DjangoFilterBackend]

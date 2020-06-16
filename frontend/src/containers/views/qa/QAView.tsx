@@ -6,6 +6,7 @@ import { QAList } from '../../../components/qa/QAList';
 import NewLayout from '../../NewLayout';
 import { useParams } from 'react-router-dom';
 import qaAPI from '../../../api/QA';
+import useInterval from 'use-interval';
 
 type Props = {
   isAdmin: boolean,
@@ -17,11 +18,12 @@ const QAView: React.FC<Props> = ({ isAdmin }) => {
   const schoolId: number = parseInt(schoolID);
   console.log(`schoolID: ${schoolID}, parsed schoolId: ${schoolId}`);
 
-  useEffect(() => {
-    qaAPI
-      .getAddressedTo(schoolId)
-      .then(fetchedQas => fetchedQas && setQas(fetchedQas));
-  }, [schoolId]);
+  useInterval(async () => {
+    const fetchedQas = await qaAPI.getAddressedTo(schoolId);
+    setQas([]);
+    setQas(fetchedQas);
+    // (fetchedQas => fetchedQas && setQas(fetchedQas));
+  }, 1000, true);
 
   console.log('Rerendering QAView with qas');
   console.log(qas);
@@ -32,9 +34,9 @@ const QAView: React.FC<Props> = ({ isAdmin }) => {
       <div>
         <Card>
           {/* TODO decide if this is still needed */}
-          {/*isAdmin
+          {/* isAdmin
             ? <Button><a href={`/${schoolId}/qa/`}>User View</a></Button>
-            : <Button><a href={`/${schoolId}/qa/admin/`}>School View</a></Button>*/}
+            : <Button><a href={`/${schoolId}/qa/admin/`}>School View</a></Button> */}
           {!isAdmin && <AskBar recipientSchoolId={schoolId}/>}
           <QAList qas={qas} isAnswerable={isAdmin}/>
         </Card>
