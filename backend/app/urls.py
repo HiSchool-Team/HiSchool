@@ -9,6 +9,7 @@ router = routers.DefaultRouter()
 router.register(r'qa', views.QAViewSet)
 router.register(r'school', views.SchoolViewSet)
 router.register(r'tag', views.TagsViewSet)
+router.register(r'prioritized_tags', views.PrioritizedTagsSet)
 
 urlpatterns = [
     url(r'^api/rest_auth/', include('rest_auth.urls')),

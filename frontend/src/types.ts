@@ -48,6 +48,12 @@ export type Tag = {
   sub_type: string,
 };
 
+export type PrioritizedTag = {
+  school_id?: number,
+  tag_id: number,
+  priority: number,
+};
+
 export type User = {
   id: number,
   username: string,

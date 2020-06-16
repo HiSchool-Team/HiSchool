@@ -63,10 +63,22 @@ class School(models.Model):
     )
     img_src = models.ImageField(upload_to=strftime('photos/%Y/%m/%d'), null=True)
     img_link = models.URLField(null=True, max_length=400)
-    tags = models.ManyToManyField(Tag, blank=True)
+
+    # TODO consider removing tags field entirely
+    ##tags = models.ManyToManyField(Tag, blank=True)
+    prioritized_tags = models.ManyToManyField(Tag, blank=True, through='PrioritizedTag')
 
     def __str__(self):
         return self.name
+
+
+class PrioritizedTag(models.Model):
+    class Meta:
+        unique_together = ['school', 'tag']
+
+    school = models.ForeignKey(School, on_delete=models.CASCADE)
+    tag = models.ForeignKey(Tag, on_delete=models.CASCADE)
+    priority = models.IntegerField()
 
 
 # FIXME this is just to show that the database works but does not implement

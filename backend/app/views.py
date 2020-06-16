@@ -1,3 +1,5 @@
+from typing import List, Dict
+
 from django.db import transaction
 from django.http import HttpResponse
 import django_filters
@@ -12,8 +14,8 @@ from rest_framework.generics import get_object_or_404, CreateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from .models import School, QA, Tag, User
-from .serializers import QASerializer, SchoolSerializer, TagSerializer, UserSerializer
+from .models import School, QA, Tag, User, PrioritizedTag
+from .serializers import QASerializer, SchoolSerializer, TagSerializer, UserSerializer, PrioritizedTagsSerializer
 from .models import School, QA, ApplicantAccount
 from .serializers import QASerializer, SchoolSerializer
 
@@ -88,6 +90,25 @@ def get_all_tags(schools):
     for school in schools:
         tags = tags.union(school.tags.all())
     return tags
+
+
+class PrioritizedTagsSet(viewsets.ModelViewSet):
+    renderer_classes = [renderers.JSONRenderer]
+    authentication_classes = []
+
+    queryset = PrioritizedTag.objects.all()
+    serializer_class = PrioritizedTagsSerializer
+
+    filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
+    filterset_fields = ['school', 'tag', 'priority']
+
+    # https://stackoverflow.com/questions/14666199/how-do-i-create-multiple-model-instances-with-django-rest-framework
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data, many=isinstance(request.data, list))
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
 class QAViewSet(viewsets.ModelViewSet):
@@ -181,3 +202,16 @@ def current_user(request):
         })
 
     return Response(data)
+
+
+Priority = int
+
+
+# general idea of matching algorithm
+def sort_schools(schools: List[School], tag_priority: Dict[Tag, Priority]) -> List[School]:
+    score = {}
+    for school in schools:
+        relevant_prioritized_tags = (pt for pt in school.prioritized_tags.all() if pt in tag_priority)
+        score[school] = sum(min(tag_priority[pt.tag], pt.priority) for pt in relevant_prioritized_tags)
+
+    return sorted(schools, key=lambda s: score[s])

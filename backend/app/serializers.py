@@ -2,13 +2,19 @@ from rest_auth.registration.serializers import RegisterSerializer
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
-from .models import School, QA, ApplicantAccount, User, SchoolAccount
+from .models import School, QA, ApplicantAccount, User, SchoolAccount, PrioritizedTag
 from .models import QA, School, Tag
 
 
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
+        fields = '__all__'
+
+
+class PrioritizedTagsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PrioritizedTag
         fields = '__all__'
 
 
