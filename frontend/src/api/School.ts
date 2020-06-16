@@ -1,4 +1,4 @@
-import { School } from '../types';
+import { PrioritizedTag, School } from '../types';
 import axios from 'axios';
 import authAPI from './Auth';
 
@@ -46,6 +46,23 @@ class SchoolAPI implements ISchoolAPI {
       .then(res => res.data)
       .catch((err) => {
         const msg = `error when posting school: ${JSON.stringify(school)}`;
+        alert(msg);
+        console.warn(msg, err);
+      });
+  }
+
+  findMatchesBy (prioritizedTags: PrioritizedTag[]): Promise<School[]> {
+    return axios.post(
+      '/app/api/school/match/',
+      prioritizedTags,
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(res => res.data)
+      .catch(err => {
+        const msg = 'Failed to find matches';
         alert(msg);
         console.warn(msg, err);
       });

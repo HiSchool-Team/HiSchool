@@ -72,6 +72,7 @@ class School(models.Model):
         return self.name
 
 
+# https://docs.djangoproject.com/en/3.0/topics/db/models/#extra-fields-on-many-to-many-relationships
 class PrioritizedTag(models.Model):
     class Meta:
         unique_together = ['school', 'tag']
@@ -81,8 +82,7 @@ class PrioritizedTag(models.Model):
     priority = models.IntegerField()
 
 
-# FIXME this is just to show that the database works but does not implement
-# any school separation
+# FIXME this is just to show that the database works but does not implement any school separation
 class QA(models.Model):
     recipient_school = models.ForeignKey(School, on_delete=models.CASCADE)
     question_title = models.TextField()

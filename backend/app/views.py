@@ -62,6 +62,21 @@ class TagsViewSet(viewsets.ModelViewSet):
     serializer_class = TagSerializer
 
 
+Priority = int
+
+
+# general idea of matching algorithm
+def sorted_schools(schools: List[School], tag_priority: Dict[Tag, Priority]) -> List[School]:
+    score = {}
+    for school in schools:
+        relevant_prioritized_tags = (PrioritizedTag.objects.get(tag=tag, school=school)
+                                     for tag in school.prioritized_tags.all() if tag in tag_priority)
+
+        score[school] = sum(min(tag_priority[pt.tag], pt.priority) for pt in relevant_prioritized_tags)
+
+    return sorted(schools, key=score.get, reverse=True)
+
+
 # FIXME there might be some unnecassy repetition with school list, which can probably be merged into this
 class SchoolViewSet(viewsets.ModelViewSet):
     renderers = [renderers.JSONRenderer]
@@ -83,6 +98,24 @@ class SchoolViewSet(viewsets.ModelViewSet):
         user.schoolaccount.save()
 
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+    # Expects json data in the form [{tag_id: int, priority: int}]
+    @action(detail=False, methods=['POST'])
+    def match(self, request):
+        tag_id_to_priority: Dict[int, int] = {
+            selected_tag['tag_id']: selected_tag['priority']
+            for selected_tag in request.data
+        }
+
+        tag_priority: Dict[Tag, Priority] = {
+            Tag.objects.get(id=tag_id): priority
+            for tag_id, priority in tag_id_to_priority.items()
+        }
+
+        matched_schools = sorted_schools(School.objects.all(), tag_priority)
+        serializer = SchoolSerializer(matched_schools, many=True)
+
+        return Response(serializer.data)
 
 
 def get_all_tags(schools):
@@ -199,19 +232,7 @@ def current_user(request):
         school_serializer = SchoolSerializer(user.schoolaccount.school)
         data.update({
             'school': school_serializer.data
+
         })
 
     return Response(data)
-
-
-Priority = int
-
-
-# general idea of matching algorithm
-def sort_schools(schools: List[School], tag_priority: Dict[Tag, Priority]) -> List[School]:
-    score = {}
-    for school in schools:
-        relevant_prioritized_tags = (pt for pt in school.prioritized_tags.all() if pt in tag_priority)
-        score[school] = sum(min(tag_priority[pt.tag], pt.priority) for pt in relevant_prioritized_tags)
-
-    return sorted(schools, key=lambda s: score[s])
