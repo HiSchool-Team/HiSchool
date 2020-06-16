@@ -148,6 +148,7 @@ const SchoolDetail: React.FC = () => {
                     // TODO id in tag should be changed when tags come from backend
                     return <Tooltip title={"Click to find all schools with this tag"}>
                       <Tag id={0}
+                           draggable={false}
                            style={{flexShrink: 2}}
                            onClick={() => goToNewUrl(schoolListBasePath, {tags: pill})}
                            name={pill}/>

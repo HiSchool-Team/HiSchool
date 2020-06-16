@@ -19,7 +19,7 @@ const SortedTagsByRelevance
   return (<div>
     {tagsPreferences
       .map(([tag, value]) => {
-        return <TagComponent id={tag.id} name={tag.name + "(" + value + ")"}
+        return <TagComponent draggable={true} id={tag.id} name={tag.name + "(" + value + ")"}
         />
       })
     }

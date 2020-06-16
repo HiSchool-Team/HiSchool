@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 
 import './PreferenceChoices.css';
 
@@ -18,8 +18,8 @@ import DragDropContainer from "../DragDropContainer";
 
 // TODO check if this import is needed
 
-const { Header, Content, Sider } = Layout;
-const { TabPane } = Tabs;
+const {Header, Content, Sider} = Layout;
+const {TabPane} = Tabs;
 
 interface ServerResponse {
   schools: School[],
@@ -65,7 +65,7 @@ const PreferenceChoices = () => {
 
   useEffect(() => {
     axios.get<ServerResponse>(serverSearchEndpoint, {
-      params: { tags: '' }
+      params: {tags: ''}
     }).then((resp: AxiosResponse<ServerResponse>) => {
       setAllTags(resp.data.tags);
       setAvailableCategories(
@@ -90,47 +90,45 @@ const PreferenceChoices = () => {
   const nonDroppedTags = allTags.filter(tag => !insertedTags.includes(tag.id));
 
   return (
-    <DndProvider backend={HTML5Backend}>
-      <NewLayout tags={allTags.filter(tag => tag.sub_type === 'General')}
-                 updateDisplayedSchool={addSelectedTypeTags}>
-        <div className="grid-container">
-          <div className={"tab-display"}>
-            <Tabs type="card" className={"tabs"}>
-              {availableCategories.map(category => {
-                return <TabPane tab={category} key={category}>
-                  <SortedTagsByRelevance category={category} nonDroppedTags={nonDroppedTags} searchString={searchValue} />
-                </TabPane>
-              })}
-            </Tabs>
-          </div>
+    <NewLayout tags={allTags.filter(tag => tag.sub_type === 'General')}
+               updateDisplayedSchool={addSelectedTypeTags}>
+      <div className="grid-container">
+        <div className={"tab-display"}>
+          <Tabs type="card" className={"tabs"}>
+            {availableCategories.map(category => {
+              return <TabPane tab={category} key={category}>
+                <SortedTagsByRelevance category={category} nonDroppedTags={nonDroppedTags} searchString={searchValue}/>
+              </TabPane>
+            })}
+          </Tabs>
+        </div>
 
-          <div className={"head-search"}>
-            Search here for your School extracurricular preference<br/>
-            <DragDropContainer tags={allTags}
-                               onDropAny={(id =>
-                                 setInsertedTags(prevState => [...prevState, id]))
-                               }
-                               onRemoveAll={(id =>
-                                 setInsertedTags(prevState => prevState.filter(tag_id => tag_id !== id)))
-                               }/>
-            <Search placeholder={'search tags'}
-                    onChange={(e) => {
-                      let elem: HTMLInputElement = e.currentTarget as HTMLInputElement;
-                      setSearchValue(elem.value);
-                    }}/>
-            <br/><br/>
-            Click on the tags which you wish to select on the left
-            <br/>
-            <img src="/static/help.png" alt={"help"}/>
-            <br/><br/><br/><br/><br/><br/><br/><br/><br/>
-            After selecting the tags you prefer search for a suitable school by clicking on the button bellow
-            <div className={"preference-search"}>
-              <a href={`/1`} className="button">Find me a School</a>
-            </div>
+        <div className={"head-search"}>
+          Search here for your School extracurricular preference<br/>
+          <DragDropContainer tags={allTags}
+                             onDropAny={(id =>
+                               setInsertedTags(prevState => [...prevState, id]))
+                             }
+                             onRemoveAll={(id =>
+                               setInsertedTags(prevState => prevState.filter(tag_id => tag_id !== id)))
+                             }/>
+          <Search placeholder={'search tags'}
+                  onChange={(e) => {
+                    let elem: HTMLInputElement = e.currentTarget as HTMLInputElement;
+                    setSearchValue(elem.value);
+                  }}/>
+          <br/><br/>
+          Click on the tags which you wish to select on the left
+          <br/>
+          <img src="/static/help.png" alt={"help"}/>
+          <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+          After selecting the tags you prefer search for a suitable school by clicking on the button bellow
+          <div className={"preference-search"}>
+            <a href={`/1`} className="button">Find me a School</a>
           </div>
         </div>
-      </NewLayout>
-    </DndProvider>
+      </div>
+    </NewLayout>
   );
 };
 

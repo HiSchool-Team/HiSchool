@@ -22,6 +22,7 @@ const pillStyle: CSSProperties = {
 
 export const Tag = (props: {
   id: number,
+  draggable: boolean,
   style?: CSSProperties,
   name: string, selected?: boolean,
   onMouseEnter?: (e: MouseEvent<HTMLDivElement>) => void,
@@ -42,6 +43,7 @@ export const Tag = (props: {
         props.onDragOutsideArea?.(props.id);
       }
     },
+    canDrag: props.draggable,
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),

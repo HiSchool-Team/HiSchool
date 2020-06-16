@@ -36,7 +36,7 @@ const DragDropZone = (props: { tags: Tag[],
     <div ref={drop} style={{ ...style, backgroundColor }}>
       {isActive ? 'Release to drop' : 'Drag a box here'}
       {props.tags.map(tag => {
-        return <TagComponent id={tag.id} name={tag.name} onDragOutsideArea={props.onPullOut}/>
+        return <TagComponent draggable={true} id={tag.id} name={tag.name} onDragOutsideArea={props.onPullOut}/>
       })}
     </div>
   )
