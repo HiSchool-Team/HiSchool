@@ -11,8 +11,10 @@ import SortedTagsByRelevance from '../../components/SortedTagsByRelevance';
 import DragDropContainer from "../DragDropContainer";
 import Search from 'antd/lib/input/Search';
 import Button from 'antd/es/button';
-import { SearchOutlined } from '@ant-design/icons';
+import { SearchOutlined, SaveOutlined } from '@ant-design/icons';
 import prioritizedTagAPI from "../../api/PrioritizedTag";
+import userContext from "../../context/User";
+import schoolAPI from "../../api/School";
 
 // TODO check if this import is needed
 
@@ -78,16 +80,20 @@ const PreferenceChoices = () => {
           </div>
 
           <div className={"head-search"} style={{marginRight: "15px"}}>
-            Search here for your School extracurricular preference<br/>
+            {userContext.isSchoolAccount() ? "Search for a tag you wish to add" : "Search here for your School extracurricular preference"}
+
+            <br/>
             <Search placeholder={'search tags'}
                     onChange={e => setSearchValue(e.target.value) }/>
             Drag the tags on the left into desired boxes
             <br/><br/>
-            After selecting the tags you prefer search for a suitable school by clicking on the button bellow
+            {userContext.isSchoolAccount() ?
+              "After selecting the tags you prefer save your choice by clicking a button below" :
+              "After selecting the tags you prefer search for a suitable school by clicking on the button bellow"}
             <div className={"preference-search"}>
-              <Button type="primary" icon={<SearchOutlined />}
+              <Button type="primary" icon={userContext.isSchoolAccount() ? <SaveOutlined /> :  <SearchOutlined />}
                       onClick={() => setSend(true)}>
-                Find me a school
+                {userContext.isSchoolAccount() ? "Save Tags" : "Find me a school"}
               </Button>
             </div>
           </div>

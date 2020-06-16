@@ -1,9 +1,11 @@
 import React, {CSSProperties, useState} from "react";
 import DragDropZone from "../components/DragDropZone";
 import {TagDragType} from "../components/Tag";
-import {Tag, PrioritizedTag} from "../types";
+import {Tag, PrioritizedTag, School} from "../types";
 import { Redirect } from "react-router-dom";
-import {tagResultPath} from "../routes";
+import {homePath, tagResultPath} from "../routes";
+import userContext from "../context/User";
+import prioritizedTagAPI from "../api/PrioritizedTag";
 
 interface DragDropState {
   droppedTags: number[],
@@ -85,7 +87,7 @@ const DragDropContainer = (props: {
 
     for (const dragDrop of dragDrops) {
       prioritizedTags.push(...dragDrop.droppedTags.map(tag_id => {
-        return {tag_id: tag_id, priority: dragDrop.priority};
+        return {school_id: userContext.getSchoolId(), tag_id: tag_id, priority: dragDrop.priority};
       }));
     }
 
@@ -94,11 +96,18 @@ const DragDropContainer = (props: {
 
   if (props.send) {
     console.log("here");
-    return (<Redirect to={{
-        pathname: tagResultPath,
-        state: createPrioritizedTags()
-      }}/>
-    );
+    if (userContext.isSchoolAccount()) {
+      prioritizedTagAPI.postTags(createPrioritizedTags()).then(r => console.log("I have registered"))
+      return (<Redirect to={{
+        pathname: homePath,
+      }}/>);
+    } else {
+      return (<Redirect to={{
+          pathname: tagResultPath,
+          state: createPrioritizedTags()
+        }}/>
+      );
+    }
   }
 
   return (

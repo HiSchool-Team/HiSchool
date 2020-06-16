@@ -5,8 +5,8 @@ class PrioritizedTagAPI {
   postTags (prioritizedTags: PrioritizedTag[]): Promise<void> {
     return axios
       .post(
-        '/app/api/prioritized_tag',
-        prioritizedTags,
+          '/app/api/prioritized_tags/',
+          prioritizedTags,
         {
           headers: {
             'Content-Type': 'application/json'

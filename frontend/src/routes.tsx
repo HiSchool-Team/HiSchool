@@ -21,6 +21,7 @@ export const signupPath = '/signUp';
 export const savedSchoolsPath = '/user/savedSchools';
 export const savedQAsPath = '/user/savedQAs';
 export const tagResultPath = '/tagResult'
+export const schoolTagAddPath = '/tagAddSchool'
 
 const BaseRouter = () => (
   <Switch>
@@ -32,6 +33,7 @@ const BaseRouter = () => (
     <Route exact path={savedQAsPath} component={SavedQAs}/>
     <Route exact path={savedSchoolsPath} component={SavedSchools}/>
     <Route exact path={tagResultPath} component={SchoolListTagResult}/>
+    <Route exact path={schoolTagAddPath} component={PreferenceChoices}/>
     <Route exact path={'/:schoolID/qa'}><QAView isAdmin={false}/></Route>
     <Route exact path={'/:schoolID/qa/admin'}><QAView isAdmin={true}/></Route>
     <Route exact path={'/:schoolID'} component={SchoolDetail}/>
