@@ -1,9 +1,13 @@
 import React, {CSSProperties, MouseEvent, FocusEvent} from 'react';
-import {DragSourceMonitor, useDrag} from "react-dnd";
+import {DragSourceMonitor, useDrag, DragObjectWithType} from "react-dnd";
 import {Tag as TagType} from "../types";
 
 export const ItemTypes = {
   TAG: 'tag',
+}
+
+export interface TagDragType extends DragObjectWithType {
+  id: number, name: string,
 }
 
 const pillStyle: CSSProperties = {
@@ -34,7 +38,7 @@ export const Tag = (props: {
     color: props.selected ? '#ece9e9' : '#242424'
   };
   const [{ isDragging }, drag] = useDrag({
-    item: { name: props.name, type: ItemTypes.TAG},
+    item: { id: props.id, name: props.name, type: ItemTypes.TAG},
     end: (item: { name: string } | undefined, monitor: DragSourceMonitor) => {
       const dropResult = monitor.getDropResult()
       if (item && dropResult) {

@@ -14,6 +14,7 @@ import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import Search from 'antd/lib/transfer/search';
 import SortedTagsByRelevance from '../../components/SortedTagsByRelevance';
+import DragDropContainer from "../DragDropContainer";
 
 // TODO check if this import is needed
 
@@ -99,8 +100,6 @@ const PreferenceChoices = () => {
                  updateDisplayedSchool={addSelectedTypeTags}>
         <div className="grid-container">
           <div className={"tab-display"}>
-            <TagComponent id={0} name={"test"}
-                               onDrop={(id: number) => {console.log(insertedTags); setInsertedTags(prevState => [...prevState, id]); console.log(id)}} />
             <Tabs type="card" className={"tabs"}>
               {availableCategories.map(category => {
                 return <TabPane tab={category} key={category}>
@@ -113,10 +112,11 @@ const PreferenceChoices = () => {
 
           <div className={"head-search"}>
             Search here for your School extracurricular preference<br/>
-            <DragDropZone tags={droppedTags}
-                          onPullOut={id =>
-                            setInsertedTags(prevState => prevState.filter(tag_id => tag_id !== id))
-                          }/>
+            <DragDropContainer tags={availableTags}/>
+            {/*<DragDropZone tags={droppedTags}*/}
+            {/*              onPullOut={id =>*/}
+            {/*                setInsertedTags(prevState => prevState.filter(tag_id => tag_id !== id))*/}
+            {/*              }/>*/}
             <Search placeholder={'search tags'}
                     onChange={(e) => {
                       let elem: HTMLInputElement = e.currentTarget as HTMLInputElement;

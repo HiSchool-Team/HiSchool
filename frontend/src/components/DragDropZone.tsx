@@ -1,6 +1,6 @@
 import React, {CSSProperties} from "react";
-import { useDrop } from 'react-dnd';
-import {ItemTypes, Tag as TagComponent} from "./Tag";
+import { useDrop, DragObjectWithType } from 'react-dnd';
+import {ItemTypes, Tag as TagComponent, TagDragType} from "./Tag";
 import {Tag} from "../types";
 
 const style: CSSProperties = {
@@ -8,12 +8,16 @@ const style: CSSProperties = {
   borderStyle: "dotted",
 }
 
-const DragDropZone = (props: { tags: Tag[], onPullOut: (id: number) => void }) => {
+
+// TODO onDrop type
+
+const DragDropZone = (props: { tags: Tag[],
+  onPullOut: (id: number) => void ,
+  onDrop: (item: TagDragType) => void}
+  ) => {
   const [{canDrop, isOver}, drop] = useDrop({
     accept: ItemTypes.TAG,
-    drop: item => {
-      console.log(item);
-    },
+    drop: props.onDrop,
     collect: (monitor) => ({
       isOver: monitor.isOver(),
       canDrop: monitor.canDrop(),
