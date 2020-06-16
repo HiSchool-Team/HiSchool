@@ -5,13 +5,14 @@ import NewLayout from '../../NewLayout';
 import { Card } from 'antd';
 import { QAList } from '../../../components/qa/QAList';
 import userContext from '../../../context/User';
+import useInterval from 'use-interval';
 
 const QAUnanswered: React.FC = () => {
   const [qas, setQas] = useState(new Array<QA>());
 
-  useEffect(() => {
+  useInterval(() => {
     qaAPI.getAllUnanswered().then(qas => setQas(qas.filter(qa => qa.recipient_school_id === userContext.getSchoolId())));
-  }, []);
+  }, 1000, true);
 
   return (
     <NewLayout>

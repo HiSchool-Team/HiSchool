@@ -44,7 +44,7 @@ class AuthAPI {
       .then(_ => {})
       .catch(err => {
         const msg = 'Failed to register account';
-        alert(msg);
+        // alert(msg);
         console.warn(msg);
       });
   }

@@ -1,12 +1,13 @@
 import { QA } from '../types';
 import axios from 'axios';
+import userContext from '../context/User';
 
 class QAAPI {
   getAll (): Promise<QA[]> {
     return axios.get('/app/api/qa/')
       .then(res => res.data)
       .catch((err) => {
-        alert('error when fetching QAs');
+        // alert('error when fetching QAs');
         console.warn('error when fetching QAs', err);
       });
   }
@@ -20,7 +21,7 @@ class QAAPI {
     return axios.get(`/app/api/qa/?recipient_school=${school_id}`)
       .then(res => res.data)
       .catch((err) => {
-        alert('error when fetching QAs');
+        // alert('error when fetching QAs');
         console.warn(`error when fetching QAs for school with id ${school_id}`, err);
       });
   }
@@ -29,7 +30,7 @@ class QAAPI {
     // FIXME enforce at the type level
     const authoredQA = qa;
     // @ts-ignore
-    authoredQA.question.author = 'John Smith';
+    authoredQA.question.author = userContext.get()?.username || '';
 
     return axios.post(
       '/app/api/qa/',
@@ -41,7 +42,7 @@ class QAAPI {
       })
       .then(_ => {})
       .catch(err => {
-        alert('error when posting QA');
+        // alert('error when posting QA');
         console.warn('error when posting QA', err);
       });
   }
@@ -63,7 +64,7 @@ class QAAPI {
     )
       .then(_ => {})
       .catch(err => {
-        alert('error when updating QA');
+        // alert('error when updating QA');
         console.warn('error when updating QA: ', err);
         console.warn(qa);
       });
