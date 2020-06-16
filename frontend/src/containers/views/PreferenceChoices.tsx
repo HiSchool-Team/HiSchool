@@ -10,6 +10,9 @@ import {serverSearchEndpoint} from "./SchoolList";
 import SortedTagsByRelevance from '../../components/SortedTagsByRelevance';
 import DragDropContainer from "../DragDropContainer";
 import Search from 'antd/lib/input/Search';
+import Button from 'antd/es/button';
+import { SearchOutlined } from '@ant-design/icons';
+import prioritizedTagAPI from "../../api/PrioritizedTag";
 
 // TODO check if this import is needed
 
@@ -28,6 +31,7 @@ const PreferenceChoices = () => {
   const [searchValue, setSearchValue] = useState<string>("");
   const [insertedTags, setInsertedTags] = useState<number[]>([]);
   const [selectedTypeTags, setSelectedTypeTags] = useState<string[]>([]);
+  const [send, setSend] = useState<boolean>(false);
 
   useEffect(() => {
     axios.get<ServerResponse>(serverSearchEndpoint, {
@@ -41,6 +45,7 @@ const PreferenceChoices = () => {
       );
     });
   }, []);
+
 
   const addSelectedTypeTags = (selectedTags: number[]) => {
     const newTypeTags = [];
@@ -80,11 +85,15 @@ const PreferenceChoices = () => {
             <br/><br/>
             After selecting the tags you prefer search for a suitable school by clicking on the button bellow
             <div className={"preference-search"}>
-              <a href={`/1`} className="button">Find me a School</a>
+              <Button type="primary" icon={<SearchOutlined />}
+                      onClick={() => setSend(true)}>
+                Find me a school
+              </Button>
             </div>
           </div>
         </div>
-        <DragDropContainer style={{marginTop: "20px"}}
+        <DragDropContainer send={send}
+                           style={{marginTop: "20px"}}
                            tags={allTags}
                            onDropAny={(id =>
                              setInsertedTags(prevState => [...prevState, id]))

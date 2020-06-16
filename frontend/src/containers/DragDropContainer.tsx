@@ -1,16 +1,25 @@
 import React, {CSSProperties, useState} from "react";
 import DragDropZone from "../components/DragDropZone";
 import {TagDragType} from "../components/Tag";
-import {Tag} from "../types";
+import {Tag, PrioritizedTag} from "../types";
+import { Redirect } from "react-router-dom";
+import {tagResultPath} from "../routes";
 
 interface DragDropState {
   droppedTags: number[],
   index: number,
+  priority: number,
   name: string,
+}
+
+interface TagSendData {
+  tag_id: number,
+  priority: number,
 }
 
 const DragDropContainer = (props: {
   tags: Tag[],
+  send: boolean,
   onDropAny: (id: number) => void,
   onRemoveAll: (id: number) => void,
   style?: CSSProperties
@@ -19,16 +28,19 @@ const DragDropContainer = (props: {
     {
       droppedTags: [],
       index: 0,
+      priority: 3,
       name: "best one",
     },
     {
       droppedTags: [],
       index: 1,
+      priority: 2,
       name: "middle one",
     },
     {
       droppedTags: [],
       index: 2,
+      priority: 1,
       name: "ok one",
     }
   ]);
@@ -66,6 +78,27 @@ const DragDropContainer = (props: {
       });
     });
     props.onRemoveAll(id);
+  }
+
+  const createPrioritizedTags = (): PrioritizedTag[] => {
+    const prioritizedTags: PrioritizedTag[] = [];
+
+    for (const dragDrop of dragDrops) {
+      prioritizedTags.push(...dragDrop.droppedTags.map(tag_id => {
+        return {tag_id: tag_id, priority: dragDrop.priority};
+      }));
+    }
+
+    return prioritizedTags;
+  }
+
+  if (props.send) {
+    console.log("here");
+    return (<Redirect to={{
+        pathname: tagResultPath,
+        state: createPrioritizedTags()
+      }}/>
+    );
   }
 
   return (

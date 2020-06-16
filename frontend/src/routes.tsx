@@ -12,6 +12,7 @@ import QAView from './containers/views/qa/QAView';
 import QAUnanswered from './containers/views/qa/QAUnanswered';
 import LogIn from './containers/views/LogIn';
 import SignUp from './containers/views/SignUp';
+import SchoolListTagResult from "./containers/views/SchoolListTagResult";
 
 export const qaUnansweredPath = '/qa/unanswered';
 export const homePath = '/';
@@ -19,6 +20,7 @@ export const loginPath = '/logIn';
 export const signupPath = '/signUp';
 export const savedSchoolsPath = '/user/savedSchools';
 export const savedQAsPath = '/user/savedQAs';
+export const tagResultPath = '/tagResult'
 
 const BaseRouter = () => (
   <Switch>
@@ -29,6 +31,7 @@ const BaseRouter = () => (
     <Route exact path={signupPath} component={SignUp}/>
     <Route exact path={savedQAsPath} component={SavedQAs}/>
     <Route exact path={savedSchoolsPath} component={SavedSchools}/>
+    <Route exact path={tagResultPath} component={SchoolListTagResult}/>
     <Route exact path={'/:schoolID/qa'}><QAView isAdmin={false}/></Route>
     <Route exact path={'/:schoolID/qa/admin'}><QAView isAdmin={true}/></Route>
     <Route exact path={'/:schoolID'} component={SchoolDetail}/>
