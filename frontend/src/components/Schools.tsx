@@ -36,7 +36,8 @@ const Schools = (props: { data: School[] | undefined, }) => {
             <List.Item.Meta title={<a href={`/${item.id}`}><b>{item.name}</b></a>}/>
 
             <div>
-              <div className={'school-picture'}><img alt="logo" src={item.img_src != null ? item.img_src : item.img_link}/></div>
+              <div className={'school-picture'}><img alt="logo"
+                src={item.img_src != null ? item.img_src : item.img_link}/></div>
               <div className={'school-description'}><p>{item.description}</p></div>
               {/* <div className={'satisfaction-levels'}>
                 <RepeatIcon label={'Student satisfaction'} icon={StarOutlined} times={5}/>

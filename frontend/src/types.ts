@@ -49,3 +49,17 @@ export interface Tag extends Searchable {
   type: string,
   sub_type: string,
 }
+
+export type PrioritizedTag = {
+  school_id?: number,
+  tag_id: number,
+  priority: number,
+};
+
+export type User = {
+  id: number,
+  username: string,
+  is_school: boolean,
+  school?: School,
+  is_user: boolean, // This means is_applicant but since the database model is hard to change we have left it as is_user
+};

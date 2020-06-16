@@ -25,7 +25,7 @@ class QAAPI {
       });
   }
 
-  post (qa: QA) {
+  post (qa: QA): Promise<void> {
     // FIXME enforce at the type level
     const authoredQA = qa;
     // @ts-ignore
@@ -39,13 +39,14 @@ class QAAPI {
           'Content-Type': 'application/json'
         }
       })
+      .then(_ => {})
       .catch(err => {
         alert('error when posting QA');
         console.warn('error when posting QA', err);
       });
   }
 
-  put (qa: QA) {
+  put (qa: QA): Promise<void> {
     // FIXME enforce at the type level
     const authoredQA = qa;
     // @ts-ignore
@@ -59,11 +60,13 @@ class QAAPI {
           'Content-Type': 'application/json'
         }
       }
-    ).catch(err => {
-      alert('error when updating QA');
-      console.warn('error when updating QA: ', err);
-      console.warn(qa);
-    });
+    )
+      .then(_ => {})
+      .catch(err => {
+        alert('error when updating QA');
+        console.warn('error when updating QA: ', err);
+        console.warn(qa);
+      });
   }
 }
 

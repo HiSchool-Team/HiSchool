@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 
 import './PreferenceChoices.css';
 
@@ -12,8 +12,8 @@ import {calculatePreferences} from "../../logic/Search";
 
 // TODO check if this import is needed
 
-const {Header, Content, Sider} = Layout;
-const {TabPane} = Tabs;
+const { Header, Content, Sider } = Layout;
+const { TabPane } = Tabs;
 
 interface ServerResponse {
   schools: School[],
@@ -22,9 +22,8 @@ interface ServerResponse {
 
 const PreferenceChoices = (props: {
   children: React.ReactNode,
-  handleSearch(): any;
+  handleSearch(): any,
 }) => {
-
   const [availableTags, setAvailableTags] = useState<Tag[]>([]);
   const [availableCategories, setAvailableCategories] = useState<string[]>([]);
   const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set<string>());
@@ -32,16 +31,16 @@ const PreferenceChoices = (props: {
 
   useEffect(() => {
     axios.get<ServerResponse>(serverSearchEndpoint, {
-      params: {tags: ""}
+      params: { tags: '' }
     }).then((resp: AxiosResponse<ServerResponse>) => {
       setAvailableTags(resp.data.tags);
       setAvailableCategories(
         resp.data.tags.filter(tag => tag.sub_type !== 'General')
-                      .map(tag => tag.sub_type)
-                      .filter((tag, i, self) => self.indexOf(tag) === i)
+          .map(tag => tag.sub_type)
+          .filter((tag, i, self) => self.indexOf(tag) === i)
       );
-    })
-  }, [])
+    });
+  }, []);
 
   const toggleTagState = (selectedTag: string) => {
     const newSelected = new Set<string>(selectedTags);
@@ -49,7 +48,7 @@ const PreferenceChoices = (props: {
       newSelected.add(selectedTag);
     }
     setSelectedTags(newSelected);
-  }
+  };
 
   const addSelectedTypeTags = (selectedTags: number[]) => {
     const newTypeTags = [];
@@ -60,18 +59,18 @@ const PreferenceChoices = (props: {
       }
     }
     setSelectedTypeTags(newTypeTags);
-  }
+  };
 
-  let options = [
+  const options = [
     {
-      value: 'Football Club',
+      value: 'Football Club'
     },
     {
-      value: 'Drama Club',
+      value: 'Drama Club'
     },
     {
-      value: 'Breakfast Club',
-    },
+      value: 'Breakfast Club'
+    }
   ];
 
 
@@ -94,40 +93,44 @@ const PreferenceChoices = (props: {
 
   return (
     <NewLayout tags={availableTags.filter(tag => tag.sub_type === 'General')}
-               updateDisplayedSchool={addSelectedTypeTags}>
+      updateDisplayedSchool={addSelectedTypeTags}>
       <div className="grid-container">
-          <div className={"tab-display"}>
-          <Tabs type="card" className={"tabs"}>
+        <div className={'tab-display'}>
+          <Tabs type="card" className={'tabs'}>
             {availableCategories.map(category => {
               return <TabPane tab={category} key={category}>
-                {getComponentsByRelevance(category)}
-              </TabPane>
+                {availableTags.filter(tag => tag.sub_type === category)
+                  .map(tag => {
+                    return <TagComponent name={tag.name} onClick={() => toggleTagState(tag.name)}
+                      selected={selectedTags.has(tag.name)}/>;
+                  })}
+              </TabPane>;
             })}
           </Tabs>
         </div>
 
-        <div className={"head-search"}>
+        <div className={'head-search'}>
           Search here for your School extracurricular preference<br/>
           <AutoComplete
             options={options}
             style={{
-              width: 300,
+              width: 300
             }}
             onSelect={onSelect}
             placeholder="input here"
           /><br/><br/>
           Click on the tags which you wish to select on the left
           <br/>
-          <img src="/static/help.png" alt={"help"}/>
+          <img src="/static/help.png" alt={'help'}/>
           <br/><br/><br/><br/><br/><br/><br/><br/><br/>
           After selecting the tags you prefer search for a suitable school by clicking on the button bellow
-          <div className={"preference-search"}>
-            <a href={`/1`} className="button">Find me a School</a>
+          <div className={'preference-search'}>
+            <a href={'/1'} className="button">Find me a School</a>
           </div>
         </div>
       </div>
     </NewLayout>
   );
-}
+};
 
 export default PreferenceChoices;

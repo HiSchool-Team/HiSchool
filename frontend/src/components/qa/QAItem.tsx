@@ -6,8 +6,9 @@ import styles from './QA.module.css';
 import { QuestionCircleTwoTone } from '@ant-design/icons/lib';
 import { Store } from 'antd/lib/form/interface';
 import qaAPI from '../../api/QA';
-import userAPI from '../../api/UserAPI';
+import applicantAccountAPI from '../../api/ApplicantAccount';
 import { SavedIcon } from '../SavedIcon';
+import userContext from '../../context/User';
 
 const { TextArea } = Input;
 
@@ -115,7 +116,7 @@ const QAItem = ({ qa, isAnswerable }: Props) => {
 
   // Configures initial value of saved state
   useEffect(() => {
-    userAPI.hasSavedQA(qa).then(isSaved => {
+    applicantAccountAPI.hasSavedQA(qa).then(isSaved => {
       console.log(`setting saved to ${isSaved}`);
       setSaved(isSaved);
     });
@@ -135,12 +136,12 @@ const QAItem = ({ qa, isAnswerable }: Props) => {
   const toggleEditing = () => setEditing(e => !e);
 
   const userSave = () => {
-    userAPI.saveQA(qa);
+    applicantAccountAPI.saveQA(qa);
     setSaved(true);
   };
 
   const userUnsave = () => {
-    userAPI.unsaveQA(qa);
+    applicantAccountAPI.unsaveQA(qa);
     setSaved(false);
   };
 
@@ -176,9 +177,10 @@ const QAItem = ({ qa, isAnswerable }: Props) => {
             <p><h2>{questionMarkIcon} {question.title}</h2></p>
           </Col>
           <Col span={1}/>
+          {userContext.isApplicantAccount() &&
           <Col span={6}>
             <div style={{ fontSize: '26px' }}><SavedIcon isSaved={saved} onSave={userSave} onUnsave={userUnsave}/></div>
-          </Col>
+          </Col>}
         </Row>
       </div>
       <p>{question.body}</p>
