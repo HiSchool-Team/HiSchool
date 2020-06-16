@@ -41,9 +41,11 @@ const DragDropContainer = (props: {
   const handleDrop = (index: number, item: TagDragType) => {
     setDragDrops(prevState => {
       return prevState.map((dragDrop, arrIndex) => {
+        const tagsWithoutCurr =  dragDrop.droppedTags.filter(tag_id => tag_id !== item.id);
+
         return arrIndex !== index
-          ? {...dragDrop, droppedTags: dragDrop.droppedTags.filter(tag_id => tag_id !== item.id)}
-          : {...dragDrop, droppedTags: [...dragDrop.droppedTags, item.id]};
+          ? {...dragDrop, droppedTags: tagsWithoutCurr}
+          : {...dragDrop, droppedTags: [...tagsWithoutCurr, item.id]};
       });
     });
     props.onDropAny(item.id);
