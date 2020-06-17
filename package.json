@@ -2,7 +2,9 @@
   "name": "drp",
   "description": "",
   "version": "0.1.0",
-  "dependencies": {},
+  "dependencies": {
+    "react-calendar": "^3.1.0"
+  },
   "devDependencies": {},
   "scripts": {
     "postinstall": "cd frontend && npm install && npm run build"
