@@ -50,14 +50,14 @@ const LogIn: React.FC = () => {
       }
     }}>
       <Button type="primary" htmlType="submit">
-        Submit
+        Login
       </Button>
     </Form.Item>;
 
   const loginLayout =
     <Row>
       <Col span={6} offset={9}>
-        <Card style={{minWidth: "max-content"}}>
+        <Card style={{ minWidth: 'max-content' }}>
           {usernameFormItem}
           {passwordFormItem}
           {submitButtonFormItem}
