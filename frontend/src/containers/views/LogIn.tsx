@@ -13,7 +13,7 @@ const LogIn: React.FC = () => {
       .then(() => goToNewUrl(homePath))
       .catch(err => {
         const msg = 'login failed: check your credentials';
-        // alert(msg);
+        alert(msg);
         console.warn(msg, err);
       });
   };

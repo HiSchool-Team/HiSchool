@@ -47,7 +47,7 @@ class School(models.Model):
     twitter = models.URLField(null=True)
     video = models.URLField(null=True)
     calendar = models.URLField(null=True)
-    map = models.URLField(null=True)
+    map = models.URLField(max_length=1000, null=True)
 
     student_satisfaction = models.DecimalField(
         default=0,

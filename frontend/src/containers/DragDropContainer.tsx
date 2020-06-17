@@ -31,19 +31,19 @@ const DragDropContainer = (props: {
       droppedTags: [],
       index: 0,
       priority: 3,
-      name: 'best one'
+      name: 'Core focus points'
     },
     {
       droppedTags: [],
       index: 1,
       priority: 2,
-      name: 'middle one'
+      name: 'Emphasized focus points'
     },
     {
       droppedTags: [],
       index: 2,
       priority: 1,
-      name: 'ok one'
+      name: 'General focus points'
     }
   ]);
 
