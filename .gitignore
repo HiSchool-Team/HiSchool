@@ -6,7 +6,7 @@ backend/static
 static
 db.sqlite3
 startTestServer.sh
-
+node_modules
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
