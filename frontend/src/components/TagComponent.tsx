@@ -1,9 +1,9 @@
-import React, {CSSProperties, FocusEvent, MouseEvent} from 'react';
-import {DragObjectWithType, DragSourceMonitor, useDrag} from "react-dnd";
+import React, { CSSProperties, FocusEvent, MouseEvent } from 'react';
+import { DragObjectWithType, DragSourceMonitor, useDrag } from 'react-dnd';
 
 export const ItemTypes = {
-  TAG: 'tag',
-}
+  TAG: 'tag'
+};
 
 export interface TagDragType extends DragObjectWithType {
   id: number, name: string,
@@ -17,10 +17,10 @@ const pillStyle: CSSProperties = {
   display: 'inline-block',
   margin: '4px 2px',
   cursor: 'pointer',
-  borderRadius: '16px',
+  borderRadius: '16px'
 };
 
-export const Tag = (props: {
+export const TagComponent = (props: {
   id: number,
   draggable: boolean,
   style?: CSSProperties,
@@ -31,32 +31,31 @@ export const Tag = (props: {
   onFocus?: (e: FocusEvent<HTMLDivElement>) => void,
   onDragOutsideArea?: (id: number) => void,
 }) => {
-
   const selected: CSSProperties = {
     backgroundColor: props.selected ? '#001529' : '#c7c6c6',
     color: props.selected ? '#ece9e9' : '#242424'
   };
   const [{ isDragging }, drag] = useDrag({
-    item: { id: props.id, name: props.name, type: ItemTypes.TAG},
-    end: (item: { id: number, name: string } | undefined, monitor: DragSourceMonitor) => {
+    item: { id: props.id, name: props.name, type: ItemTypes.TAG },
+    end: (item: { id: number, name: string, } | undefined, monitor: DragSourceMonitor) => {
       if (!monitor.getDropResult()) {
         props.onDragOutsideArea?.(props.id);
       }
     },
     canDrag: props.draggable,
     collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  })
-  const opacity = isDragging ? 0.4 : 1
+      isDragging: monitor.isDragging()
+    })
+  });
+  const opacity = isDragging ? 0.4 : 1;
 
   return (
     <div ref={drag}
-         style={{...pillStyle, ...props.style, ...selected, opacity}}
-         onMouseEnter={props.onMouseEnter}
-         onMouseLeave={props.onMouseLeave}
-         onClick={props.onClick}
-         onFocus={props.onFocus}
+      style={{ ...pillStyle, ...props.style, ...selected, opacity }}
+      onMouseEnter={props.onMouseEnter}
+      onMouseLeave={props.onMouseLeave}
+      onClick={props.onClick}
+      onFocus={props.onFocus}
     >
       {props.name}
     </div>);

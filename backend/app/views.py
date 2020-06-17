@@ -70,7 +70,7 @@ def sorted_schools(schools: List[School], tag_priority: Dict[Tag, Priority]) -> 
     score = {}
     for school in schools:
         relevant_prioritized_tags = (PrioritizedTag.objects.get(tag=tag, school=school)
-                                     for tag in school.prioritized_tags.all() if tag in tag_priority)
+                                     for tag in school.tags.all() if tag in tag_priority)
 
         score[school] = sum(min(tag_priority[pt.tag], pt.priority) for pt in relevant_prioritized_tags)
 
@@ -103,7 +103,7 @@ class SchoolViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['POST'])
     def match(self, request):
         tag_id_to_priority: Dict[int, int] = {
-            selected_tag['tag_id']: selected_tag['priority']
+            selected_tag['tag']: selected_tag['priority']
             for selected_tag in request.data
         }
 
@@ -121,7 +121,7 @@ class SchoolViewSet(viewsets.ModelViewSet):
 def get_all_tags(schools):
     tags = Tag.objects.none()
     for school in schools:
-        tags = tags.union(school.prioritized_tags.all())
+        tags = tags.union(school.tags.all())
     return tags
 
 

@@ -286,11 +286,7 @@ const SchoolDetailAdmin: React.FC = () => {
         style={{ width: '100%' }}
       >
         {unselectedTags.map(t => {
-          return (
-            <Select.Option key={t.name} value={t.name}>
-              {t.name}
-            </Select.Option>
-          );
+          return (<Select.Option key={t.name} value={t.name}>{t.name}</Select.Option>);
         })}
       </Select>;
     </Form.Item>;
@@ -341,14 +337,14 @@ const SchoolDetailAdmin: React.FC = () => {
       motto: schoolMotto,
       student_satisfaction: 4.2,
       img_link: imgLink,
-      tags: selectedTags.map(t => t.id),
       website: websiteLink,
       facebook: facebookLink,
       twitter: twitterLink,
       video: videoLink,
       calendar: calendarLink,
       map: mapLink,
-      parent_satisfaction: 4.2
+      parent_satisfaction: 4.2,
+      tags: []
     };
 
     console.log('selected tags are:');
@@ -375,7 +371,7 @@ const SchoolDetailAdmin: React.FC = () => {
         {videoLinkFormSection}
         {calendarLinkSection}
         {mapLinkSection}
-        {tagSelectSection}
+        {/* tagSelectSection */}
         {saveButton}
       </Form>
     </NewLayout>
