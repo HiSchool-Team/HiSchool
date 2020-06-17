@@ -12,6 +12,7 @@ interface DragDropState {
   index: number,
   priority: number,
   name: string,
+  limit?: number,
 }
 
 interface TagSendData {
@@ -26,27 +27,27 @@ const DragDropContainer = (props: {
   onRemoveAll: (id: number) => void,
   style?: CSSProperties,
 }) => {
-  const maxTagsInBox = 5;
-
   const [dragDrops, setDragDrops] = useState<DragDropState[]>([
     {
       droppedTags: [],
-      index: 0,
-      priority: 3,
-      name: 'Core focus points'
+      index: 2,
+      priority: 1,
+      name: 'General focus points',
     },
     {
       droppedTags: [],
       index: 1,
       priority: 2,
-      name: 'Emphasized focus points'
+      name: 'Emphasized focus points',
+      limit: 5,
     },
     {
       droppedTags: [],
-      index: 2,
-      priority: 1,
-      name: 'General focus points'
-    }
+      index: 0,
+      priority: 3,
+      name: 'Core focus points',
+      limit: 3,
+    },
   ]);
 
   const getTagById = (id: number): Tag => {
@@ -66,7 +67,7 @@ const DragDropContainer = (props: {
         const tagsWithoutCurr = dragDrop.droppedTags.filter(tag_id => tag_id !== item.id);
 
         if (arrIndex !== index
-            || (userContext.isSchoolAccount() && dragDrop.droppedTags.length >= maxTagsInBox)) {
+            || (userContext.isSchoolAccount() && dragDrop.limit && dragDrop.droppedTags.length >= dragDrop.limit)) {
           return {...dragDrop, droppedTags: tagsWithoutCurr};
         } else {
           tooMany = false;
@@ -123,8 +124,8 @@ const DragDropContainer = (props: {
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', ...props.style }}>
       {dragDrops.map((dragDrop, index) => {
         return <DragDropZone boxName={dragDrop.name
-                                      + (userContext.isSchoolAccount()
-                                        ? `(${maxTagsInBox - dragDrop.droppedTags.length} choices left)`
+                                      + (userContext.isSchoolAccount() && dragDrop.limit
+                                        ? `(${dragDrop.limit - dragDrop.droppedTags.length} choices left)`
                                         : '')}
           tags={dragDrop.droppedTags.map(getTagById)}
           onPullOut={(id: number) => handlePullOut(index, id)}
