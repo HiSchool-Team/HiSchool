@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 
 import Schools from '../../components/Schools';
-import { School, Tag } from '../../types';
+import {School, Tag} from '../../types';
 import NewLayout from '../NewLayout';
-import { useLocation } from 'react-router-dom';
-import { getSearchResult } from '../../utils/utils';
+import {useLocation} from 'react-router-dom';
+import {getSearchResult} from '../../utils/utils';
 
-import axios, { AxiosResponse } from 'axios';
+import axios, {AxiosResponse} from 'axios';
+import {calculatePreferences} from "../../logic/Search";
 
 interface ServerData {
   schools: School[],
@@ -55,8 +56,10 @@ const SchoolList = () => {
       const newSchoolData = alterReceivedData(resp.data.schools);
       console.log(newSchoolData);
       console.log(resp.data.tags);
-      setSchools(newSchoolData);
-      setDisplayedSchools(newSchoolData);
+      const sortedSchools: School[] = calculatePreferences(query.search, newSchoolData)
+                                        .map(([a,b]) => a);
+      setSchools(sortedSchools);
+      setDisplayedSchools(sortedSchools);
       const uniqueTags = getUniqueTags(resp.data.tags);
       setTags(uniqueTags);
       console.log(uniqueTags);

@@ -11,7 +11,7 @@ import { Store } from 'antd/lib/form/interface';
 import schoolAPI from '../../api/School';
 import tagAPI from '../../api/Tag';
 import { goToNewUrl } from '../../utils/utils';
-import { homePath } from '../../routes';
+import {homePath, prefChoicesPath} from '../../routes';
 import userContext from '../../context/User';
 import authAPI from '../../api/Auth';
 
@@ -355,7 +355,7 @@ const SchoolDetailAdmin: React.FC = () => {
         const userWithSchool: User = userContext.get() as User;
         userWithSchool.school = registeredSchool;
         userContext.set(userWithSchool);
-        goToNewUrl(homePath);
+        goToNewUrl(prefChoicesPath);
         window.location.reload(true);
       });
   };

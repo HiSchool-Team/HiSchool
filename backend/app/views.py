@@ -34,10 +34,7 @@ def return_json(request):
     tags = Tag.objects.none()
 
     if search_result is not None:
-        if search_result:
-            schools = School.objects.filter(name=search_result)
-        else:
-            schools = School.objects.all()
+        schools = School.objects.all()
         tags = get_all_tags(schools)
     elif tags_result is not None:
         if tags_result:

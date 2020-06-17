@@ -25,9 +25,8 @@ export type Answer = {
   created_at?: string,
 };
 
-export type School = {
+export interface School extends Searchable{
   id: number,
-  name: string,
   description: string,
   motto?: string,
   student_satisfaction: number,
@@ -41,7 +40,7 @@ export type School = {
   calendar?: string,
   map?: string,
   parent_satisfaction: number,
-};
+}
 
 export interface Tag extends Searchable {
   id: number,
