@@ -7,15 +7,16 @@ import NewLayout from '../NewLayout';
 import { useParams } from 'react-router-dom';
 import './SchoolDetail.css';
 import Paragraph from 'antd/es/typography/Paragraph';
-import { School } from '../../types';
+import { School, Tag } from '../../types';
 import Tooltip from 'antd/es/tooltip';
 import { SavedIcon } from '../../components/SavedIcon';
 import applicantAccountAPI from '../../api/ApplicantAccount';
 import schoolAPI from '../../api/School';
 import { goToNewUrl } from '../../utils/utils';
 import { schoolListBasePath } from './SchoolList';
-import { Tag } from '../../components/Tag';
+import { TagComponent } from '../../components/TagComponent';
 import userContext from '../../context/User';
+import tagAPI from '../../api/Tag';
 
 // TODO will go in as props in the future
 const types = ['Public School', 'Boarding School'];
@@ -42,12 +43,62 @@ const categories = [{
 
 const hogwarts: School = data[0] as School;
 
+type TagsProps = {
+  tags: Tag[],
+};
+const TagsBox: React.FC<TagsProps> = ({ tags }) => {
+  console.log('rendering TagsBox with tags:');
+  console.log(tags);
+
+  return (
+    <div style={{
+      display: 'flex',
+      flexFlow: 'column wrap',
+      alignItems: 'center'
+    }}>
+      {categories.map(category => {
+        return (
+          <div>
+            <div style={{ textAlign: 'center' }}>
+              {category.name}
+            </div>
+            <div>
+              {tags
+                .filter(tag => tag.type === category.name)
+                .map(tag => {
+                  return (
+                    <Tooltip title={'Click to find all schools with this tag'}>
+                      <TagComponent id={tag.id}
+                        draggable={false}
+                        style={{ flexShrink: 2 }}
+                        onClick={() => goToNewUrl(schoolListBasePath, { tags: tag.name })}
+                        name={tag.name}/>
+                    </Tooltip>);
+                })}
+              {/* category.value.map(pill => {
+              // TODO id in tag should be changed when tags come from backend
+                return <Tooltip title={'Click to find all schools with this tag'}>
+                  <TagComponent id={0}
+                    draggable={false}
+                    style={{ flexShrink: 2 }}
+                    onClick={() => goToNewUrl(schoolListBasePath, { tags: pill })}
+                    name={pill}/>
+                </Tooltip>;
+              }) */}
+            </div>
+          </div>
+        );
+      })}
+    </div>);
+};
 const SchoolDetail: React.FC = () => {
   const { schoolID } = useParams();
   const schoolIdParam = parseInt(schoolID);
 
   const [school, setSchool] = useState(hogwarts);
   const [userSaved, setUserSaved] = useState(false);
+
+  const [tags, setTags] = useState(new Array<Tag>());
 
   const addition = (userContext.getSchoolId() === parseInt(schoolID)) ? '/admin' : '';
   const qaLink = `${window.location.href}/qa` + addition;
@@ -59,6 +110,14 @@ const SchoolDetail: React.FC = () => {
         applicantAccountAPI.hasSavedSchool(s).then(isUserSaved => setUserSaved(isUserSaved));
       }
       setSchool(s);
+
+      tagAPI.getFor(s).then(tags => {
+        console.log('Setting tags: ');
+        console.log(tags);
+        setTags([]);
+        setTags(tags);
+        console.log('Finished setting tags');
+      });
     });
   }, [schoolIdParam]);
 
@@ -139,41 +198,16 @@ const SchoolDetail: React.FC = () => {
             src={school.video}>
           </iframe>
         </div>
+        <TagsBox tags={tags} />
         <div style={{
           display: 'flex',
           flexFlow: 'column wrap',
           alignItems: 'center'
         }}>
-          {categories.map(elem => {
-            return (
-              <div>
-                <div style={{ textAlign: 'center' }}>
-                  {elem.name}
-                </div>
-                <div>
-                  {elem.value.map(pill => {
-                    // TODO id in tag should be changed when tags come from backend
-                    return <Tooltip title={"Click to find all schools with this tag"}>
-                      <Tag id={0}
-                           draggable={false}
-                           style={{flexShrink: 2}}
-                           onClick={() => goToNewUrl(schoolListBasePath, {tags: pill})}
-                           name={pill}/>
-                    </Tooltip>;
-                  })}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-        <div style={{
-          display: 'flex',
-          flexFlow: 'column wrap',
-          alignItems: 'center'
-        }}>
-          <Calendar className={"calendar"} onChange={onChange}
-              value={date}/>
-          <iframe className={"map"} src={"https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d71513.99001929436!2d-3.3321555772472693!3d55.93529371652291!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4887b800a5982623%3A0x64f2147b7ce71727!2sEdinburgh!5e0!3m2!1sen!2suk!4v1592355957778!5m2!1sen!2suk"}/>
+          <Calendar className={'calendar'} onChange={onChange}
+            value={date}/>
+          <iframe className={'map'}
+            src={'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d71513.99001929436!2d-3.3321555772472693!3d55.93529371652291!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4887b800a5982623%3A0x64f2147b7ce71727!2sEdinburgh!5e0!3m2!1sen!2suk!4v1592355957778!5m2!1sen!2suk'}/>
         </div>
       </div>
     </NewLayout>

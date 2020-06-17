@@ -66,7 +66,7 @@ class School(models.Model):
 
     # TODO consider removing tags field entirely
     ##tags = models.ManyToManyField(Tag, blank=True)
-    prioritized_tags = models.ManyToManyField(Tag, blank=True, through='PrioritizedTag')
+    tags = models.ManyToManyField(Tag, blank=True, through='PrioritizedTag')
 
     def __str__(self):
         return self.name

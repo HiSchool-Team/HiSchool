@@ -1,7 +1,15 @@
 import React from 'react';
 import userContext from '../context/User';
 import authAPI from '../api/Auth';
-import { homePath, loginPath, qaUnansweredPath, savedQAsPath, savedSchoolsPath, signupPath } from '../routes';
+import {
+  homePath,
+  loginPath,
+  qaUnansweredPath,
+  registerSchoolPath,
+  savedQAsPath,
+  savedSchoolsPath,
+  signupPath
+} from '../routes';
 
 const HeaderMenu = () => {
   return (
@@ -12,7 +20,7 @@ const HeaderMenu = () => {
         <a style={{ margin: '8px' }} href={savedQAsPath}>Saved Questions</a>
       ]}
       {userContext.isSchoolAccount() && !userContext.hasRegisteredSchool() &&
-      <a style={{ margin: '8px' }} href={'/qa/admin/'}>Register School</a>
+      <a style={{ margin: '8px' }} href={registerSchoolPath}>Register School</a>
       }
       <a style={{ margin: '8px' }} href={'/schools/?search='}>All Schools</a>
       {userContext.hasRegisteredSchool() && [

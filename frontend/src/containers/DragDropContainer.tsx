@@ -1,56 +1,70 @@
-import React, {CSSProperties, useState} from "react";
-import DragDropZone from "../components/DragDropZone";
-import {TagDragType} from "../components/Tag";
-import {Tag} from "../types";
+import React, { CSSProperties, useState } from 'react';
+import DragDropZone from '../components/DragDropZone';
+import { TagDragType } from '../components/TagComponent';
+import { Tag, PrioritizedTag, School } from '../types';
+import { Redirect } from 'react-router-dom';
+import { homePath, tagResultPath } from '../routes';
+import userContext from '../context/User';
+import prioritizedTagAPI from '../api/PrioritizedTag';
 
 interface DragDropState {
   droppedTags: number[],
   index: number,
+  priority: number,
   name: string,
+}
+
+interface TagSendData {
+  tag_id: number,
+  priority: number,
 }
 
 const DragDropContainer = (props: {
   tags: Tag[],
+  send: boolean,
   onDropAny: (id: number) => void,
   onRemoveAll: (id: number) => void,
-  style?: CSSProperties
+  style?: CSSProperties,
 }) => {
   const [dragDrops, setDragDrops] = useState<DragDropState[]>([
     {
       droppedTags: [],
       index: 0,
-      name: "best one",
+      priority: 3,
+      name: 'best one'
     },
     {
       droppedTags: [],
       index: 1,
-      name: "middle one",
+      priority: 2,
+      name: 'middle one'
     },
     {
       droppedTags: [],
       index: 2,
-      name: "ok one",
+      priority: 1,
+      name: 'ok one'
     }
   ]);
 
   const getTagById = (id: number): Tag => {
-    let tag = props.tags.find(tag => tag.id === id);
+    const tag = props.tags.find(tag => tag.id === id);
     if (tag) {
       return tag;
     }
-    console.log("error in get tag by id");
+    console.log('error in get tag by id');
     return props.tags[0];
-  }
+  };
 
   // This function is called on a drop to any container
   const handleDrop = (index: number, item: TagDragType) => {
     setDragDrops(prevState => {
       return prevState.map((dragDrop, arrIndex) => {
-        const tagsWithoutCurr =  dragDrop.droppedTags.filter(tag_id => tag_id !== item.id);
+        const tagsWithoutCurr = dragDrop.droppedTags.filter(tag_id => tag_id !== item.id);
 
         return arrIndex !== index
-          ? {...dragDrop, droppedTags: tagsWithoutCurr}
-          : {...dragDrop, droppedTags: [...tagsWithoutCurr, item.id]};
+          ? { ...dragDrop, droppedTags: tagsWithoutCurr }
+          : { ...dragDrop, droppedTags: [...tagsWithoutCurr, item.id] };
       });
     });
     props.onDropAny(item.id);
@@ -62,22 +76,50 @@ const DragDropContainer = (props: {
       return prevState.map((dragDrop, arrIndex) => {
         return arrIndex !== index
           ? dragDrop
-          : {...dragDrop, droppedTags: dragDrop.droppedTags.filter(tag_id => tag_id !== id)};
+          : { ...dragDrop, droppedTags: dragDrop.droppedTags.filter(tag_id => tag_id !== id) };
       });
     });
     props.onRemoveAll(id);
+  };
+
+  const createPrioritizedTags = (): PrioritizedTag[] => {
+    const prioritizedTags: PrioritizedTag[] = [];
+
+    for (const dragDrop of dragDrops) {
+      prioritizedTags.push(...dragDrop.droppedTags.map(tag_id => {
+        return { school: userContext.getSchoolId(), tag: tag_id, priority: dragDrop.priority };
+      }));
+    }
+
+    return prioritizedTags;
+  };
+
+  if (props.send) {
+    console.log('here');
+    if (userContext.isSchoolAccount()) {
+      prioritizedTagAPI.postTags(createPrioritizedTags()).then(r => console.log('I have registered'));
+      return (<Redirect to={{
+        pathname: homePath
+      }}/>);
+    } else {
+      return (<Redirect to={{
+        pathname: tagResultPath,
+        state: createPrioritizedTags()
+      }}/>
+      );
+    }
   }
 
   return (
-    <div style={{display: "flex", alignItems: "center", justifyContent: "space-evenly", ...props.style}}>
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', ...props.style }}>
       {dragDrops.map((dragDrop, index) => {
         return <DragDropZone boxName={dragDrop.name}
-                             tags={dragDrop.droppedTags.map(getTagById)}
-                             onPullOut={(id: number) => handlePullOut(index, id)}
-                             onDrop={(item) => handleDrop(index, item)}/>
+          tags={dragDrop.droppedTags.map(getTagById)}
+          onPullOut={(id: number) => handlePullOut(index, id)}
+          onDrop={(item) => handleDrop(index, item)}/>;
       })}
     </div>
   );
-}
+};
 
 export default DragDropContainer;

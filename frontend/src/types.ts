@@ -1,4 +1,4 @@
-import {Searchable} from "./logic/Search";
+import { Searchable } from './logic/Search';
 
 export type Rating = {
   value: number,
@@ -51,8 +51,8 @@ export interface Tag extends Searchable {
 }
 
 export type PrioritizedTag = {
-  school_id?: number,
-  tag_id: number,
+  school?: number,
+  tag: number,
   priority: number,
 };
 
