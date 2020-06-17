@@ -207,7 +207,7 @@ const SchoolDetail: React.FC = () => {
           <Calendar className={'calendar'} onChange={onChange}
             value={date}/>
           <iframe className={'map'}
-            src={'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d71513.99001929436!2d-3.3321555772472693!3d55.93529371652291!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4887b800a5982623%3A0x64f2147b7ce71727!2sEdinburgh!5e0!3m2!1sen!2suk!4v1592355957778!5m2!1sen!2suk'}/>
+            src={school.map} />
         </div>
       </div>
     </NewLayout>
