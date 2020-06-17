@@ -26,6 +26,8 @@ const DragDropContainer = (props: {
   onRemoveAll: (id: number) => void,
   style?: CSSProperties,
 }) => {
+  const maxTagsInBox = 5;
+
   const [dragDrops, setDragDrops] = useState<DragDropState[]>([
     {
       droppedTags: [],
@@ -58,16 +60,23 @@ const DragDropContainer = (props: {
 
   // This function is called on a drop to any container
   const handleDrop = (index: number, item: TagDragType) => {
+    let tooMany = true;
     setDragDrops(prevState => {
       return prevState.map((dragDrop, arrIndex) => {
         const tagsWithoutCurr = dragDrop.droppedTags.filter(tag_id => tag_id !== item.id);
 
-        return arrIndex !== index
-          ? { ...dragDrop, droppedTags: tagsWithoutCurr }
-          : { ...dragDrop, droppedTags: [...tagsWithoutCurr, item.id] };
+        if (arrIndex !== index
+            || (userContext.isSchoolAccount() && dragDrop.droppedTags.length >= maxTagsInBox)) {
+          return {...dragDrop, droppedTags: tagsWithoutCurr};
+        } else {
+          tooMany = false;
+          return {...dragDrop, droppedTags: [...tagsWithoutCurr, item.id]}
+        }
       });
     });
-    props.onDropAny(item.id);
+    if (!tooMany) {
+      props.onDropAny(item.id);
+    }
   };
 
   // This function is called when item is dropped outside any containers
@@ -113,7 +122,10 @@ const DragDropContainer = (props: {
   return (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', ...props.style }}>
       {dragDrops.map((dragDrop, index) => {
-        return <DragDropZone boxName={dragDrop.name}
+        return <DragDropZone boxName={dragDrop.name
+                                      + (userContext.isSchoolAccount()
+                                        ? `(${maxTagsInBox - dragDrop.droppedTags.length} choices left)`
+                                        : '')}
           tags={dragDrop.droppedTags.map(getTagById)}
           onPullOut={(id: number) => handlePullOut(index, id)}
           onDrop={(item) => handleDrop(index, item)}/>;
