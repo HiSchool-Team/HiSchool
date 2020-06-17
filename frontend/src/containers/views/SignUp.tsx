@@ -92,14 +92,14 @@ const SignUp: React.FC = () => {
       }
     }}>
       <Button type="primary" htmlType="submit">
-        Submit
+        Signup
       </Button>
     </Form.Item>;
 
   const loginLayout =
     <Row>
       <Col span={8} offset={8}>
-        <Card style={{minWidth: "max-content"}}>
+        <Card style={{ minWidth: 'max-content' }}>
           {emailFormItem}
           {usernameFormItem}
           {passwordFormItem}

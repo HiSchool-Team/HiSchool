@@ -40,7 +40,7 @@ const PreferenceChoices = () => {
     }).then((resp: AxiosResponse<ServerResponse>) => {
       setAllTags(resp.data.tags);
       setAvailableCategories(
-        resp.data.tags.filter(tag => tag.sub_type !== 'General')
+        resp.data.tags
           .map(tag => tag.sub_type)
           .filter((tag, i, self) => self.indexOf(tag) === i)
       );
