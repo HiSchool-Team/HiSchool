@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import Calendar from 'react-calendar';
 import { Card } from 'antd';
 import data from '../../newData';
 import NewLayout from '../NewLayout';
@@ -71,6 +72,12 @@ const SchoolDetail: React.FC = () => {
     setUserSaved(false);
   };
 
+  const [date, setDate] = useState(new Date());
+
+  const onChange = (date : any) => {
+    setDate(date);
+  };
+
   return (
     <NewLayout>
       <Card title={
@@ -104,7 +111,7 @@ const SchoolDetail: React.FC = () => {
           display: 'flex',
           alignItems: 'center'
         }}>
-          <Paragraph strong style={{ fontSize: 'large' }}>School Motto:</Paragraph>
+          <Paragraph strong style={{ fontSize: 'large' }}>School Motto: </Paragraph>
           <Paragraph style={{
             fontSize: 'large',
             fontStyle: 'italic'
@@ -164,10 +171,9 @@ const SchoolDetail: React.FC = () => {
           flexFlow: 'column wrap',
           alignItems: 'center'
         }}>
-          <iframe
-            src={school.calendar}
-            width="300" height="200" frameBorder="0" scrolling="no"/>
-          <iframe src={school.map}/>
+          <Calendar className={"calendar"} onChange={onChange}
+              value={date}/>
+          <iframe className={"map"} src={"https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d71513.99001929436!2d-3.3321555772472693!3d55.93529371652291!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4887b800a5982623%3A0x64f2147b7ce71727!2sEdinburgh!5e0!3m2!1sen!2suk!4v1592355957778!5m2!1sen!2suk"}/>
         </div>
       </div>
     </NewLayout>

@@ -77,7 +77,7 @@ const NewLayout = (props: {
         </Header>
 
         <Layout>
-          <Sider width={'10%'}>
+          <Sider className={"sider"} width={'10%'}>
             <div className="logo"/>
             <div style={{
               color: 'white',
