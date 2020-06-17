@@ -99,7 +99,7 @@ const SignUp: React.FC = () => {
   const loginLayout =
     <Row>
       <Col span={8} offset={8}>
-        <Card>
+        <Card style={{minWidth: "max-content"}}>
           {emailFormItem}
           {usernameFormItem}
           {passwordFormItem}

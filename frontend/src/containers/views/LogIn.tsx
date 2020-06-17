@@ -57,7 +57,7 @@ const LogIn: React.FC = () => {
   const loginLayout =
     <Row>
       <Col span={6} offset={9}>
-        <Card>
+        <Card style={{minWidth: "max-content"}}>
           {usernameFormItem}
           {passwordFormItem}
           {submitButtonFormItem}
