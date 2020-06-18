@@ -56,8 +56,10 @@ const SchoolList = () => {
       const newSchoolData = alterReceivedData(resp.data.schools);
       console.log(newSchoolData);
       console.log(resp.data.tags);
-      const sortedSchools: School[] = calculatePreferences(query.search, newSchoolData)
-                                        .map(([a,b]) => a);
+      const searchQuery = query.search ? query.search : '';
+      const sortedSchools: School[] = calculatePreferences(searchQuery, newSchoolData)
+                                        .map(([a,b]) => a)
+
       setSchools(sortedSchools);
       setDisplayedSchools(sortedSchools);
       const uniqueTags = getUniqueTags(resp.data.tags);
